@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Início | Gramática Online</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 <body>
@@ -32,24 +32,26 @@
                         Esperamos que lhe ajude a estudar.</p>
                     
                     <br><br>
-                    <a href="/login" class="btn">INICIE AGORA</a>
+                    <a href="login.html" class="btn">INICIE AGORA</a>
                 </div>
 
                 <div class="tooltip-container">
-                    <img src="{{ url_for('static', filename='1000143201.png') }}" alt="mascotepi" class="imagem-inicio">
+                    <img src="static/img/1000143201.png" alt="mascotepi" class="imagem-inicio">
                     <span class="tooltip-text">Olá, me chamo Kael! Sou o mascote do Gramatica Online, e vou acompanhar você nessa jornada de aprendizado. É muito bom ter você aqui! Clique no botão para começar sua jornada!</span>
                 </div>
                 </div>
 
         </section>
     </main>
-        <footer>
-            <div class="footer-content">
+
+    <footer>
+        <div class="footer-content">
             <p>&copy; 2025 Gramatica Online </p>
             <nav>
                 <a href="#politica">Política de Privacidade</a>
             </nav>
-            </div>
-        </footer>
+        </div>
+    </footer>
+
 </body>
 </html>
