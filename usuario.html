@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagina de Usuario | Gramática Online</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 <body>
     <header class="cabecalho-usuario">
-        <img src="{{ url_for('static', filename='1000155839.png') }}" alt="Mascote Kael" class="avatar-kael">
+        <img src="static/img/1000155839.png" alt="Mascote Kael" class="avatar-kael">
         <h1>Bem-vindo(a), estudante!</h1>
 
         <nav>
             <ul>
-                <li><a href="/usuario"><i class="fa-regular fa-circle-user"></i>Usuario</a></li> 
-                <li><a href="/gramatica"><i class="fa-solid fa-book"></i>Gramática</a></li>
-                <li><a href="/atividades"><i class="fa-solid fa-pen"></i>Atividades</a></li>
+                <li><a href="usuario.html"><i class="fa-regular fa-circle-user"></i>Usuario</a></li> 
+                <li><a href="gramatica.html"><i class="fa-solid fa-book"></i>Gramática</a></li>
+                <li><a href="atividades.html"><i class="fa-solid fa-pen"></i>Atividades</a></li>
             </ul>
         </nav>
     </header>
@@ -41,7 +41,7 @@
                 </ul>
             </div>
 
-            <a href="/escolha" class="botao-comecar"><i class="fa-solid fa-file-lines"></i> Começar agora</a>
+            <a href="escolha.html" class="botao-comecar"><i class="fa-solid fa-file-lines"></i> Começar agora</a>
         </section>
 
         <section class="painel-progresso">
@@ -61,7 +61,7 @@
             </form>
         
             <div class="acoes-conta">
-                <a href="/" class="botao-comecar sair"><i class="fa-solid fa-arrow-left"></i>Sair da Conta</a>
+                <a href="index.html" class="botao-comecar sair"><i class="fa-solid fa-arrow-left"></i>Sair da Conta</a>
             </div>
         </section>        
     </main>
