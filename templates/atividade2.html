@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Morfologia Detalhada | Gramatica Online</title>
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 <body>
@@ -13,126 +13,103 @@
         <div class="logo">GRAMÁTICA ONLINE</div>
         <nav>
             <ul>
-                <li><a href="usuario.html"><i class="fa-regular fa-circle-user"></i>Início</a></li>
-                <li><a href="gramatica.html"><i class="fa-solid fa-book"></i>Gramática</a></li>
-                <li><a href="atividades.html"><i class="fa-solid fa-pen"></i>Atividades</a></li>
+                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i>Início</a></li>
+                <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i>Gramática</a></li>
+                <li><a href="{{ url_for('atividades') }}"><i class="fa-solid fa-pen"></i>Atividades</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="container">
         <section id="morfologia-detalhes" class="section">
-            <h2>ATIVIDADE DE PREDICADO</h2>
+            <h2>QUESTÕES — SUJEITO</h2>
 
             <div class="atividade">
-                <h2>1. Identifique o tipo de predicado na frase:</h2>
-                <p>“A sala ficou quieta após a aplicação da prova.”</p>
+                <h2>1. Qual é o sujeito da frase “As meninas chegaram cedo”?</h2>
                 <label class="opcao">
-                    <input type="radio" name="q1">a) Predicado verbal</label>
+                    <input type="radio" name="q1">a) chegaram cedo</label>
                 <label class="opcao">
-                    <input type="radio" name="q1">b) Predicado nominal</label>
+                    <input type="radio" name="q1">b) cedo</label>
                 <label class="opcao">
-                    <input type="radio" name="q1">c) Predicado verbo-nominal</label>
+                    <input type="radio" name="q1">c) As meninas</label>
                 <label class="opcao">
-                    <input type="radio" name="q1">d) Predicado de ação</label>
+                    <input type="radio" name="q1">d) chegaram</label>
                 <input type="checkbox" id="ver1">
                 <label for="ver1" class="botao">Ver resposta</label>
                 <div class="gabarito">
-                    ✔ A resposta correta é: <strong>b) Predicado nominal</strong>
+                    ✔ A resposta correta é: <strong>c) As meninas</strong>
                 </div>
             </div>
 
             <div class="atividade">
-                <h2>2. Identifique o tipo de predicado na frase:</h2>
-                <p>“Os atletas estão cansados após o treino”</p>
+                <h2>2. Em “Choveu muito ontem”, o sujeito é:</h2>
                 <label class="opcao">
-                    <input type="radio" name="q2">a) Predicado verbal</label>
+                    <input type="radio" name="q2">a) oculto</label>
                 <label class="opcao">
-                    <input type="radio" name="q2">b) Predicado nominal</label>
+                    <input type="radio" name="q2">b) simples</label>
                 <label class="opcao">
-                    <input type="radio" name="q2">c) Predicado verbo-nominal</label>
+                    <input type="radio" name="q2">c) inexistente</label>
                 <label class="opcao">
-                    <input type="radio" name="q2">d) Predicado simples</label>
+                    <input type="radio" name="q2">d) composto</label>
                 <input type="checkbox" id="ver2">
                 <label for="ver2" class="botao">Ver resposta</label>
                 <div class="gabarito">
-                    ✔ A resposta correta é: <strong>b) Predicado nominal</strong>
+                    ✔ A resposta correta é: <strong>c) inexistente</strong>
                 </div>
             </div>
 
             <div class="atividade">
-                <h2>3. Em qual das frases abaixo há predicado nominal?</h2>
-            
-                <ol style="list-style: upper-roman; margin-left: 20px; padding-left: 0;">
-                    <li>O dia amanheceu nublado.</li>
-                    <li>O dia amanheceu cedo.</li>
-                    <li>O dia amanheceu lindo.</li>
-                    <li>O dia amanheceu escurecendo rapidamente.</li>
-                </ol>
-                <p>Há predicado nominal nas afirmativas:</p>
-
+                <h2>3. Na frase “João e Maria estudaram juntos”, o sujeito é classificado como:</h2>
                 <label class="opcao">
-                    <input type="radio" name="q3">a) I e II</label>
+                    <input type="radio" name="q3">a) simples</label>
                 <label class="opcao">
-                    <input type="radio" name="q3">b) II e III</label>
+                    <input type="radio" name="q3">b) oculto</label>
                 <label class="opcao">
-                    <input type="radio" name="q3">c) somente I e IV</label>
+                    <input type="radio" name="q3">c) inexistente</label>
                 <label class="opcao">
-                    <input type="radio" name="q3">d) Somente III</label>
+                    <input type="radio" name="q3">d) composto</label>
                 <input type="checkbox" id="ver3">
                 <label for="ver3" class="botao">Ver resposta</label>
                 <div class="gabarito">
-                    ✔ A resposta correta é: <strong>b) II e III</strong>
+                    ✔ A resposta correta é: <strong>d) composto</strong>
                 </div>
             </div>
 
             <div class="atividade">
-                <h2>4. Complete a frase com a opção que forma predicado verbal:</h2>
-                <p>“O professor _________ a prova com calma.”</p>
-                
+                <h2>4. Em “Fomos ao cinema ontem”, o sujeito é:</h2>
                 <label class="opcao">
-                    <input type="radio" name="q4">a) aplicou</label>
-                
+                    <input type="radio" name="q4">a) simples</label>
                 <label class="opcao">
-                    <input type="radio" name="q4">b) explicou</label>
-                
+                    <input type="radio" name="q4">b) oculto</label>
                 <label class="opcao">
-                    <input type="radio" name="q4">c) corrigiu</label>
-                
+                    <input type="radio" name="q4">c) inexistente</label>
                 <label class="opcao">
-                    <input type="radio" name="q4">d) Todas são opções que formam predicado verbal.</label>
-                
+                    <input type="radio" name="q4">d) composto</label>
                 <input type="checkbox" id="ver4">
                 <label for="ver4" class="botao">Ver resposta</label>
                 <div class="gabarito">
-                    ✔ A resposta correta é: <strong>d) Todas são opções que formam predicado verbal.</strong>
+                    ✔ A resposta correta é: <strong>b) oculto</strong>
                 </div>
             </div>
 
             <div class="atividade">
-                <h2>5. Complete a frase de modo que o predicado seja nominal:</h2>
-                <p>“O menino permaneceu _________ durante a atividade.”</p>
-                
+                <h2>5. Qual alternativa apresenta sujeito simples?</h2>
                 <label class="opcao">
-                    <input type="radio" name="q5">a) correndo pela sala</label>
-                
+                    <input type="radio" name="q5">a) Ana e Pedro viajaram.</label>
                 <label class="opcao">
-                    <input type="radio" name="q5">b) falando com os colegas</label>
-                
+                    <input type="radio" name="q5">b) Choveu bastante.</label>
                 <label class="opcao">
-                    <input type="radio" name="q5">c) concentrado</label>
-                
+                    <input type="radio" name="q5">c) O cachorro latiu alto.</label>
                 <label class="opcao">
-                    <input type="radio" name="q5">d) na sala de aula</label> 
-
+                    <input type="radio" name="q5">d) Fizeram a tarefa.</label>
                 <input type="checkbox" id="ver5">
                 <label for="ver5" class="botao">Ver resposta</label>
                 <div class="gabarito">
-                    ✔ A resposta correta é: <strong>c) concentrado</strong>
+                    ✔ A resposta correta é: <strong>c) O cachorro latiu alto.</strong>
                 </div>
             </div>
-            
-            <a href="gramatica.html" class="btn btn-detalhe" style="background-color: var(--primary-blue); box-shadow: 0 5px #50b3e6;">
+
+            <a href="{{ url_for('gramatica') }}" class="btn btn-detalhe" style="background-color: var(--primary-blue); box-shadow: 0 5px #50b3e6;">
                 <i class="fa-solid fa-arrow-left"></i> Voltar para Tópicos
             </a>
         </section>
@@ -146,6 +123,5 @@
             </nav>
         </div>
     </footer>
-
 </body>
 </html>
