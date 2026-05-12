@@ -3,103 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Início | Gramática Online</title>
+    <title>Página de Login | Gramática Online</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
+
 <body>
 
     <header>
         <div class="logo">GRAMÁTICA ONLINE</div>
-
-        <nav>
-            <ul>
-                <li>
-                    <a href="{{ url_for('usuario') }}">
-                        <i class="fa-regular fa-circle-user"></i>Usuario
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ url_for('gramatica') }}">
-                        <i class="fa-solid fa-book"></i>Gramática
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ url_for('atividades') }}">
-                        <i class="fa-solid fa-pen"></i>Atividades
-                    </a>
-                </li>
-            </ul>
-        </nav>
     </header>
 
     <main class="container">
+
         <section id="inicio" class="section">
 
-            <h2>Bem-vindo(a)! Gramática Online</h2>
+            <div class="conteudo-principal"></div>
 
-            <div class="conteudo-principal">
+            <form class="form" id="loginForm">
 
-                <div class="texto-apresentacao">
+                <input type="text" name="nome" id="nome" placeholder="Nome" required>
 
-                    <p>
-                        O Gramática Online é uma continuação do projeto O Portal, de 2018,
-                        que era um aplicativo de estudos e agora se expande para alcançar
-                        mais estudantes de forma simples e gratuita!
+                <input type="email" name="email" id="email" placeholder="E-mail" required>
 
-                        Aproveite tudo o que o Gramática Online pode oferecer e aprenda
-                        de forma leve e divertida.
+                <input type="password" name="senha" id="senha" placeholder="Senha" required>
+                
+                <button type="submit" class="btn">Entrar</button>
 
-                        Esperamos que lhe ajude a estudar.
-                    </p>
+            </form>
 
-                    <br><br>
+            <div style="text-align: center; margin-top: 10px;">
 
-                    <a href="{{ url_for('login') }}" class="btn">
-                        INICIE AGORA
-                    </a>
-
-                </div>
-
-                <div class="tooltip-container">
-
-                    <img
-                        src="{{ url_for('static', filename='IMG/1000143201.png') }}"
-                        alt="mascotepi"
-                        class="imagem-inicio"
-                    >
-
-                    <span class="tooltip-text">
-                        Olá, me chamo Kael! Sou o mascote do Gramatica Online,
-                        e vou acompanhar você nessa jornada de aprendizado.
-
-                        É muito bom ter você aqui!
-
-                        Clique no botão para começar sua jornada!
-                    </span>
-
-                </div>
+                <a href="{{ url_for('usuario') }}" class="btn">
+                    Entrar sem login
+                </a>
 
             </div>
 
         </section>
+
     </main>
 
     <footer>
+
         <div class="footer-content">
 
-            <p>&copy; 2025 Gramatica Online</p>
+            <p>&copy; 2025 Gramática Online</p>
 
             <nav>
                 <a href="#politica">Política de Privacidade</a>
             </nav>
 
         </div>
+
     </footer>
+
+    <script>
+
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+
+            let nome = document.getElementById("nome").value;
+            let email = document.getElementById("email").value;
+            let senha = document.getElementById("senha").value;
+
+            if (nome === "" || email === "" || senha === "") {
+
+                event.preventDefault();
+
+                alert("Por favor, preencha todos os campos antes de entrar.");
+
+            } else {
+
+                event.preventDefault();
+
+                window.location.href = "{{ url_for('usuario') }}";
+
+            }
+
+        });
+
+    </script>
 
 </body>
 </html>
