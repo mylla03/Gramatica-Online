@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Início | Gramática Online</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 <body>
@@ -13,9 +13,9 @@
         <div class="logo">GRAMÁTICA ONLINE</div>
         <nav>
             <ul>
-                <li><a href="usuario.html"><i class="fa-regular fa-circle-user"></i>Usuario</a></li> 
-                <li><a href="gramatica.html"><i class="fa-solid fa-book"></i>Gramática</a></li>
-                <li><a href="atividades.html"><i class="fa-solid fa-pen"></i>Atividades</a></li>
+                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i>Usuario</a></li> 
+                <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i>Gramática</a></li>
+                <li><a href="{{ url_for('atividades') }}"><i class="fa-solid fa-pen"></i>Atividades</a></li>
             </ul>
         </nav>
     </header>
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="tooltip-container">
-                    <img src="{{ url_for('static', filename='1000143201.png') }}" alt="mascotepi" class="imagem-inicio">
+                    <img src="{{ url_for('static', filename='img/1000143201.png') }}" alt="mascotepi" class="imagem-inicio">
                     <span class="tooltip-text">Olá, me chamo Kael! Sou o mascote do Gramatica Online, e vou acompanhar você nessa jornada de aprendizado. É muito bom ter você aqui! Clique no botão para começar sua jornada!</span>
                 </div>
                 </div>

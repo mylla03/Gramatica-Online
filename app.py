@@ -3,8 +3,10 @@ from database import db
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:labinfo@localhost/Gramatica_Online'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:labinfo@localhost/Gramatica_Online'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///gramatica_online.db'
+
 
 db.init_app(app)
 
