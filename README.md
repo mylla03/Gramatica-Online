@@ -1,4 +1,4 @@
-Executar os comandos:
+Para executar o projeto, rodar os seguintes comandos:
 
 1. Criar ambiente virtual:
 `python -m venv venv`
