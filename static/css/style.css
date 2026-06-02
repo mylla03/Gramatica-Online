@@ -531,3 +531,32 @@ input[type="checkbox"]:checked ~ .gabarito {
     margin-top: -500px;
     padding-top: 20px;
 }
+
+.imagem-login-container {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.imagem-login {
+    width: 250px;
+    height: auto;
+}
+
+.mapa-mental-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.mapa-mental {
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+}
+
+.avatar-esquerda {
+    width: 250px;
+    height: 90px;
+    position: absolute;
+    left: 30px;
+    top: 20px;
+}

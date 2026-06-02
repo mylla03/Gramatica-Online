@@ -8,15 +8,23 @@
 </head>
 <body>
 
-    <header>
+    <header class="cabecalho-usuario">
+        <img
+            src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}"
+            alt="Logo"
+            class="avatar-esquerda">
         <div class="logo">GRAMÁTICA ONLINE</div>
     </header>
 
     <main class="container">
         <section id="inicio" class="section">
-            <div class="conteudo-principal"></div>
+            <div class="imagem-login-container">
+                <img src="{{ url_for('static', filename='img/file_00000000234071f78708617664798a96-removebg-preview.png') }}"
+                     alt="Imagem de Login"
+                     class="imagem-login">
+            </div>
+
             <form class="form" id="loginForm">
-                <input type="text" name="nome" id="nome" placeholder="Nome" required>
                 <input type="email" name="email" id="email" placeholder="E-mail" required>
                 <input type="password" name="senha" id="senha" placeholder="Senha" required>
                 <button type="submit" class="btn">Entrar</button>
@@ -38,7 +46,6 @@
 
     <script>
         document.getElementById("loginForm").addEventListener("submit", function(event) {
-            let nome = document.getElementById("nome").value;
             let email = document.getElementById("email").value;
             let senha = document.getElementById("senha").value;
             if (nome === "" || email === "" || senha === "") {
