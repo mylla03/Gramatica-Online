@@ -111,6 +111,22 @@ def atividade8():
 def atividade9():
     return render_template("atividade9.html")
 
+@app.route("/pontuacao")
+def pontuacao():
+    return render_template("pontuacao.html")
+
+@app.route("/periodo_simples")
+def periodo_simples():
+    return render_template("periodo_simples.html")
+
+@app.route("/periodo_composto")
+def periodo_composto():
+    return render_template("periodo_composto.html")
+
+@app.route("/classificacao_de_palavras")
+def classificacao_de_palavras():
+    return render_template("classificacao_de_palavras.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

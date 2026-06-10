@@ -560,3 +560,10 @@ input[type="checkbox"]:checked ~ .gabarito {
     left: 30px;
     top: 20px;
 }
+
+.topicos-pricipais p {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
