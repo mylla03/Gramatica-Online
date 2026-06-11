@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início | Gramática Online</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+
+    <header class="cabecalho-usuario">
+        <img
+            src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}"
+            alt="Logo"
+            class="avatar-esquerda">
+        <div class="logo">GRAMÁTICA ONLINE</div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i>Usuario</a></li> 
+                <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i>Gramática</a></li>
+                <li><a href="{{ url_for('atividades') }}"><i class="fa-solid fa-pen"></i>Atividades</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container"></main>
+</body>
+</html>

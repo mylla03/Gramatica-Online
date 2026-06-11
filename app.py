@@ -127,6 +127,22 @@ def periodo_composto():
 def classificacao_de_palavras():
     return render_template("classificacao_de_palavras.html")
 
+@app.route("/att_pontuacao")
+def att_pontuacao():
+    return render_template("att_pontuacao.html")
+
+@app.route("/att_periodo_simples")
+def att_periodo_simples():
+    return render_template("att_periodo_simples.html")
+
+@app.route("/att_periodo_composto")
+def att_periodo_composto():
+    return render_template("att_periodo_composto.html")
+
+@app.route("/att_classificacao_de_palavras")
+def att_classificacao_de_palavras():
+    return render_template("att_classificacao_de_palavras.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

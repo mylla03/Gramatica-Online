@@ -17,7 +17,7 @@
         <div class="logo">GRAMÁTICA ONLINE</div>
         <nav>
             <ul>
-                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i>Início</a></li>
+                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i>Usuario</a></li>
                 <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i>Gramática</a></li>
                 <li><a href="{{ url_for('atividades') }}"><i class="fa-solid fa-pen"></i>Atividades</a></li>
             </ul>
@@ -28,10 +28,46 @@
         <section id="gramatica" class="section">
             <h2>Atividades</h2>
             <p> Hora de praticar!<br>
-                 Clique no tópico abaixo para expandir o conteúdo e iniciar seu estudo de forma interativa.</p>
+                Clique nos tópicos abaixo para iniciar sua pratica.<br>
+                Boa Sorte!
+            </p>
 
+             <!-- CONTEÚDOS PRINCIPAIS -->
+
+             <div class="topicos-principais">
+
+                <p>
+                    <a href="{{ url_for('att_pontuacao') }}" class="btn btn-detalhe bnt-pontuacao">
+                        <i class="fa-solid fa-star"></i> Pontuação
+                    </a>
+                </p>
+
+                <p>
+                    <a href="{{ url_for('att_periodo_simples') }}" class="btn btn-detalhe bnt-periodo_simples">
+                        <i class="fa-solid fa-star"></i> Período Simples
+                    </a>
+                </p>
+
+                <p>
+                    <a href="{{ url_for('att_periodo_composto') }}" class="btn btn-detalhe bnt-periodo_composto">
+                        <i class="fa-solid fa-star"></i> Período Composto
+                    </a>
+                </p>
+
+                <p>
+                    <a href="{{ url_for('att_classificacao_de_palavras') }}" class="btn btn-detalhe bnt-classificacao_de_palavras">
+                        <i class="fa-solid fa-star"></i> Classificação de Palavras
+                    </a>
+                </p>
+
+            </div>
+
+            <br>
+
+            <p> 
+                Clique no tópico abaixo para expandir o conteúdo e iniciar seu estudo de forma interativa.
+           </p>
             <div class="topicos-gramatica">
-
                 <details>
                     <summary>Atividades:</summary>
                     <p>

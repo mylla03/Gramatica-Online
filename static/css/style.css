@@ -1,21 +1,21 @@
 :root {
-    --primary-blue: #14B5FF;
-    --secondary-blue: #C9F2FF;
+    --primary-blue: #0095DB;
+    --secondary-blue: #D5F7FF;
 
-    --primary-pink: #F7A9C4;
-    --secondary-pink: #FFD9E7;
+    --primary-pink: #FFAFCC;
+    --secondary-pink: #FFECF4;
 
-    --mint-green: #C9F3E8;
-    --success-green: #12D98B;
+    --mint-green: #DFFCF4;
+    --success-green: #00966D;
 
     --soft-purple: #DDD0F8;
-    --soft-yellow: #F8E7B7;
+    --soft-yellow: #FFF0D4;
 
     --bg-light: #FAFAFA;
     --gray-light: #EDEDED;
-    --gray-medium: #A8A8A8;
+    --gray-medium: #D6D8E7;
 
-    --text-dark: #2B2B2B;
+    --text-dark: #14142B;
 
     --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.05);
 }
@@ -561,9 +561,23 @@ input[type="checkbox"]:checked ~ .gabarito {
     top: 20px;
 }
 
-.topicos-pricipais p {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.bnt-pontuacao {
+    background-color: var(--secondary-pink);
+    color: #000;
+    margin: 5px;
 }
-
+.bnt-periodo_simples {
+    background-color: var(--soft-yellow);
+    color: #000;
+    margin: 5px;
+}
+.bnt-periodo_composto {
+    background-color: var(--mint-green);
+    color: #000;
+    margin: 5px;
+}
+.bnt-classificacao_de_palavras {
+    background-color: var(--soft-purple);
+    color: #000;
+    margin: 5px;
+}
