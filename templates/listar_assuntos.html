@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assuntos | Gramática Online</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+    <header class="cabecalho-usuario">
+        <img
+            src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}"
+            alt="Logo"
+            class="avatar-esquerda">
+        <div class="logo">GRAMÁTICA ONLINE</div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuario</a></li> 
+                <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i> Gramática</a></li>
+                <li><a href="{{ url_for('atividades') }}"><i class="fa-solid fa-pen"></i> Atividades</a></li>
+                <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i> Assuntos</a></li>
+                <li><a href="{{ url_for('listar_atividades') }}"><i class="fa-solid fa-cog"></i> Atividades</a></li>
+                <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i> Questões</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
+        <section id="assuntos" class="section">
+            <h2>Gerenciar Assuntos</h2>
+
+            <!-- Mensagem de aviso/sucesso -->
+            {% with mensagens = get_flashed_messages() %}
+                {% if mensagens %}
+                    <div style="background: #d4edda; color: #155724; padding: 10px; border-radius: 4px; margin: 15px 0;">
+                        {{ mensagens[0] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <!-- Botão Cadastrar -->
+            <p>
+                <a href="{{ url_for('novo_assunto') }}" class="btn btn-detalhe">
+                    <i class="fa-solid fa-plus"></i> Cadastrar Novo Assunto
+                </a>
+            </p>
+
+            <!-- Tabela de listagem -->
+            <div style="margin-top: 20px; overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <thead>
+                        <tr style="background: #f0f4f8;">
+                            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">ID</th>
+                            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Nome do Assunto</th>
+                            <th style="padding: 12px; text-align: center; border-bottom: 1px solid #ddd;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for assunto in assuntos %}
+                        <tr>
+                            <td style="padding: 12px; border-bottom: 1px solid #eee;">{{ assunto.id }}</td>
+                            <td style="padding: 12px; border-bottom: 1px solid #eee;">{{ assunto.nome }}</td>
+                            <td style="padding: 12px; border-bottom: 1px solid #eee; text-align: center;">
+                                <a href="{{ url_for('editar_assunto', id=assunto.id) }}" class="btn" style="padding: 4px 8px; font-size: 0.9em; background: #ffc107; color: #212529; text-decoration: none; border-radius: 4px; margin-right: 5px;">
+                                    <i class="fa-solid fa-pen-to-square"></i> Editar
+                                </a>
+                                <a href="{{ url_for('apagar_assunto', id=assunto.id) }}" class="btn" style="padding: 4px 8px; font-size: 0.9em; background: #dc3545; color: white; text-decoration: none; border-radius: 4px;" onclick="return confirm('Tem certeza que deseja apagar?')">
+                                    <i class="fa-solid fa-trash"></i> Apagar
+                                </a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="3" style="padding: 15px; text-align: center; color: #6c757d;">Nenhum assunto cadastrado.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <br>
+            <a href="{{ url_for('gramatica') }}" class="btn btn-gramatica">
+                <i class="fa-solid fa-arrow-left"></i> Voltar
+            </a>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Gramática Online</p>
+        </div>
+    </footer>
+</body>
+</html>

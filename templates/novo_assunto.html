@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Assunto | Gramática Online</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+    <header class="cabecalho-usuario">
+        <img
+            src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}"
+            alt="Logo"
+            class="avatar-esquerda">
+        <div class="logo">GRAMÁTICA ONLINE</div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuario</a></li> 
+                <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i> Gramática</a></li>
+                <li><a href="{{ url_for('atividades') }}"><i class="fa-solid fa-pen"></i> Atividades</a></li>
+                <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i> Assuntos</a></li>
+                <li><a href="{{ url_for('listar_atividades') }}"><i class="fa-solid fa-cog"></i> Atividades</a></li>
+                <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i> Questões</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
+        <section id="novo-assunto" class="section">
+            <h2>Cadastrar Novo Assunto</h2>
+
+            <form method="POST" style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 500px;">
+                <div style="margin-bottom: 15px;">
+                    <label for="nome" style="display: block; margin-bottom: 5px; font-weight: bold;">Nome do Assunto:</label>
+                    <input type="text" id="nome" name="nome" required 
+                           style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 1em;"
+                           placeholder="Ex: Regência Verbal, Concordância Nominal...">
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <button type="submit" class="btn btn-detalhe" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
+                        <i class="fa-solid fa-save"></i> Salvar
+                    </button>
+                    <a href="{{ url_for('listar_assuntos') }}" class="btn btn-detalhe" style="background: #6c757d; color: white; text-decoration: none; padding: 10px 20px; border-radius: 4px; margin-left: 8px;">
+                        <i class="fa-solid fa-times"></i> Cancelar
+                    </a>
+                </div>
+            </form>
+
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Gramática Online</p>
+        </div>
+    </footer>
+</body>
+</html>

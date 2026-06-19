@@ -1,9 +1,10 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for, flash
 from database import db
 
 app = Flask(__name__)
+app.secret_key = 'chave_secreta_gramatica_online_2026'
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:labinfo@localhost/Gramatica_Online'
+# Configurações do banco
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///gramatica_online.db'
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -15,6 +16,9 @@ from models import *
 with app.app_context():
     db.create_all()
 
+# ==============================================
+# SUAS ROTAS ORIGINAIS (TODAS MANTIDAS)
+# ==============================================
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -142,6 +146,128 @@ def att_periodo_composto():
 @app.route("/att_classificacao_de_palavras")
 def att_classificacao_de_palavras():
     return render_template("att_classificacao_de_palavras.html")
+
+
+# ==============================================
+# CRUD ASSUNTO (CORRIGIDO - SEM DUPLICATAS)
+# ==============================================
+@app.route('/assuntos')
+def listar_assuntos():
+    assuntos = Assunto.query.all()
+    return render_template('listar_assuntos.html', assuntos=assuntos)
+
+@app.route('/assuntos/novo', methods=['GET', 'POST'])
+def novo_assunto():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        novo = Assunto(nome=nome)
+        db.session.add(novo)
+        db.session.commit()
+        flash('Assunto cadastrado com sucesso!')
+        return redirect(url_for('listar_assuntos'))
+    return render_template('novo_assunto.html')
+
+@app.route('/assuntos/editar/<int:id>', methods=['GET', 'POST'])
+def editar_assunto(id):
+    assunto = Assunto.query.get_or_404(id)
+    if request.method == 'POST':
+        assunto.nome = request.form['nome']
+        db.session.commit()
+        flash('Assunto atualizado!')
+        return redirect(url_for('listar_assuntos'))
+    return render_template('editar_assunto.html', assunto=assunto)
+
+@app.route('/assuntos/apagar/<int:id>')
+def apagar_assunto(id):
+    assunto = Assunto.query.get_or_404(id)
+    db.session.delete(assunto)
+    db.session.commit()
+    flash('Assunto removido!')
+    return redirect(url_for('listar_assuntos'))
+
+
+# ==============================================
+# CRUD ATIVIDADE (CORRIGIDO)
+# ==============================================
+@app.route('/atividades/crud')
+def listar_atividades():
+    atividades = Atividade.query.all()
+    return render_template('listar_atividades.html', atividades=atividades)
+
+@app.route('/atividades/novo', methods=['GET', 'POST'])
+def nova_atividade():
+    assuntos = Assunto.query.all()
+    if request.method == 'POST':
+        dificuldade = request.form['dificuldade']
+        assunto_id = request.form['assunto_id']
+        nova = Atividade(dificuldade=dificuldade, assunto_id=assunto_id)
+        db.session.add(nova)
+        db.session.commit()
+        flash('Atividade cadastrada!')
+        return redirect(url_for('listar_atividades'))
+    return render_template('nova_atividade.html', assuntos=assuntos)
+
+@app.route('/atividades/editar/<int:id>', methods=['GET', 'POST'])
+def editar_atividade(id):
+    atividade = Atividade.query.get_or_404(id)
+    assuntos = Assunto.query.all()
+    if request.method == 'POST':
+        atividade.dificuldade = request.form['dificuldade']
+        atividade.assunto_id = request.form['assunto_id']
+        db.session.commit()
+        flash('Atividade atualizada!')
+        return redirect(url_for('listar_atividades'))
+    return render_template('editar_atividade.html', atividade=atividade, assuntos=assuntos)
+
+@app.route('/atividades/apagar/<int:id>')
+def apagar_atividade(id):
+    atividade = Atividade.query.get_or_404(id)
+    db.session.delete(atividade)
+    db.session.commit()
+    flash('Atividade removida!')
+    return redirect(url_for('listar_atividades'))
+
+
+# ==============================================
+# CRUD QUESTÃO (CORRIGIDO)
+# ==============================================
+@app.route('/questoes')
+def listar_questoes():
+    questoes = Questao.query.all()
+    return render_template('listar_questoes.html', questoes=questoes)
+
+@app.route('/questoes/novo', methods=['GET', 'POST'])
+def nova_questao():
+    atividades = Atividade.query.all()
+    if request.method == 'POST':
+        enunciado = request.form['enunciado']
+        atividade_id = request.form['atividade_id']
+        nova = Questao(enunciado=enunciado, atividade_id=atividade_id)
+        db.session.add(nova)
+        db.session.commit()
+        flash('Questão cadastrada!')
+        return redirect(url_for('listar_questoes'))
+    return render_template('nova_questao.html', atividades=atividades)
+
+@app.route('/questoes/editar/<int:id>', methods=['GET', 'POST'])
+def editar_questao(id):
+    questao = Questao.query.get_or_404(id)
+    atividades = Atividade.query.all()
+    if request.method == 'POST':
+        questao.enunciado = request.form['enunciado']
+        questao.atividade_id = request.form['atividade_id']
+        db.session.commit()
+        flash('Questão atualizada!')
+        return redirect(url_for('listar_questoes'))
+    return render_template('editar_questao.html', questao=questao, atividades=atividades)
+
+@app.route('/questoes/apagar/<int:id>')
+def apagar_questao(id):
+    questao = Questao.query.get_or_404(id)
+    db.session.delete(questao)
+    db.session.commit()
+    flash('Questão removida!')
+    return redirect(url_for('listar_questoes'))
 
 
 if __name__ == "__main__":

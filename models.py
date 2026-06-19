@@ -66,6 +66,13 @@ class Questao(db.Model):
     atividade: so.Mapped["Atividade"] = so.relationship(back_populates="questoes")
 
 
+class Resposta(db.Model):
+    __tablename__ = "resposta"
+    
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    
+
+
 class AlunoAtividade(db.Model):
     __tablename__ = "aluno_atividade"
 
