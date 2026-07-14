@@ -17,11 +17,11 @@
         <div class="logo">GRAMÁTICA ONLINE</div>
         <nav>
             <ul>
-                <li><a href="/usuario"><i class="fa-regular fa-circle-user"></i>Início</a></li>
-                <li><a href="/gramatica"><i class="fa-solid fa-book"></i>Gramática</a></li>
-                <li><a href="/atividades"><i class="fa-solid fa-pen"></i>Atividades</a></li>
+                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuário</a></li>
+                <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i> Gramática</a></li>
+                <li><a href="{{ url_for('atividades') }}" class="ativo"><i class="fa-solid fa-pen"></i> Atividades</a></li>
                 <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i> Gerenciar Assuntos</a></li>
-                <li><a href="{{ url_for('listar_atividades') }}"><i class="fa-solid fa-cog"></i> Gerenciar Atividades</a></li>
+                <li><a href="{{ url_for('cadastrar_atividade') }}"><i class="fa-solid fa-cog"></i> Gerenciar Atividades</a></li>
                 <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i> Gerenciar Questões</a></li>
             </ul>
         </nav>

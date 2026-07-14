@@ -9,19 +9,16 @@
 </head>
 <body>
     <header class="cabecalho-usuario">
-        <img
-            src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}"
-            alt="Logo"
-            class="avatar-esquerda">
+        <img src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}" alt="Logo" class="avatar-esquerda">
         <div class="logo">GRAMÁTICA ONLINE</div>
         <nav>
             <ul>
-                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuario</a></li> 
+                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuário</a></li>
                 <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i> Gramática</a></li>
-                <li><a href="{{ url_for('atividades') }}"><i class="fa-solid fa-pen"></i> Atividades</a></li>
-                <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i> Assuntos</a></li>
-                <li><a href="{{ url_for('listar_atividades') }}"><i class="fa-solid fa-cog"></i> Atividades</a></li>
-                <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i> Questões</a></li>
+                <li><a href="{{ url_for('atividades') }}" class="ativo"><i class="fa-solid fa-pen"></i> Atividades</a></li>
+                <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i> Gerenciar Assuntos</a></li>
+                <li><a href="{{ url_for('cadastrar_atividade') }}"><i class="fa-solid fa-cog"></i> Gerenciar Atividades</a></li>
+                <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i> Gerenciar Questões</a></li>
             </ul>
         </nav>
     </header>
@@ -41,17 +38,13 @@
                     <label for="assunto_id" style="display: block; margin-bottom: 5px; font-weight: bold;">Assunto Relacionado:</label>
                     <select id="assunto_id" name="assunto_id" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 1em;">
                         <option value="">Selecione um assunto</option>
-                        
-                        <!-- ASSUNTOS PRINCIPAIS -->
                         <optgroup label="Conteúdos Principais">
                             <option value="1" {% if atividade.assunto_id == 1 %}selected{% endif %}>Pontuação</option>
                             <option value="2" {% if atividade.assunto_id == 2 %}selected{% endif %}>Período Simples</option>
                             <option value="3" {% if atividade.assunto_id == 3 %}selected{% endif %}>Período Composto</option>
                             <option value="4" {% if atividade.assunto_id == 4 %}selected{% endif %}>Classificação de Palavras</option>
                         </optgroup>
-
-                        <!-- ASSUNTOS DE SINTAXE (EXTRA) -->
-                        <optgroup label="Sintaxe: Termos Essenciais e Acessórios">
+                        <optgroup label="Sintaxe">
                             <option value="5" {% if atividade.assunto_id == 5 %}selected{% endif %}>Sujeito</option>
                             <option value="6" {% if atividade.assunto_id == 6 %}selected{% endif %}>Predicado</option>
                             <option value="7" {% if atividade.assunto_id == 7 %}selected{% endif %}>Aposto</option>
@@ -60,9 +53,8 @@
                             <option value="10" {% if atividade.assunto_id == 10 %}selected{% endif %}>Agente da Passiva</option>
                             <option value="11" {% if atividade.assunto_id == 11 %}selected{% endif %}>Adjunto Adnominal</option>
                             <option value="12" {% if atividade.assunto_id == 12 %}selected{% endif %}>Adjunto Adverbial</option>
-                            <option value="13" {% if atividade.assunto_id == 13 %}selected{% endif %}>Revisão Geral de Sintaxe</option>
+                            <option value="13" {% if atividade.assunto_id == 13 %}selected{% endif %}>Revisão Geral</option>
                         </optgroup>
-
                     </select>
                 </div>
 

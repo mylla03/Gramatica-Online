@@ -16,12 +16,12 @@
         <div class="logo">GRAMÁTICA ONLINE</div>
         <nav>
             <ul>
-                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuario</a></li> 
+                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuário</a></li>
                 <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i> Gramática</a></li>
-                <li><a href="{{ url_for('atividades') }}"><i class="fa-solid fa-pen"></i> Atividades</a></li>
-                <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i> Assuntos</a></li>
-                <li><a href="{{ url_for('listar_atividades') }}"><i class="fa-solid fa-cog"></i> Atividades</a></li>
-                <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i> Questões</a></li>
+                <li><a href="{{ url_for('atividades') }}" class="ativo"><i class="fa-solid fa-pen"></i> Atividades</a></li>
+                <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i> Gerenciar Assuntos</a></li>
+                <li><a href="{{ url_for('cadastrar_atividade') }}"><i class="fa-solid fa-cog"></i> Gerenciar Atividades</a></li>
+                <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i> Gerenciar Questões</a></li>
             </ul>
         </nav>
     </header>
@@ -29,7 +29,6 @@
         <section id="assuntos" class="section">
             <h2>Gerenciar Assuntos</h2>
 
-            <!-- Mensagem de aviso/sucesso -->
             {% with mensagens = get_flashed_messages() %}
                 {% if mensagens %}
                     <div style="background: #d4edda; color: #155724; padding: 10px; border-radius: 4px; margin: 15px 0;">
@@ -38,14 +37,12 @@
                 {% endif %}
             {% endwith %}
 
-            <!-- Botão Cadastrar -->
             <p>
                 <a href="{{ url_for('novo_assunto') }}" class="btn btn-detalhe">
                     <i class="fa-solid fa-plus"></i> Cadastrar Novo Assunto
                 </a>
             </p>
 
-            <!-- Tabela de listagem -->
             <div style="margin-top: 20px; overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                     <thead>

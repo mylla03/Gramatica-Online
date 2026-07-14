@@ -3,108 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Questão | Gramática Online</title>
+    <title>Editar Questão</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <style>
+        .form-container {
+            max-width: 700px;
+            margin: 30px auto;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        .campo {
+            margin-bottom: 15px;
+        }
+        .campo label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .campo input, .campo textarea, .campo select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        .botoes {
+            margin-top: 20px;
+        }
+        .btn-salvar {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .btn-cancelar {
+            background: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-    <header class="cabecalho-usuario">
-        <img
-            src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}"
-            alt="Logo"
-            class="avatar-esquerda">
-        <div class="logo">GRAMÁTICA ONLINE</div>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuario</a></li> 
-                <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i> Gramática</a></li>
-                <li><a href="{{ url_for('atividades') }}"><i class="fa-solid fa-pen"></i> Atividades</a></li>
-                <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i> Assuntos</a></li>
-                <li><a href="{{ url_for('listar_atividades') }}"><i class="fa-solid fa-cog"></i> Atividades</a></li>
-                <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i> Questões</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main class="container">
-        <section id="editar-questao" class="section">
-            <h2>Editar Questão</h2>
+    <div class="form-container">
+        <h2>Editar Questão</h2>
+        <form method="POST">
+            <div class="campo">
+                <label>Atividade:</label>
+                <select name="atividade_id" required>
+                    {% for ativ in atividades %}
+                    <option value="{{ ativ.id }}" {% if ativ.id == questao.atividade_id %}selected{% endif %}>
+                        {{ ativ.nome }} ({{ ativ.assunto.nome }})
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
 
-            <form method="POST" style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 600px;">
-                <div style="margin-bottom: 15px;">
-                    <label for="enunciado" style="display: block; margin-bottom: 5px; font-weight: bold;">Enunciado da Questão:</label>
-                    <textarea id="enunciado" name="enunciado" required rows="4" 
-                              style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 1em;">{{ questao.enunciado }}</textarea>
-                </div>
+            <div class="campo">
+                <label>Enunciado:</label>
+                <textarea name="enunciado" rows="4" required>{{ questao.enunciado }}</textarea>
+            </div>
 
-                <div style="margin-bottom: 15px;">
-                    <label for="atividade_id" style="display: block; margin-bottom: 5px; font-weight: bold;">Atividade Relacionada:</label>
-                    <select id="atividade_id" name="atividade_id" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 1em;">
-                        <option value="">Selecione uma atividade</option>
-                        
-                        <optgroup label="Conteúdos Principais">
-                            <option value="1" {% if questao.atividade_id == 1 %}selected{% endif %}>Pontuação - Fácil</option>
-                            <option value="2" {% if questao.atividade_id == 2 %}selected{% endif %}>Pontuação - Médio</option>
-                            <option value="3" {% if questao.atividade_id == 3 %}selected{% endif %}>Pontuação - Difícil</option>
-                            <option value="4" {% if questao.atividade_id == 4 %}selected{% endif %}>Período Simples - Fácil</option>
-                            <option value="5" {% if questao.atividade_id == 5 %}selected{% endif %}>Período Simples - Médio</option>
-                            <option value="6" {% if questao.atividade_id == 6 %}selected{% endif %}>Período Simples - Difícil</option>
-                            <option value="7" {% if questao.atividade_id == 7 %}selected{% endif %}>Período Composto - Fácil</option>
-                            <option value="8" {% if questao.atividade_id == 8 %}selected{% endif %}>Período Composto - Médio</option>
-                            <option value="9" {% if questao.atividade_id == 9 %}selected{% endif %}>Período Composto - Difícil</option>
-                            <option value="10" {% if questao.atividade_id == 10 %}selected{% endif %}>Classificação de Palavras - Fácil</option>
-                            <option value="11" {% if questao.atividade_id == 11 %}selected{% endif %}>Classificação de Palavras - Médio</option>
-                            <option value="12" {% if questao.atividade_id == 12 %}selected{% endif %}>Classificação de Palavras - Difícil</option>
-                        </optgroup>
+            <div class="campo">
+                <label>Alternativa A:</label>
+                <input type="text" name="alternativa_a" value="{{ questao.alternativa_a }}" required>
+            </div>
 
-                        <optgroup label="Sintaxe: Termos Essenciais e Acessórios">
-                            <option value="13" {% if questao.atividade_id == 13 %}selected{% endif %}>Sujeito - Fácil</option>
-                            <option value="14" {% if questao.atividade_id == 14 %}selected{% endif %}>Sujeito - Médio</option>
-                            <option value="15" {% if questao.atividade_id == 15 %}selected{% endif %}>Sujeito - Difícil</option>
-                            <option value="16" {% if questao.atividade_id == 16 %}selected{% endif %}>Predicado - Fácil</option>
-                            <option value="17" {% if questao.atividade_id == 17 %}selected{% endif %}>Predicado - Médio</option>
-                            <option value="18" {% if questao.atividade_id == 18 %}selected{% endif %}>Predicado - Difícil</option>
-                            <option value="19" {% if questao.atividade_id == 19 %}selected{% endif %}>Aposto - Fácil</option>
-                            <option value="20" {% if questao.atividade_id == 20 %}selected{% endif %}>Aposto - Médio</option>
-                            <option value="21" {% if questao.atividade_id == 21 %}selected{% endif %}>Aposto - Difícil</option>
-                            <option value="22" {% if questao.atividade_id == 22 %}selected{% endif %}>Complemento Verbal - Fácil</option>
-                            <option value="23" {% if questao.atividade_id == 23 %}selected{% endif %}>Complemento Verbal - Médio</option>
-                            <option value="24" {% if questao.atividade_id == 24 %}selected{% endif %}>Complemento Verbal - Difícil</option>
-                            <option value="25" {% if questao.atividade_id == 25 %}selected{% endif %}>Complemento Nominal - Fácil</option>
-                            <option value="26" {% if questao.atividade_id == 26 %}selected{% endif %}>Complemento Nominal - Médio</option>
-                            <option value="27" {% if questao.atividade_id == 27 %}selected{% endif %}>Complemento Nominal - Difícil</option>
-                            <option value="28" {% if questao.atividade_id == 28 %}selected{% endif %}>Agente da Passiva - Fácil</option>
-                            <option value="29" {% if questao.atividade_id == 29 %}selected{% endif %}>Agente da Passiva - Médio</option>
-                            <option value="30" {% if questao.atividade_id == 30 %}selected{% endif %}>Agente da Passiva - Difícil</option>
-                            <option value="31" {% if questao.atividade_id == 31 %}selected{% endif %}>Adjunto Adnominal - Fácil</option>
-                            <option value="32" {% if questao.atividade_id == 32 %}selected{% endif %}>Adjunto Adnominal - Médio</option>
-                            <option value="33" {% if questao.atividade_id == 33 %}selected{% endif %}>Adjunto Adnominal - Difícil</option>
-                            <option value="34" {% if questao.atividade_id == 34 %}selected{% endif %}>Adjunto Adverbial - Fácil</option>
-                            <option value="35" {% if questao.atividade_id == 35 %}selected{% endif %}>Adjunto Adverbial - Médio</option>
-                            <option value="36" {% if questao.atividade_id == 36 %}selected{% endif %}>Adjunto Adverbial - Difícil</option>
-                            <option value="37" {% if questao.atividade_id == 37 %}selected{% endif %}>Revisão Geral de Sintaxe - Fácil</option>
-                            <option value="38" {% if questao.atividade_id == 38 %}selected{% endif %}>Revisão Geral de Sintaxe - Médio</option>
-                            <option value="39" {% if questao.atividade_id == 39 %}selected{% endif %}>Revisão Geral de Sintaxe - Difícil</option>
-                        </optgroup>
+            <div class="campo">
+                <label>Alternativa B:</label>
+                <input type="text" name="alternativa_b" value="{{ questao.alternativa_b }}" required>
+            </div>
 
-                    </select>
-                </div>
+            <div class="campo">
+                <label>Alternativa C:</label>
+                <input type="text" name="alternativa_c" value="{{ questao.alternativa_c }}" required>
+            </div>
 
-                <div style="margin-top: 20px;">
-                    <button type="submit" class="btn btn-detalhe" style="background: #ffc107; color: #212529; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
-                        <i class="fa-solid fa-save"></i> Atualizar Questão
-                    </button>
-                    <a href="{{ url_for('listar_questoes') }}" class="btn btn-detalhe" style="background: #6c757d; color: white; text-decoration: none; padding: 10px 20px; border-radius: 4px; margin-left: 8px;">
-                        <i class="fa-solid fa-times"></i> Cancelar
-                    </a>
-                </div>
-            </form>
+            <div class="campo">
+                <label>Alternativa D:</label>
+                <input type="text" name="alternativa_d" value="{{ questao.alternativa_d }}" required>
+            </div>
 
-        </section>
-    </main>
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Gramática Online</p>
-        </div>
-    </footer>
+            <div class="campo">
+                <label>Alternativa E:</label>
+                <input type="text" name="alternativa_e" value="{{ questao.alternativa_e }}" required>
+            </div>
+
+            <div class="campo">
+                <label>Resposta correta:</label>
+                <select name="resposta_correta" required>
+                    <option value="A" {% if questao.resposta_correta == 'A' %}selected{% endif %}>A</option>
+                    <option value="B" {% if questao.resposta_correta == 'B' %}selected{% endif %}>B</option>
+                    <option value="C" {% if questao.resposta_correta == 'C' %}selected{% endif %}>C</option>
+                    <option value="D" {% if questao.resposta_correta == 'D' %}selected{% endif %}>D</option>
+                    <option value="E" {% if questao.resposta_correta == 'E' %}selected{% endif %}>E</option>
+                </select>
+            </div>
+
+            <div class="botoes">
+                <button type="submit" class="btn-salvar">Salvar Alterações</button>
+                <a href="{{ url_for('listar_questoes') }}" class="btn-cancelar">Cancelar</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

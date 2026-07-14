@@ -8,20 +8,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 <body>
-
     <header class="cabecalho-usuario">
-        <img
-            src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}"
-            alt="Logo"
-            class="avatar-esquerda">
+        <img src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}" alt="Logo" class="avatar-esquerda">
         <div class="logo">GRAMÁTICA ONLINE</div>
         <nav>
             <ul>
-                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i>Usuario</a></li>
-                <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i>Gramática</a></li>
-                <li><a href="{{ url_for('atividades') }}"><i class="fa-solid fa-pen"></i>Atividades</a></li>
+                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuário</a></li>
+                <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i> Gramática</a></li>
+                <li><a href="{{ url_for('atividades') }}" class="ativo"><i class="fa-solid fa-pen"></i> Atividades</a></li>
                 <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i> Gerenciar Assuntos</a></li>
-                <li><a href="{{ url_for('listar_atividades') }}"><i class="fa-solid fa-cog"></i> Gerenciar Atividades</a></li>
+                <li><a href="{{ url_for('cadastrar_atividade') }}"><i class="fa-solid fa-cog"></i> Gerenciar Atividades</a></li>
                 <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i> Gerenciar Questões</a></li>
             </ul>
         </nav>
@@ -30,111 +26,78 @@
     <main class="container">
         <section id="gramatica" class="section">
             <h2>Atividades</h2>
-            <p> Hora de praticar!<br>
-                Clique nos tópicos abaixo para iniciar sua pratica.<br>
-                Boa Sorte!
-            </p>
+            <p>Hora de praticar!<br>Clique nos tópicos abaixo para iniciar sua prática.<br>Boa Sorte!</p>
 
-             <!-- CONTEÚDOS PRINCIPAIS -->
-
-             <div class="topicos-principais">
-
-                <p>
-                    <a href="{{ url_for('att_pontuacao') }}" class="btn btn-detalhe bnt-pontuacao">
-                        <i class="fa-solid fa-star"></i> Pontuação
-                    </a>
-                </p>
-
-                <p>
-                    <a href="{{ url_for('att_periodo_simples') }}" class="btn btn-detalhe bnt-periodo_simples">
-                        <i class="fa-solid fa-star"></i> Período Simples
-                    </a>
-                </p>
-
-                <p>
-                    <a href="{{ url_for('att_periodo_composto') }}" class="btn btn-detalhe bnt-periodo_composto">
-                        <i class="fa-solid fa-star"></i> Período Composto
-                    </a>
-                </p>
-
-                <p>
-                    <a href="{{ url_for('att_classificacao_de_palavras') }}" class="btn btn-detalhe bnt-classificacao_de_palavras">
-                        <i class="fa-solid fa-star"></i> Classificação de Palavras
-                    </a>
-                </p>
-
+            <div class="topicos-principais">
+                <p><a href="{{ url_for('att_pontuacao') }}" class="btn btn-detalhe bnt-pontuacao"><i class="fa-solid fa-star"></i> Pontuação</a></p>
+                <p><a href="{{ url_for('att_periodo_simples') }}" class="btn btn-detalhe bnt-periodo_simples"><i class="fa-solid fa-star"></i> Período Simples</a></p>
+                <p><a href="{{ url_for('att_periodo_composto') }}" class="btn btn-detalhe bnt-periodo_composto"><i class="fa-solid fa-star"></i> Período Composto</a></p>
+                <p><a href="{{ url_for('att_classificacao_de_palavras') }}" class="btn btn-detalhe bnt-classificacao_de_palavras"><i class="fa-solid fa-star"></i> Classificação de Palavras</a></p>
             </div>
 
             <br>
-
-            <p> 
-                Clique no tópico abaixo para expandir o conteúdo e iniciar seu estudo de forma interativa.
-           </p>
+            <p>Clique no tópico abaixo para expandir o conteúdo e iniciar seu estudo de forma interativa.</p>
             <div class="topicos-gramatica">
                 <details>
                     <summary>Atividades:</summary>
-                    <p>
-                        <a href="{{ url_for('atividade1') }}" class="btn btn-detalhe">
-                            <i class="fa-solid fa-star"></i> Sujeito
-                        </a>
-                    </p>
-                    <p>
-                        <a href="{{ url_for('atividade2') }}" class="btn btn-detalhe">
-                            <i class="fa-solid fa-star"></i> Predicado
-                        </a>
-                    </p>
-                    <p>
-                        <a href="{{ url_for('atividade3') }}" class="btn btn-detalhe">
-                            <i class="fa-solid fa-star"></i> Aposto
-                        </a>
-                    </p>
-                    <p>
-                        <a href="{{ url_for('atividade4') }}" class="btn btn-detalhe">
-                            <i class="fa-solid fa-star"></i> Complemento Verbal
-                        </a>
-                    </p>
-                    <p>
-                        <a href="{{ url_for('atividade5') }}" class="btn btn-detalhe">
-                            <i class="fa-solid fa-star"></i> Complemento Nominal
-                        </a>
-                    </p>
-                    <p>
-                        <a href="{{ url_for('atividade6') }}" class="btn btn-detalhe">
-                            <i class="fa-solid fa-star"></i> Agente da Passiva
-                        </a>
-                    </p>
-                    <p>
-                        <a href="{{ url_for('atividade7') }}" class="btn btn-detalhe">
-                            <i class="fa-solid fa-star"></i> Adjunto Adnominal
-                        </a>
-                    </p>
-                    <p>
-                        <a href="{{ url_for('atividade8') }}" class="btn btn-detalhe">
-                            <i class="fa-solid fa-star"></i> Adjunto Adverbial
-                        </a>
-                    </p>
-                    <p>
-                        <a href="{{ url_for('atividade9') }}" class="btn btn-detalhe">
-                            <i class="fa-solid fa-star"></i> Revisão Geral
-                        </a>
-                    </p>
-                    <div class="imagem-artigo-container">
-                        <img src="{{ url_for('static', filename='img/numeral.png') }}" alt="mão" class="imagem-artigo">
-                    </div>
-                    <div class="imagem-kaelgramatica-container">
-                        <img src="{{ url_for('static', filename='img/1000160377.png') }}" alt="imagem do Kael" class="imagem-kaelgramatica">
-                    </div>
+                    <p><a href="{{ url_for('atividade1') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Sujeito</a></p>
+                    <p><a href="{{ url_for('atividade2') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Predicado</a></p>
+                    <p><a href="{{ url_for('atividade3') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Aposto</a></p>
+                    <p><a href="{{ url_for('atividade4') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Complemento Verbal</a></p>
+                    <p><a href="{{ url_for('atividade5') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Complemento Nominal</a></p>
+                    <p><a href="{{ url_for('atividade6') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Agente da Passiva</a></p>
+                    <p><a href="{{ url_for('atividade7') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Adjunto Adnominal</a></p>
+                    <p><a href="{{ url_for('atividade8') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Adjunto Adverbial</a></p>
+                    <p><a href="{{ url_for('atividade9') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Revisão Geral</a></p>
+                    <div class="imagem-artigo-container"><img src="{{ url_for('static', filename='img/numeral.png') }}" alt="mão" class="imagem-artigo"></div>
+                    <div class="imagem-kaelgramatica-container"><img src="{{ url_for('static', filename='img/1000160377.png') }}" alt="imagem do Kael" class="imagem-kaelgramatica"></div>
                 </details>
-                
             </div>
+
+            <br><br>
+            <h3 style="color: #2c3e50; border-bottom: 2px solid #2980b9; padding-bottom: 8px;">
+                <i class="fa-solid fa-users"></i> Atividades Adicionadas pelos Usuários
+            </h3>
+
+            <div class="topicos-principais">
+                {% if atividades %}
+                    {% for atividade in atividades %}
+                    <div style="margin-bottom: 15px; padding: 12px; background: #f8f9fa; border-radius: 6px; border-left: 4px solid #2980b9;">
+                        <p style="margin: 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                            <span>
+                                <i class="fa-solid fa-bookmark"></i>
+                                <strong>{{ atividade.nome or 'Atividade sem nome' }}</strong><br>
+                                <small>Dificuldade: {{ atividade.dificuldade }} | Assunto: {{ atividade.assunto.nome }}</small>
+                            </span>
+                            <span>
+                                <a href="{{ url_for('responder_atividade', id=atividade.id) }}" class="btn btn-detalhe" style="padding: 4px 8px; font-size: 0.85em; background: #27ae60; color: white; text-decoration: none; border-radius: 4px; margin-right: 5px;">
+                                    <i class="fa-solid fa-check"></i> Responder
+                                </a>
+                                <a href="{{ url_for('editar_atividade', id=atividade.id) }}" class="btn btn-detalhe" style="padding: 4px 8px; font-size: 0.85em; background: #f39c12; color: white; text-decoration: none; border-radius: 4px; margin-right: 5px;">
+                                    <i class="fa-solid fa-pen"></i> Editar
+                                </a>
+                                <a href="{{ url_for('apagar_atividade', id=atividade.id) }}" class="btn btn-detalhe" style="padding: 4px 8px; font-size: 0.85em; background: #e74c3c; color: white; text-decoration: none; border-radius: 4px;" onclick="return confirm('Tem certeza que deseja apagar esta atividade?')">
+                                    <i class="fa-solid fa-trash"></i> Apagar
+                                </a>
+                            </span>
+                        </p>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="text-align: center; color: #6c757d; padding: 15px; background: #f8f9fa; border-radius: 6px;">
+                        <i class="fa-solid fa-info-circle"></i> Nenhuma atividade adicionada ainda.<br>
+                        Clique em <strong>"Adicionar Atividade"</strong> no menu acima para criar novas atividades!
+                    </p>
+                {% endif %}
+            </div>
+
             <br>
-            <a href="{{ url_for('usuario') }}" class="btn btn-gramatica"><i class="fa-solid fa-pen"></i> Voltar para o inicio</a>
+            <a href="{{ url_for('usuario') }}" class="btn btn-gramatica"><i class="fa-solid fa-arrow-left"></i> Voltar para o início</a>
         </section>
     </main>
-        <footer>
-            <div class="footer-content">
-            <p>&copy; 2025 Gramatica Online </p>
-            </div>
-        </footer>
+
+    <footer>
+        <div class="footer-content"><p>&copy; 2025 Gramatica Online</p></div>
+    </footer>
 </body>
 </html>

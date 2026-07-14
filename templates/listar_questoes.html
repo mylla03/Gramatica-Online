@@ -3,89 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Questões | Gramática Online</title>
+    <title>Gerenciar Questões | Gramática Online</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 <body>
     <header class="cabecalho-usuario">
-        <img
-            src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}"
-            alt="Logo"
-            class="avatar-esquerda">
+        <img src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}" alt="Logo" class="avatar-esquerda">
         <div class="logo">GRAMÁTICA ONLINE</div>
         <nav>
             <ul>
-                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuario</a></li> 
+                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuário</a></li>
                 <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i> Gramática</a></li>
-                <li><a href="{{ url_for('atividades') }}"><i class="fa-solid fa-pen"></i> Atividades</a></li>
-                <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i> Assuntos</a></li>
-                <li><a href="{{ url_for('listar_atividades') }}"><i class="fa-solid fa-cog"></i> Atividades</a></li>
-                <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i> Questões</a></li>
+                <li><a href="{{ url_for('atividades') }}" class="ativo"><i class="fa-solid fa-pen"></i> Atividades</a></li>
+                <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i> Gerenciar Assuntos</a></li>
+                <li><a href="{{ url_for('cadastrar_atividade') }}"><i class="fa-solid fa-cog"></i> Gerenciar Atividades</a></li>
+                <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i> Gerenciar Questões</a></li>
             </ul>
         </nav>
     </header>
-    <main class="container">
-        <section id="questoes" class="section">
-            <h2>Gerenciar Questões</h2>
 
-            {% with mensagens = get_flashed_messages() %}
-                {% if mensagens %}
-                    <div style="background: #d4edda; color: #155724; padding: 10px; border-radius: 4px; margin: 15px 0;">
-                        {{ mensagens[0] }}
+    <main class="container">
+        <section class="section">
+            <h2><i class="fa-solid fa-list-check"></i> Gerenciar Questões</h2>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for msg in messages %}
+                    <div class="painel-estudos" style="background: var(--soft-yellow);">
+                        <p style="text-align: center;"><i class="fa-solid fa-info-circle"></i> {{ msg }}</p>
                     </div>
+                    {% endfor %}
                 {% endif %}
             {% endwith %}
 
-            <p>
-                <a href="{{ url_for('nova_questao') }}" class="btn btn-detalhe">
-                    <i class="fa-solid fa-plus"></i> Cadastrar Nova Questão
+            <hr style="border: 1px solid var(--gray-light); margin: 25px 0;">
+
+            <h3><i class="fa-solid fa-plus-circle"></i> Cadastrar Nova Questão</h3>
+            <form method="POST" class="form" style="max-width: 100%; margin: 20px 0;">
+                <label style="font-weight: 600;">Atividade:</label>
+                <select name="atividade_id" required style="padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light); width: 100%;">
+                    <option value="">Selecione uma atividade</option>
+                    {% for atividade in atividades %}
+                    <option value="{{ atividade.id }}">{{ atividade.nome }} ({{ atividade.assunto.nome }})</option>
+                    {% endfor %}
+                </select>
+
+                <label style="font-weight: 600;">Enunciado:</label>
+                <textarea name="enunciado" required rows="3" style="padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light); width: 100%;"></textarea>
+
+                <label style="font-weight: 600;">Alternativa A:</label>
+                <input type="text" name="alternativa_a" required style="width: 100%;">
+
+                <label style="font-weight: 600;">Alternativa B:</label>
+                <input type="text" name="alternativa_b" required style="width: 100%;">
+
+                <label style="font-weight: 600;">Alternativa C:</label>
+                <input type="text" name="alternativa_c" required style="width: 100%;">
+
+                <label style="font-weight: 600;">Alternativa D:</label>
+                <input type="text" name="alternativa_d" required style="width: 100%;">
+
+                <label style="font-weight: 600;">Alternativa E:</label>
+                <input type="text" name="alternativa_e" required style="width: 100%;">
+
+                <label style="font-weight: 600;">Resposta Correta:</label>
+                <select name="resposta_correta" required style="padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light); width: 100%;">
+                    <option value="">Selecione</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+
+                <button type="submit" class="botao" style="align-self: flex-start;">
+                    <i class="fa-solid fa-save"></i> Cadastrar Questão
+                </button>
+            </form>
+
+            <hr style="border: 1px solid var(--gray-light); margin: 30px 0;">
+
+            <h3><i class="fa-solid fa-list"></i> Questões Cadastradas</h3>
+            {% if questoes %}
+                {% for q in questoes %}
+                <div class="atividade" style="width: 100%; max-width: 100%;">
+                    <h4>Questão {{ loop.index }}</h4>
+                    <p><strong>Atividade:</strong> {{ q.atividade.nome }}</p>
+                    <p style="margin: 10px 0;"><strong>Enunciado:</strong> {{ q.enunciado }}</p>
+                    <p>A) {{ q.alternativa_a }}</p>
+                    <p>B) {{ q.alternativa_b }}</p>
+                    <p>C) {{ q.alternativa_c }}</p>
+                    <p>D) {{ q.alternativa_d }}</p>
+                    <p>E) {{ q.alternativa_e }}</p>
+                    <p style="margin-top: 10px;"><strong>Resposta correta:</strong> <span style="color: var(--success-green); font-weight: bold;">{{ q.resposta_correta }}</span></p>
+                    <div style="margin-top: 15px;">
+                        <a href="{{ url_for('apagar_questao', id=q.id) }}" class="btn" style="background: #e74c3c;" onclick="return confirm('Tem certeza que quer apagar essa questão?');">
+                            <i class="fa-solid fa-trash"></i> Apagar
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="painel-estudos">
+                    <p style="text-align: center;"><i class="fa-solid fa-info-circle"></i> Nenhuma questão cadastrada ainda.</p>
+                </div>
+            {% endif %}
+
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="{{ url_for('atividades') }}" class="btn btn-gramatica">
+                    <i class="fa-solid fa-arrow-left"></i> Voltar às Atividades
                 </a>
-            </p>
-
-            <div style="margin-top: 20px; overflow-x: auto;">
-                <table style="width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                    <thead>
-                        <tr style="background: #f0f4f8;">
-                            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">ID</th>
-                            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Enunciado</th>
-                            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Atividade Relacionada</th>
-                            <th style="padding: 12px; text-align: center; border-bottom: 1px solid #ddd;">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for questao in questoes %}
-                        <tr>
-                            <td style="padding: 12px; border-bottom: 1px solid #eee;">{{ questao.id }}</td>
-                            <td style="padding: 12px; border-bottom: 1px solid #eee;">{{ questao.enunciado }}</td>
-                            <td style="padding: 12px; border-bottom: 1px solid #eee;">ID {{ questao.atividade.id }} - {{ questao.atividade.dificuldade }}</td>
-                            <td style="padding: 12px; border-bottom: 1px solid #eee; text-align: center;">
-                                <a href="{{ url_for('editar_questao', id=questao.id) }}" class="btn" style="padding: 4px 8px; font-size: 0.9em; background: #ffc107; color: #212529; text-decoration: none; border-radius: 4px; margin-right: 5px;">
-                                    <i class="fa-solid fa-pen-to-square"></i> Editar
-                                </a>
-                                <a href="{{ url_for('apagar_questao', id=questao.id) }}" class="btn" style="padding: 4px 8px; font-size: 0.9em; background: #dc3545; color: white; text-decoration: none; border-radius: 4px;" onclick="return confirm('Tem certeza que deseja apagar?')">
-                                    <i class="fa-solid fa-trash"></i> Apagar
-                                </a>
-                            </td>
-                        </tr>
-                        {% else %}
-                        <tr>
-                            <td colspan="4" style="padding: 15px; text-align: center; color: #6c757d;">Nenhuma questão cadastrada.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
             </div>
-
-            <br>
-            <a href="{{ url_for('gramatica') }}" class="btn btn-gramatica">
-                <i class="fa-solid fa-arrow-left"></i> Voltar
-            </a>
         </section>
     </main>
+
     <footer>
         <div class="footer-content">
-            <p>&copy; 2025 Gramática Online</p>
+            <p>&copy; 2026 Gramática Online | Todos os direitos reservados</p>
         </div>
     </footer>
 </body>

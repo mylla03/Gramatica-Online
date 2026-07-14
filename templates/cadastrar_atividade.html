@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Novo Assunto | Gramática Online</title>
+    <title>Cadastrar Atividade | Gramática Online</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
@@ -16,8 +16,8 @@
                 <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuário</a></li>
                 <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i> Gramática</a></li>
                 <li><a href="{{ url_for('atividades') }}"><i class="fa-solid fa-pen"></i> Atividades</a></li>
-                <li><a href="{{ url_for('listar_assuntos') }}" class="ativo"><i class="fa-solid fa-cog"></i> Gerenciar Assuntos</a></li>
-                <li><a href="{{ url_for('listar_atividades') }}"><i class="fa-solid fa-cog"></i> Gerenciar Atividades</a></li>
+                <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i> Gerenciar Assuntos</a></li>
+                <li><a href="{{ url_for('listar_atividades') }}" class="ativo"><i class="fa-solid fa-cog"></i> Gerenciar Atividades</a></li>
                 <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i> Gerenciar Questões</a></li>
             </ul>
         </nav>
@@ -25,7 +25,7 @@
 
     <main class="container">
         <section class="section">
-            <h2><i class="fa-solid fa-book-open"></i> Cadastrar Novo Assunto</h2>
+            <h2><i class="fa-solid fa-plus-circle"></i> Cadastrar Nova Atividade</h2>
 
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -39,24 +39,30 @@
 
             <hr>
 
-            <form method="POST" enctype="multipart/form-data" class="form">
-                <label>Nome do Assunto:</label>
-                <input type="text" name="nome" placeholder="Ex: Sujeito e Predicado" required>
+            <form method="POST" class="form">
+                <label>Nome da Atividade:</label>
+                <input type="text" name="nome" placeholder="Ex: Exercícios de Sujeito" required>
 
-                <label>Conteúdo / Explicação:</label>
-                <textarea name="conteudo" rows="5" placeholder="Escreva aqui o conteúdo do assunto..." required></textarea>
+                <label>Nível de Dificuldade:</label>
+                <select name="dificuldade" required>
+                    <option value="Fácil">Fácil</option>
+                    <option value="Médio">Médio</option>
+                    <option value="Difícil">Difícil</option>
+                </select>
 
-                <label>Arquivo PDF (opcional):</label>
-                <input type="file" name="arquivo_pdf" accept=".pdf">
-
-                <label>Imagem Ilustrativa (opcional):</label>
-                <input type="file" name="imagem" accept="image/png, image/jpeg, image/jpg">
+                <label>Assunto Relacionado:</label>
+                <select name="assunto_id" required>
+                    <option value="">Selecione um assunto</option>
+                    {% for assunto in assuntos %}
+                    <option value="{{ assunto.id }}">{{ assunto.nome }}</option>
+                    {% endfor %}
+                </select>
 
                 <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                     <button type="submit" class="botao">
-                        <i class="fa-solid fa-save"></i> Cadastrar Assunto
+                        <i class="fa-solid fa-save"></i> Cadastrar
                     </button>
-                    <a href="{{ url_for('listar_assuntos') }}" class="btn btn-gramatica">
+                    <a href="{{ url_for('listar_atividades') }}" class="btn btn-gramatica">
                         <i class="fa-solid fa-arrow-left"></i> Voltar
                     </a>
                 </div>

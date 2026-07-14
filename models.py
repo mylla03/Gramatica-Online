@@ -1,102 +1,37 @@
 from database import db
-import sqlalchemy as sa
-import sqlalchemy.orm as so
-from datetime import datetime
-
-
-class Aluno(db.Model):
-    __tablename__ = "aluno"
-
-    id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    nome: so.Mapped[str] = so.mapped_column(sa.String(100), nullable=False)
-
-    atividades: so.Mapped[list["AlunoAtividade"]] = so.relationship(
-        back_populates="aluno",
-        cascade="all, delete-orphan"
-    )
-
 
 class Assunto(db.Model):
     __tablename__ = "assunto"
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
+    conteudo = db.Column(db.Text, nullable=True)
+    imagem = db.Column(db.String(255), nullable=True)
+    arquivo_pdf = db.Column(db.String(255), nullable=True)
 
-    id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    nome: so.Mapped[str] = so.mapped_column(sa.String(100), nullable=False, unique=True)
-
-    atividades: so.Mapped[list["Atividade"]] = so.relationship(
-        back_populates="assunto",
-        cascade="all, delete-orphan"
-    )
+    atividades = db.relationship("Atividade", back_populates="assunto", lazy=True)
 
 
 class Atividade(db.Model):
     __tablename__ = "atividade"
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(150), nullable=True)
+    dificuldade = db.Column(db.String(50), nullable=True)
+    assunto_id = db.Column(db.Integer, db.ForeignKey("assunto.id"), nullable=True)
 
-    id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    dificuldade: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
-
-    assunto_id: so.Mapped[int] = so.mapped_column(
-        sa.ForeignKey("assunto.id"),
-        nullable=False
-    )
-
-    assunto: so.Mapped["Assunto"] = so.relationship(back_populates="atividades")
-
-    questoes: so.Mapped[list["Questao"]] = so.relationship(
-        back_populates="atividade",
-        cascade="all, delete-orphan"
-    )
-
-    alunos: so.Mapped[list["AlunoAtividade"]] = so.relationship(
-        back_populates="atividade",
-        cascade="all, delete-orphan"
-    )
+    assunto = db.relationship("Assunto", back_populates="atividades")
+    questoes = db.relationship("Questao", back_populates="atividade", lazy=True, cascade="all, delete-orphan")
 
 
 class Questao(db.Model):
     __tablename__ = "questao"
+    id = db.Column(db.Integer, primary_key=True)
+    enunciado = db.Column(db.Text, nullable=False)
+    alternativa_a = db.Column(db.Text, nullable=True)
+    alternativa_b = db.Column(db.Text, nullable=True)
+    alternativa_c = db.Column(db.Text, nullable=True)
+    alternativa_d = db.Column(db.Text, nullable=True)
+    alternativa_e = db.Column(db.Text, nullable=True)
+    resposta_correta = db.Column(db.String(1), nullable=True)
+    atividade_id = db.Column(db.Integer, db.ForeignKey("atividade.id"), nullable=True)
 
-    id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    enunciado: so.Mapped[str] = so.mapped_column(sa.String(255), nullable=False)
-
-    atividade_id: so.Mapped[int] = so.mapped_column(
-        sa.ForeignKey("atividade.id"),
-        nullable=False
-    )
-
-    atividade: so.Mapped["Atividade"] = so.relationship(back_populates="questoes")
-
-
-class Resposta(db.Model):
-    __tablename__ = "resposta"
-    
-    id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    
-
-
-class AlunoAtividade(db.Model):
-    __tablename__ = "aluno_atividade"
-
-    id: so.Mapped[int] = so.mapped_column(primary_key=True)
-
-    aluno_id: so.Mapped[int] = so.mapped_column(
-        sa.ForeignKey("aluno.id"),
-        nullable=False
-    )
-
-    atividade_id: so.Mapped[int] = so.mapped_column(
-        sa.ForeignKey("atividade.id"),
-        nullable=False
-    )
-
-    progresso: so.Mapped[int] = so.mapped_column(sa.Integer, default=0)
-
-    data_inicio: so.Mapped[datetime] = so.mapped_column(
-        default=datetime.utcnow
-    )
-
-    data_fim: so.Mapped[datetime] = so.mapped_column(
-        nullable=True
-    )
-
-    aluno: so.Mapped["Aluno"] = so.relationship(back_populates="atividades")
-    atividade: so.Mapped["Atividade"] = so.relationship(back_populates="alunos")
+    atividade = db.relationship("Atividade", back_populates="questoes")
