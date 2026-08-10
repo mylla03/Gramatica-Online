@@ -4,20 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Usuário | Gramática Online</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v=4) }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 <body>
 
     <header class="cabecalho-usuario">
-        <img
-            src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}"
-            alt="Logo"
-            class="avatar-esquerda">
-        <img
-            src="{{ url_for('static', filename='IMG/1000155839.png') }}"
-            alt="Mascote Kael"
-            class="avatar-kael">
+        {% set usuario_logado = session.get("usuario_suap") %}
+        <div class="header-auth-area">
+            <details class="user-menu">
+                <summary aria-label="Abrir menu do usuário">
+                    {% if usuario_logado and usuario_logado.foto %}
+                        <img src="{{ usuario_logado.foto }}" alt="Foto do usuário" class="user-photo">
+                    {% else %}
+                        <span class="user-photo user-photo-placeholder">
+                            <i class="fa-regular fa-circle-user"></i>
+                        </span>
+                    {% endif %}
+                </summary>
+                <div class="user-menu-dropdown">
+                    <a href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+                </div>
+            </details>
+        </div>
     
         <h1>Bem-vindo(a), estudante!</h1>
         <nav>

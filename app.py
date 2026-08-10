@@ -3,12 +3,38 @@ from database import db
 import os
 from werkzeug.utils import secure_filename
 from sqlalchemy import text
+from flask import session
+from dotenv import load_dotenv
+from authlib.integrations.flask_client import OAuth
+from authlib.integrations.base_client.errors import OAuthError
+from requests.exceptions import RequestException
+
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = 'chave_segura_gramatica_2026'
+app.secret_key = os.environ.get("SECRET_KEY", "outra-chave-segura")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///gramatica_online.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.jinja_env.auto_reload = True
+
+oauth = OAuth(app)
+SUAP_BASE_URL = os.environ.get("SUAP_BASE_URL", "https://suap.ifrn.edu.br").rstrip("/")
+SUAP_USER_INFO_ENDPOINT = os.environ.get("SUAP_USER_INFO_ENDPOINT", "api/rh/eu/").lstrip("/")
+suap_client_kwargs = {}
+suap_scope = os.environ.get("SUAP_SCOPE", "").strip()
+if suap_scope:
+    suap_client_kwargs["scope"] = suap_scope
+
+suap = oauth.register(
+    name="suap",
+    client_id=os.environ["SUAP_CLIENT_ID"],
+    client_secret=os.environ["SUAP_CLIENT_SECRET"],
+    authorize_url=f"{SUAP_BASE_URL}/o/authorize/",
+    access_token_url=f"{SUAP_BASE_URL}/o/token/",
+    api_base_url=f"{SUAP_BASE_URL}/",
+    client_kwargs=suap_client_kwargs,
+)
 
 UPLOAD_FOLDER = os.path.join('static', 'uploads')
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}
@@ -47,7 +73,7 @@ def arquivo_permitido(nome):
 @app.route("/")
 def index(): return render_template("index.html")
 @app.route("/login")
-def login(): return render_template("login.html")
+def login(): return redirect(url_for("auth_suap"))
 @app.route("/usuario")
 def usuario(): return render_template("usuario.html")
 @app.route("/escolha")
@@ -300,6 +326,52 @@ def adjunto_adnominal_detalhe(): return render_template("adjunto_adnominal_detal
 def adjunto_adverbial_detalhe(): return render_template("adjunto_adverbial_detalhe.html")
 @app.route("/revisao_geral_detalhe")
 def revisao_geral_detalhe(): return render_template("revisao_geral_detalhe.html")
+
+
+@app.route("/auth/suap")
+def auth_suap():
+    redirect_uri = url_for("auth_suap_callback", _external=True)
+    return suap.authorize_redirect(redirect_uri)
+
+@app.route("/auth/suap/callback")
+def auth_suap_callback():
+    if request.args.get("error"):
+        flash(f"Falha no login SUAP: {request.args.get('error')}")
+        return redirect(url_for("index"))
+
+    try:
+        token = suap.authorize_access_token()
+    except OAuthError as e:
+        flash(f"Falha no login SUAP: {e.error}")
+        return redirect(url_for("index"))
+
+    try:
+        resp = suap.get(SUAP_USER_INFO_ENDPOINT, token=token)
+        resp.raise_for_status()
+        dados = resp.json()
+    except RequestException:
+        flash("Falha ao buscar os dados do usuário no SUAP.")
+        return redirect(url_for("index"))
+
+    foto = dados.get("foto")
+    if foto and foto.startswith("/"):
+        foto = f"{SUAP_BASE_URL}{foto}"
+
+    session["usuario_suap"] = {
+        "nome": dados.get("nome_usual") or dados.get("nome"),
+        "email": dados.get("email"),
+        "matricula": dados.get("matricula") or dados.get("identificacao"),
+        "tipo_vinculo": dados.get("tipo_vinculo") or dados.get("tipo_usuario"),
+        "foto": foto,
+    }
+
+    return redirect(url_for("usuario"))
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("index"))
+
 
 # ------------------------------
 # EXECUÇÃO

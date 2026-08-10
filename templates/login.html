@@ -18,23 +18,23 @@
 
     <main class="container">
         <section id="inicio" class="section">
+            {% with mensagens = get_flashed_messages() %}
+                {% if mensagens %}
+                    <div class="flash-messages">
+                        {% for mensagem in mensagens %}
+                            <p>{{ mensagem }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
             <div class="imagem-login-container">
                 <img src="{{ url_for('static', filename='img/file_00000000234071f78708617664798a96-removebg-preview.png') }}"
                      alt="Imagem de Login"
                      class="imagem-login">
             </div>
 
-            <form class="form" id="loginForm">
-                <input type="email" name="email" id="email" placeholder="E-mail" required>
-                <input type="password" name="senha" id="senha" placeholder="Senha" required>
-                <button type="submit" class="btn">Entrar</button>
-            </form>
-
-            <div style="text-align: center; margin-top: 10px;">
-                <a href="{{ url_for('usuario') }}" class="btn">
-                    Entrar sem login
-                </a>
-            </div>
+            <a href="{{ url_for('auth_suap') }}" class="btn">Entrar com SUAP</a>
         </section>
     </main>
 
@@ -44,18 +44,5 @@
         </div>
     </footer>
 
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            let email = document.getElementById("email").value;
-            let senha = document.getElementById("senha").value;
-            if (nome === "" || email === "" || senha === "") {
-                event.preventDefault();
-                alert("Por favor, preencha todos os campos antes de entrar.");
-            } else {
-                event.preventDefault();
-                window.location.href = "{{ url_for('usuario') }}";
-            }
-        });
-    </script>
 </body>
 </html>

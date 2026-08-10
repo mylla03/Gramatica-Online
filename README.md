@@ -13,4 +13,6 @@ Depois, entre na pasta do projeto e execute os seguintes comandos:
 `pip install -r requirements.txt`
 
 4. Rodar o projeto:
-`flask run --reload`
+`flask run`
+
+O arquivo `.flaskenv` já ativa o modo debug/reload para desenvolvimento.
