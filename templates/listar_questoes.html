@@ -18,7 +18,7 @@
                 <li><a href="{{ url_for('atividades') }}" class="ativo"><i class="fa-solid fa-pen"></i> Atividades</a></li>
                 <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i> Gerenciar Assuntos</a></li>
                 <li><a href="{{ url_for('cadastrar_atividade') }}"><i class="fa-solid fa-cog"></i> Gerenciar Atividades</a></li>
-                <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i> Gerenciar Questões</a></li>
+                <li><a href="{{ url_for('listar_questoes') }}" class="ativo"><i class="fa-solid fa-cog"></i> Gerenciar Questões</a></li>
             </ul>
         </nav>
     </header>
@@ -98,6 +98,10 @@
                     <p>E) {{ q.alternativa_e }}</p>
                     <p style="margin-top: 10px;"><strong>Resposta correta:</strong> <span style="color: var(--success-green); font-weight: bold;">{{ q.resposta_correta }}</span></p>
                     <div style="margin-top: 15px;">
+                        <!-- ✅ BOTÃO EDITAR ADICIONADO AQUI -->
+                        <a href="{{ url_for('editar_questao', id=q.id) }}" class="btn" style="background: #ffc107; color: #212529; margin-right: 8px;">
+                            <i class="fa-solid fa-pen-to-square"></i> Editar
+                        </a>
                         <a href="{{ url_for('apagar_questao', id=q.id) }}" class="btn" style="background: #e74c3c;" onclick="return confirm('Tem certeza que quer apagar essa questão?');">
                             <i class="fa-solid fa-trash"></i> Apagar
                         </a>

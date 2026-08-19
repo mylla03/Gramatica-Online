@@ -9,7 +9,9 @@ from authlib.integrations.flask_client import OAuth
 from authlib.integrations.base_client.errors import OAuthError
 from requests.exceptions import RequestException
 
+
 load_dotenv()
+
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "outra-chave-segura")
@@ -18,6 +20,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.jinja_env.auto_reload = True
 
+
 oauth = OAuth(app)
 SUAP_BASE_URL = os.environ.get("SUAP_BASE_URL", "https://suap.ifrn.edu.br").rstrip("/")
 SUAP_USER_INFO_ENDPOINT = os.environ.get("SUAP_USER_INFO_ENDPOINT", "api/rh/eu/").lstrip("/")
@@ -25,6 +28,7 @@ suap_client_kwargs = {}
 suap_scope = os.environ.get("SUAP_SCOPE", "").strip()
 if suap_scope:
     suap_client_kwargs["scope"] = suap_scope
+
 
 suap = oauth.register(
     name="suap",
@@ -36,16 +40,19 @@ suap = oauth.register(
     client_kwargs=suap_client_kwargs,
 )
 
+
 UPLOAD_FOLDER = os.path.join('static', 'uploads')
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+
 db.init_app(app)
+
 
 from models import Assunto, Atividade, Questao
 
-# Ajusta colunas que faltam SEM apagar dados existentes
+
 with app.app_context():
     try: db.session.execute(text("ALTER TABLE atividade ADD COLUMN nome VARCHAR(150);")); db.session.commit()
     except Exception: pass
@@ -64,12 +71,14 @@ with app.app_context():
     try: db.session.execute(text("ALTER TABLE questao ADD COLUMN resposta_correta VARCHAR(1);")); db.session.commit()
     except Exception: pass
 
+
 def arquivo_permitido(nome):
     return '.' in nome and nome.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# ------------------------------
+
+# ======================================
 # ROTAS PRINCIPAIS
-# ------------------------------
+# ======================================
 @app.route("/")
 def index(): return render_template("index.html")
 @app.route("/login")
@@ -78,6 +87,7 @@ def login(): return redirect(url_for("auth_suap"))
 def usuario(): return render_template("usuario.html")
 @app.route("/escolha")
 def escolha(): return render_template("escolha.html")
+
 
 @app.route("/gramatica")
 def gramatica():
@@ -89,6 +99,7 @@ def gramatica():
         flash("Erro ao carregar assuntos.")
         return render_template("gramatica.html", assuntos=[])
 
+
 @app.route("/atividades")
 def atividades():
     try:
@@ -99,9 +110,25 @@ def atividades():
         flash("Erro ao carregar atividades.")
         return render_template("atividades.html", atividades=[])
 
-# ------------------------------
-# GERENCIAR ASSUNTOS (TUDO IGUAL, NADA REMOVIDO AQUI)
-# ------------------------------
+
+# ======================================
+# ✅ ROTA listar_atividades — CRIADA PRIMEIRO
+# ======================================
+@app.route('/listar_atividades')
+def listar_atividades():
+    try:
+        atividades = Atividade.query.all()
+        assuntos = Assunto.query.all()
+        return render_template("cadastrar_atividade.html", atividades=atividades, assuntos=assuntos)
+    except Exception as e:
+        print("ERRO LISTAR ATIVIDADES:", str(e))
+        flash("Erro ao carregar atividades.")
+        return redirect(url_for('atividades'))
+
+
+# ======================================
+# ✅ GERENCIAR ASSUNTOS
+# ======================================
 @app.route('/listar_assuntos')
 def listar_assuntos():
     try:
@@ -111,6 +138,7 @@ def listar_assuntos():
         print("ERRO LISTAR ASSUNTOS:", str(e))
         flash("Erro ao carregar.")
         return redirect(url_for('gramatica'))
+
 
 @app.route('/novo_assunto', methods=['GET', 'POST'])
 def novo_assunto():
@@ -137,13 +165,15 @@ def novo_assunto():
         db.session.add(novo)
         db.session.commit()
         flash("Assunto cadastrado com sucesso!")
-        return redirect(url_for('gramatica'))
+        return redirect(url_for('listar_assuntos'))
     return render_template("novo_assunto.html")
+
 
 @app.route('/ver_assunto/<int:id>')
 def ver_assunto(id):
     assunto = Assunto.query.get_or_404(id)
     return render_template("ver_assunto.html", assunto=assunto)
+
 
 @app.route('/editar_assunto/<int:id>', methods=['GET', 'POST'])
 def editar_assunto(id):
@@ -153,8 +183,9 @@ def editar_assunto(id):
         assunto.conteudo = request.form.get('conteudo', '').strip()
         db.session.commit()
         flash("Assunto atualizado!")
-        return redirect(url_for('gramatica'))
+        return redirect(url_for('listar_assuntos'))
     return render_template("editar_assunto.html", assunto=assunto)
+
 
 @app.route('/apagar_assunto/<int:id>')
 def apagar_assunto(id):
@@ -162,11 +193,12 @@ def apagar_assunto(id):
     db.session.delete(assunto)
     db.session.commit()
     flash("Assunto removido!")
-    return redirect(url_for('gramatica'))
+    return redirect(url_for('listar_assuntos'))
 
-# ------------------------------
-# ROTAS DE ATIVIDADES - REMOVIDO APENAS listar_atividades E nova_atividade
-# ------------------------------
+
+# ======================================
+# ✅ CADASTRO E EDIÇÃO DE ATIVIDADES
+# ======================================
 @app.route('/cadastrar_atividade', methods=['GET', 'POST'])
 def cadastrar_atividade():
     assuntos = Assunto.query.all()
@@ -181,13 +213,16 @@ def cadastrar_atividade():
         db.session.add(nova)
         db.session.commit()
         flash("Atividade cadastrada!")
-        return redirect(url_for('atividades'))
-    return render_template("cadastrar_atividade.html", assuntos=assuntos)
+        return redirect(url_for('listar_atividades'))
+    atividades = Atividade.query.all()
+    return render_template("cadastrar_atividade.html", assuntos=assuntos, atividades=atividades)
+
 
 @app.route('/ver_atividade/<int:id>')
 def ver_atividade(id):
     atividade = Atividade.query.get_or_404(id)
     return render_template("ver_atividade.html", atividade=atividade)
+
 
 @app.route('/responder_atividade/<int:id>', methods=['GET', 'POST'])
 def responder_atividade(id):
@@ -196,7 +231,6 @@ def responder_atividade(id):
         acertos = 0
         total = len(atividade.questoes)
         resultado_questoes = []
-
         for q in atividade.questoes:
             resp_aluno = request.form.get(f"resposta_{q.id}", "").upper().strip()
             resp_correta = q.resposta_correta.upper().strip() if q.resposta_correta else ""
@@ -208,7 +242,6 @@ def responder_atividade(id):
                 "resposta_correta": resp_correta,
                 "acertou": acertou
             })
-
         nota = round((acertos / total) * 10, 1) if total > 0 else 0
         return render_template("resultado_atividade.html",
             atividade=atividade,
@@ -216,8 +249,8 @@ def responder_atividade(id):
             acertos=acertos,
             total=total,
             nota=nota)
-
     return render_template("responder_atividade.html", atividade=atividade)
+
 
 @app.route('/editar_atividade/<int:id>', methods=['GET', 'POST'])
 def editar_atividade(id):
@@ -229,8 +262,9 @@ def editar_atividade(id):
         atividade.assunto_id = request.form.get('assunto_id', atividade.assunto_id)
         db.session.commit()
         flash("Atividade atualizada!")
-        return redirect(url_for('ver_atividade', id=id))
+        return redirect(url_for('listar_atividades'))
     return render_template("editar_atividade.html", atividade=atividade, assuntos=assuntos)
+
 
 @app.route('/apagar_atividade/<int:id>')
 def apagar_atividade(id):
@@ -238,11 +272,12 @@ def apagar_atividade(id):
     db.session.delete(atividade)
     db.session.commit()
     flash("Atividade removida!")
-    return redirect(url_for('atividades'))
+    return redirect(url_for('listar_atividades'))
 
-# ------------------------------
-# ROTAS DE QUESTÕES - REMOVIDO APENAS nova_questao
-# ------------------------------
+
+# ======================================
+# ✅ GERENCIAR QUESTÕES + ROTA EDITAR
+# ======================================
 @app.route('/listar_questoes', methods=['GET', 'POST'])
 def listar_questoes():
     if request.method == 'POST':
@@ -271,6 +306,26 @@ def listar_questoes():
     atividades = Atividade.query.all()
     return render_template("listar_questoes.html", questoes=questoes, atividades=atividades)
 
+
+@app.route('/editar_questao/<int:id>', methods=['GET', 'POST'])
+def editar_questao(id):
+    questao = Questao.query.get_or_404(id)
+    atividades = Atividade.query.all()
+    if request.method == 'POST':
+        questao.atividade_id = request.form.get('atividade_id')
+        questao.enunciado = request.form.get('enunciado', '').strip()
+        questao.alternativa_a = request.form.get('alternativa_a', '').strip()
+        questao.alternativa_b = request.form.get('alternativa_b', '').strip()
+        questao.alternativa_c = request.form.get('alternativa_c', '').strip()
+        questao.alternativa_d = request.form.get('alternativa_d', '').strip()
+        questao.alternativa_e = request.form.get('alternativa_e', '').strip()
+        questao.resposta_correta = request.form.get('resposta_correta', '').upper().strip()
+        db.session.commit()
+        flash("Questão atualizada com sucesso!")
+        return redirect(url_for('listar_questoes'))
+    return render_template("editar_questao.html", questao=questao, atividades=atividades)
+
+
 @app.route('/apagar_questao/<int:id>')
 def apagar_questao(id):
     q = Questao.query.get_or_404(id)
@@ -279,9 +334,10 @@ def apagar_questao(id):
     flash("Questão removida!")
     return redirect(url_for('listar_questoes'))
 
-# ------------------------------
-# ROTAS DAS PÁGINAS FIXAS (TUDO IGUAL)
-# ------------------------------
+
+# ======================================
+# ROTAS DAS PÁGINAS FIXAS
+# ======================================
 @app.route("/att_pontuacao")
 def att_pontuacao(): return render_template("att_pontuacao.html")
 @app.route("/att_periodo_simples")
@@ -328,10 +384,14 @@ def adjunto_adverbial_detalhe(): return render_template("adjunto_adverbial_detal
 def revisao_geral_detalhe(): return render_template("revisao_geral_detalhe.html")
 
 
+# ======================================
+# ROTAS DE LOGIN SUAP
+# ======================================
 @app.route("/auth/suap")
 def auth_suap():
     redirect_uri = url_for("auth_suap_callback", _external=True)
     return suap.authorize_redirect(redirect_uri)
+
 
 @app.route("/auth/suap/callback")
 def auth_suap_callback():
@@ -367,14 +427,15 @@ def auth_suap_callback():
 
     return redirect(url_for("usuario"))
 
+
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for("index"))
 
 
-# ------------------------------
+# ======================================
 # EXECUÇÃO
-# ------------------------------
+# ======================================
 if __name__ == "__main__":
     app.run(debug=True)
