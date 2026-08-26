@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ assunto.nome }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <style>
+        .conteudo {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+        .arquivo {
+            margin-top: 25px;
+            padding: 12px;
+            background: #fef2f2;
+            border-radius: 6px;
+        }
+        .imagem {
+            margin-top: 25px;
+            text-align: center;
+        }
+        .imagem img {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <header class="cabecalho-usuario">
+        <div class="logo">GRAMÁTICA ONLINE</div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-arrow-left"></i> Voltar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h2 style="color: #2c3e50; border-bottom: 2px solid #27ae60; padding-bottom: 10px;">{{ assunto.nome }}</h2>
+
+        <div class="conteudo">
+            {% if assunto.conteudo %}
+                <p>{{ assunto.conteudo | replace('\n', '<br>') | safe }}</p>
+            {% else %}
+                <p style="color: #6c757d; font-style: italic;">Ainda não há texto explicativo para este assunto.</p>
+            {% endif %}
+
+            {% if assunto.imagem %}
+            <div class="imagem">
+                <h4>Mapa Mental / Ilustração:</h4>
+                <img src="{{ url_for('static', filename=assunto.imagem) }}" alt="Imagem do assunto">
+            </div>
+            {% endif %}
+
+            {% if assunto.arquivo_pdf %}
+            <div class="arquivo">
+                <h4>Material em PDF:</h4>
+                <a href="{{ url_for('static', filename=assunto.arquivo_pdf) }}" target="_blank" style="color: #dc2626; font-weight: bold; text-decoration: none;">
+                    <i class="fa-solid fa-file-pdf fa-lg"></i> Abrir arquivo PDF
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Gramática Online</p>
+    </footer>
+</body>
+</html>

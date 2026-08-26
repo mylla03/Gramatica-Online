@@ -1,10 +1,22 @@
 :root {
-    --primary-blue: #79D1FF; 
-    --secondary-purple: #B0A5F9; 
-    --accent-pink: #FFC0CB; 
-    --bg-light: #F7F9FF; 
-    --text-dark: #3a3a3a; 
-    --success-green: #6BE878; 
+    --primary-blue: #0095DB;
+    --secondary-blue: #D5F7FF;
+
+    --primary-pink: #FFAFCC;
+    --secondary-pink: #FFECF4;
+
+    --mint-green: #DFFCF4;
+    --success-green: #00966D;
+
+    --soft-purple: #DDD0F8;
+    --soft-yellow: #FFF0D4;
+
+    --bg-light: #FAFAFA;
+    --gray-light: #EDEDED;
+    --gray-medium: #D6D8E7;
+
+    --text-dark: #14142B;
+
     --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.05);
 }
 
@@ -33,7 +45,7 @@ main {
 
 /* ===== HEADER ===== */
 header {
-    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-purple));
+    background: var(--primary-blue);
     color: white;
     padding: 20px;
     text-align: center;
@@ -46,6 +58,113 @@ header {
 .logo {
     font-size: 2rem;
     font-weight: 800;
+}
+
+.header-auth-area {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.header-login-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 9px 14px;
+    border-radius: 8px;
+    background: white;
+    color: var(--primary-blue);
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: var(--shadow-soft);
+}
+
+.header-login-btn:hover {
+    opacity: 0.9;
+}
+
+.user-menu {
+    position: relative;
+    margin: 0;
+    overflow: visible;
+    background: transparent;
+    box-shadow: none;
+}
+
+.user-menu[open] {
+    z-index: 20;
+}
+
+.user-menu summary {
+    display: block;
+    padding: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    list-style: none;
+}
+
+.user-menu summary::-webkit-details-marker {
+    display: none;
+}
+
+.user-photo {
+    width: 56px;
+    height: 56px;
+    border: 3px solid white;
+    border-radius: 50%;
+    object-fit: cover;
+    background: white;
+    box-shadow: var(--shadow-soft);
+}
+
+.user-photo-placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-blue);
+    font-size: 1.9rem;
+}
+
+.user-menu-dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    z-index: 30;
+    min-width: 140px;
+    padding: 8px;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+    text-align: left;
+}
+
+.user-menu-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 10px;
+    border-radius: 6px;
+    color: var(--text-dark);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.user-menu-dropdown a:hover {
+    background: var(--secondary-blue);
+}
+
+.flash-messages {
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: var(--secondary-pink);
+    color: var(--text-dark);
+    font-weight: 700;
 }
 
 /* ===== NAV ===== */
@@ -99,7 +218,7 @@ h2 {
 }
 
 h3 {
-    color: var(--secondary-purple);
+    color: var(--soft-purple);
     margin-bottom: 10px;
 }
 
@@ -123,7 +242,8 @@ h3 {
 }
 
 .btn-gramatica {
-    background-color: var(--secondary-purple);
+    background-color: var(--soft-purple);
+    color: var(--text-dark);
 }
 
 .btn-atividades {
@@ -131,7 +251,7 @@ h3 {
 }
 
 .btn-literatura-choice {
-    background-color: var(--accent-pink);
+    background-color: var(--primary-pink);
     color: var(--text-dark);
 }
 
@@ -139,8 +259,8 @@ h3 {
 .botao-comecar {
     display: inline-block;
     margin-top: 20px;
-    background: var(--secondary-purple);
-    color: white;
+    background: var(--primary-pink);
+    color: var(--text-dark);
     padding: 12px 25px;
     border-radius: 12px;
     text-decoration: none;
@@ -155,6 +275,7 @@ h3 {
 
 .botao-comecar.sair {
     background: var(--primary-blue);
+    color: white;
 }
 
 /* ===== GRID INICIAL ===== */
@@ -177,7 +298,7 @@ summary {
     padding: 15px;
     font-weight: 600;
     cursor: pointer;
-    background: var(--secondary-purple);
+    background: var(--primary-blue);
     color: white;
 }
 
@@ -209,7 +330,7 @@ details p {
 .tooltip-text {
     visibility: hidden;
     opacity: 0;
-    background: var(--accent-pink);
+    background: var(--secondary-pink);
     padding: 12px;
     border-radius: 10px;
     position: absolute;
@@ -247,7 +368,7 @@ details p {
 }
 
 .mensagem-fixa {
-    background-color: var(--secondary-purple);
+    background-color: var(--soft-purple);
     color: var(--text-dark);
     text-align: center;
     border-radius: 10px;
@@ -287,7 +408,7 @@ details p {
 .form input {
     padding: 20px;
     border-radius: 10px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--gray-light);
 }
 
 .form input:focus {
@@ -296,7 +417,7 @@ details p {
 
 /* ===== USUÁRIO ===== */
 .cabecalho-usuario {
-    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-purple));
+    background: var(--primary-blue);
     color: white;
     padding: 20px;
     text-align: center;
@@ -339,7 +460,7 @@ details p {
 .barra-progresso {
     width: 100%;
     height: 12px;
-    background: #eee;
+    background: var(--gray-light);
     border-radius: 10px;
     margin-top: 15px;
     overflow: hidden;
@@ -353,7 +474,7 @@ details p {
 
 /* ===== FOOTER ===== */
 footer {
-    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-purple));
+    background: var(--primary-blue);
     color: white;
     margin-top: auto;
     padding: 20px 0;
@@ -364,21 +485,35 @@ footer {
     margin: auto;
     padding: 0 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; 
     align-items: center;
+    gap: 30px; 
+    text-align: center;
+    flex-wrap: wrap; 
 }
-
-.footer-content a {
-    color: white;
-    text-decoration: none;
-}
-
-.footer-content a:hover {
-    text-decoration: underline;
-}
-
 /* ===== RESPONSIVO ===== */
 @media (max-width: 768px) {
+    .cabecalho-usuario {
+        padding-top: 86px;
+    }
+
+    .header-auth-area {
+        right: 16px;
+        top: 16px;
+        transform: none;
+    }
+
+    .header-login-btn {
+        max-width: calc(100vw - 32px);
+        min-height: 40px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+
     .conteudo-principal {
         flex-direction: column;
         text-align: center;
@@ -397,8 +532,6 @@ footer {
     }
 }
 
-
-
 .atividade {
     background: white;
     padding: 20px;
@@ -410,11 +543,9 @@ footer {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
 }
 
-
-
 .opcao {
     background: #ffffff;
-    border: 2px solid var(--secondary-purple);
+    border: 2px solid var(--soft-purple);
     padding: 12px;
     border-radius: 15px;
     margin-bottom: 12px;
@@ -424,7 +555,7 @@ footer {
 }
 
 .opcao:hover {
-    background: #faf7ff;
+    background: var(--secondary-blue);
     border-color: var(--primary-blue);
 }
 
@@ -443,34 +574,32 @@ footer {
     font-weight: 800;
     text-align: center;
     transition: 0.2s;
-    box-shadow: 0 4px #4cb854;
+    box-shadow: 0 4px #0fb374;
 }
 
 .botao:hover {
-    background: #58c962;
+    background: #30e09a;
     transform: translateY(2px);
-    box-shadow: 0 2px #4cb854;
+    box-shadow: 0 2px #0fb374;
 }
-
 
 input[type="checkbox"] {
     display: none;
 }
 
-
 .gabarito {
     margin-top: 15px;
     padding: 12px;
     border-radius: 15px;
-    background: var(--accent-pink);
-    border: 2px solid #e0a8b3;
+    background: var(--secondary-pink);
+    border: 2px solid var(--primary-pink);
     display: none;
     color: var(--text-dark);
     font-weight: 700;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
-input[type="checkbox"]:checked~.gabarito {
+input[type="checkbox"]:checked ~ .gabarito {
     display: block;
 }
 
@@ -529,4 +658,53 @@ input[type="checkbox"]:checked~.gabarito {
     text-align: center;
     margin-top: -500px;
     padding-top: 20px;
+}
+
+.imagem-login-container {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.imagem-login {
+    width: 250px;
+    height: auto;
+}
+
+.mapa-mental-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.mapa-mental {
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+}
+
+.avatar-esquerda {
+    height: 90px;
+    position: absolute;
+    left: 30px;
+    top: 0px;
+}
+
+.bnt-pontuacao {
+    background-color: var(--secondary-pink);
+    color: #000;
+    margin: 5px;
+}
+.bnt-periodo_simples {
+    background-color: var(--soft-yellow);
+    color: #000;
+    margin: 5px;
+}
+.bnt-periodo_composto {
+    background-color: var(--mint-green);
+    color: #000;
+    margin: 5px;
+}
+.bnt-classificacao_de_palavras {
+    background-color: var(--soft-purple);
+    color: #000;
+    margin: 5px;
 }

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado: {{ atividade.nome }} | Gramática Online</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+    <header class="cabecalho-usuario">
+        <img src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}" alt="Logo" class="avatar-esquerda">
+        <div class="logo">GRAMÁTICA ONLINE</div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuário</a></li>
+                <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i> Gramática</a></li>
+                <li><a href="{{ url_for('atividades') }}" class="ativo"><i class="fa-solid fa-pen"></i> Atividades</a></li>
+                <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i> Gerenciar Assuntos</a></li>
+                <li><a href="{{ url_for('cadastrar_atividade') }}"><i class="fa-solid fa-cog"></i> Gerenciar Atividades</a></li>
+                <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i> Gerenciar Questões</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="section">
+            <h2><i class="fa-solid fa-chart-simple"></i> Resultado — {{ atividade.nome }}</h2>
+
+            <div class="painel-estudos" style="text-align: center;">
+                <h3>Nota: {{ nota }} / 10</h3>
+                <p>Acertou {{ acertos }} de {{ total }} questões!</p>
+            </div>
+
+            <hr style="border: 1px solid var(--gray-light); margin: 25px 0;">
+
+            <h3><i class="fa-solid fa-list-check"></i> Gabarito</h3>
+
+            {% for item in resultado_questoes %}
+            <div class="atividade" style="width: 100%; max-width: 700px;">
+                <h4>Questão {{ loop.index }}</h4>
+                <p style="margin: 10px 0 15px;">{{ item.questao.enunciado }}</p>
+
+                <label class="opcao">
+                    A) {{ item.questao.alternativa_a }}
+                    {% if item.resposta_correta == 'A' %}
+                    <span style="color: var(--success-green); font-weight: bold; margin-left: 10px;">✅ Correta</span>
+                    {% endif %}
+                    {% if item.resposta_aluno == 'A' and not item.acertou %}
+                    <span style="color: #e74c3c; font-weight: bold; margin-left: 10px;">❌ Sua resposta</span>
+                    {% endif %}
+                </label>
+
+                <label class="opcao">
+                    B) {{ item.questao.alternativa_b }}
+                    {% if item.resposta_correta == 'B' %}
+                    <span style="color: var(--success-green); font-weight: bold; margin-left: 10px;">✅ Correta</span>
+                    {% endif %}
+                    {% if item.resposta_aluno == 'B' and not item.acertou %}
+                    <span style="color: #e74c3c; font-weight: bold; margin-left: 10px;">❌ Sua resposta</span>
+                    {% endif %}
+                </label>
+
+                <label class="opcao">
+                    C) {{ item.questao.alternativa_c }}
+                    {% if item.resposta_correta == 'C' %}
+                    <span style="color: var(--success-green); font-weight: bold; margin-left: 10px;">✅ Correta</span>
+                    {% endif %}
+                    {% if item.resposta_aluno == 'C' and not item.acertou %}
+                    <span style="color: #e74c3c; font-weight: bold; margin-left: 10px;">❌ Sua resposta</span>
+                    {% endif %}
+                </label>
+
+                <label class="opcao">
+                    D) {{ item.questao.alternativa_d }}
+                    {% if item.resposta_correta == 'D' %}
+                    <span style="color: var(--success-green); font-weight: bold; margin-left: 10px;">✅ Correta</span>
+                    {% endif %}
+                    {% if item.resposta_aluno == 'D' and not item.acertou %}
+                    <span style="color: #e74c3c; font-weight: bold; margin-left: 10px;">❌ Sua resposta</span>
+                    {% endif %}
+                </label>
+
+                <label class="opcao">
+                    E) {{ item.questao.alternativa_e }}
+                    {% if item.resposta_correta == 'E' %}
+                    <span style="color: var(--success-green); font-weight: bold; margin-left: 10px;">✅ Correta</span>
+                    {% endif %}
+                    {% if item.resposta_aluno == 'E' and not item.acertou %}
+                    <span style="color: #e74c3c; font-weight: bold; margin-left: 10px;">❌ Sua resposta</span>
+                    {% endif %}
+                </label>
+
+                <div class="gabarito">
+                    {% if item.acertou %}
+                    ✅ Parabéns! Você acertou essa questão.
+                    {% else %}
+                    ❌ A resposta correta é a alternativa <strong>{{ item.resposta_correta }}</strong>. Revise esse assunto!
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="{{ url_for('atividades') }}" class="btn btn-gramatica">
+                    <i class="fa-solid fa-arrow-left"></i> Voltar às Atividades
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Gramática Online | Todos os direitos reservados</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -4,66 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Usuário | Gramática Online</title>
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v=4) }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
-
 <body>
 
     <header class="cabecalho-usuario">
-
-        <img
-            src="{{ url_for('static', filename='IMG/1000155839.png') }}"
-            alt="Mascote Kael"
-            class="avatar-kael">
-
+        {% set usuario_logado = session.get("usuario_suap") %}
+        <div class="header-auth-area">
+            <details class="user-menu">
+                <summary aria-label="Abrir menu do usuário">
+                    {% if usuario_logado and usuario_logado.foto %}
+                        <img src="{{ usuario_logado.foto }}" alt="Foto do usuário" class="user-photo">
+                    {% else %}
+                        <span class="user-photo user-photo-placeholder">
+                            <i class="fa-regular fa-circle-user"></i>
+                        </span>
+                    {% endif %}
+                </summary>
+                <div class="user-menu-dropdown">
+                    <a href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+                </div>
+            </details>
+        </div>
+    
         <h1>Bem-vindo(a), estudante!</h1>
-
         <nav>
-
             <ul>
-
-                <li>
-                    <a href="{{ url_for('usuario') }}">
-                        <i class="fa-regular fa-circle-user"></i>Usuário
-                    </a>
-                </li> 
-
-                <li>
-                    <a href="{{ url_for('gramatica') }}">
-                        <i class="fa-solid fa-book"></i>Gramática
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ url_for('atividades') }}">
-                        <i class="fa-solid fa-pen"></i>Atividades
-                    </a>
-                </li>
-
+                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuário</a></li>
+                <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i> Gramática</a></li>
+                <li><a href="{{ url_for('atividades') }}" class="ativo"><i class="fa-solid fa-pen"></i> Atividades</a></li>
+                <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i> Gerenciar Assuntos</a></li>
+                <li><a href="{{ url_for('cadastrar_atividade') }}"><i class="fa-solid fa-cog"></i> Gerenciar Atividades</a></li>
+                <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i> Gerenciar Questões</a></li>
             </ul>
-
         </nav>
-
     </header>
     
     <main class="conteudo-usuario">
-
         <section class="painel-estudos">
-
             <h2>ÁREA DE ESTUDOS</h2>
 
             <p>
                 No Gramática Online, você vai estudar conteúdos de
-                <strong>Sintaxe</strong> e praticar com nossas
-                <strong>Atividades</strong>.
+                <strong>Pontuação</strong>, <strong>Periodo Simples</strong>,<br>
+                <strong>Periodo Composto</strong> e <strong>Classificação de Palavras</strong> e praticar com nossas <br>
+                <strong>Atividades</strong>. Você tambem poderar acessar os conteudos extras de <strong>Sintaxe</strong>,<br>
+                que foram produzidos pelas criadoras do site e praticar com <strong>Atividades</strong>.<br>
             </p>
 
             <div class="lista-sintaxe">
 
-                <h3>Conteúdos de Sintaxe:</h3>
+                <h3>Conteúdos Extras de Sintaxe:</h3>
 
                 <ul>
 
@@ -127,21 +119,14 @@
                         (Como todos esses termos se relacionam
                         na estrutura da oração)
                     </li>
-
                 </ul>
-
             </div>
 
             <a href="{{ url_for('escolha') }}" class="botao-comecar">
-
                 <i class="fa-solid fa-file-lines"></i> Começar agora
-
             </a>
-
         </section>
-
         <section class="painel-progresso">
-
             <h2>RESUMO DO PROGRESSO</h2>
 
             <p>
@@ -152,54 +137,28 @@
             <div class="barra-progresso">
                 <div class="progresso"></div>
             </div>
-
         </section>
-
         <section class="configuracoes">
-
             <h2>CONFIGURAÇÕES</h2>
 
             <form class="form">
-
                 <input type="text" placeholder="Novo nome de usuário">
-
                 <input type="password" placeholder="Nova senha">
-
                 <button type="submit" class="botao-comecar">
-
                     <i class="fa-solid fa-check"></i> Salvar alterações
-
                 </button>
-
             </form>
-        
             <div class="acoes-conta">
-
                 <a href="{{ url_for('index') }}" class="botao-comecar sair">
-
                     <i class="fa-solid fa-arrow-left"></i> Sair da Conta
-
                 </a>
-
             </div>
-
         </section>
-
     </main>
-
     <footer>
-
         <div class="footer-content">
-
             <p>&copy; 2025 Gramatica Online</p>
-
-            <nav>
-                <a href="#politica">Política de Privacidade</a>
-            </nav>
-
         </div>
-
     </footer>
-
 </body>
 </html>

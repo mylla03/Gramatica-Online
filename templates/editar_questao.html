@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Questão</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .form-container {
+            max-width: 700px;
+            margin: 30px auto;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        .campo {
+            margin-bottom: 15px;
+        }
+        .campo label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .campo input, .campo textarea, .campo select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        .botoes {
+            margin-top: 20px;
+        }
+        .btn-salvar {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .btn-cancelar {
+            background: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Editar Questão</h2>
+        <form method="POST">
+            <div class="campo">
+                <label>Atividade:</label>
+                <select name="atividade_id" required>
+                    {% for ativ in atividades %}
+                    <option value="{{ ativ.id }}" {% if ativ.id == questao.atividade_id %}selected{% endif %}>
+                        {{ ativ.nome }} ({{ ativ.assunto.nome }})
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="campo">
+                <label>Enunciado:</label>
+                <textarea name="enunciado" rows="4" required>{{ questao.enunciado }}</textarea>
+            </div>
+
+            <div class="campo">
+                <label>Alternativa A:</label>
+                <input type="text" name="alternativa_a" value="{{ questao.alternativa_a }}" required>
+            </div>
+
+            <div class="campo">
+                <label>Alternativa B:</label>
+                <input type="text" name="alternativa_b" value="{{ questao.alternativa_b }}" required>
+            </div>
+
+            <div class="campo">
+                <label>Alternativa C:</label>
+                <input type="text" name="alternativa_c" value="{{ questao.alternativa_c }}" required>
+            </div>
+
+            <div class="campo">
+                <label>Alternativa D:</label>
+                <input type="text" name="alternativa_d" value="{{ questao.alternativa_d }}" required>
+            </div>
+
+            <div class="campo">
+                <label>Alternativa E:</label>
+                <input type="text" name="alternativa_e" value="{{ questao.alternativa_e }}" required>
+            </div>
+
+            <div class="campo">
+                <label>Resposta correta:</label>
+                <select name="resposta_correta" required>
+                    <option value="A" {% if questao.resposta_correta == 'A' %}selected{% endif %}>A</option>
+                    <option value="B" {% if questao.resposta_correta == 'B' %}selected{% endif %}>B</option>
+                    <option value="C" {% if questao.resposta_correta == 'C' %}selected{% endif %}>C</option>
+                    <option value="D" {% if questao.resposta_correta == 'D' %}selected{% endif %}>D</option>
+                    <option value="E" {% if questao.resposta_correta == 'E' %}selected{% endif %}>E</option>
+                </select>
+            </div>
+
+            <div class="botoes">
+                <button type="submit" class="btn-salvar">Salvar Alterações</button>
+                <a href="{{ url_for('listar_questoes') }}" class="btn-cancelar">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

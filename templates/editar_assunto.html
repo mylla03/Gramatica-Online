@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Assunto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <main class="container" style="max-width: 700px; margin: auto;">
+        <h2>Editar Assunto</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <div style="margin: 15px 0;">
+                <label>Nome do assunto:</label><br>
+                <input type="text" name="nome" value="{{ assunto.nome }}" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+            <div style="margin: 15px 0;">
+                <label>Texto explicativo:</label><br>
+                <textarea name="conteudo" rows="8" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">{{ assunto.conteudo or '' }}</textarea>
+            </div>
+            <div style="margin: 15px 0;">
+                <label>Alterar Imagem / Mapa Mental:</label><br>
+                {% if assunto.imagem %}<p style="font-size: 13px; color: #666;">Já existe uma imagem. Se quiser trocar, envie outra.</p>{% endif %}
+                <input type="file" name="imagem" accept=".png,.jpg,.jpeg">
+            </div>
+            <div style="margin: 15px 0;">
+                <label>Alterar Arquivo PDF:</label><br>
+                {% if assunto.arquivo_pdf %}<p style="font-size: 13px; color: #666;">Já existe um PDF. Se quiser trocar, envie outro.</p>{% endif %}
+                <input type="file" name="arquivo_pdf" accept=".pdf">
+            </div>
+            <button type="submit" style="background: #f39c12; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Atualizar</button>
+            <a href="{{ url_for('gramatica') }}" style="margin-left: 10px; color: #666;">Cancelar</a>
+        </form>
+    </main>
+</body>
+</html>

@@ -4,85 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Login | Gramática Online</title>
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-
 <body>
 
-    <header>
+    <header class="cabecalho-usuario">
+        <img
+            src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}"
+            alt="Logo"
+            class="avatar-esquerda">
         <div class="logo">GRAMÁTICA ONLINE</div>
     </header>
 
     <main class="container">
-
         <section id="inicio" class="section">
+            {% with mensagens = get_flashed_messages() %}
+                {% if mensagens %}
+                    <div class="flash-messages">
+                        {% for mensagem in mensagens %}
+                            <p>{{ mensagem }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
 
-            <div class="conteudo-principal"></div>
-
-            <form class="form" id="loginForm">
-
-                <input type="text" name="nome" id="nome" placeholder="Nome" required>
-
-                <input type="email" name="email" id="email" placeholder="E-mail" required>
-
-                <input type="password" name="senha" id="senha" placeholder="Senha" required>
-                
-                <button type="submit" class="btn">Entrar</button>
-
-            </form>
-
-            <div style="text-align: center; margin-top: 10px;">
-
-                <a href="{{ url_for('usuario') }}" class="btn">
-                    Entrar sem login
-                </a>
-
+            <div class="imagem-login-container">
+                <img src="{{ url_for('static', filename='img/file_00000000234071f78708617664798a96-removebg-preview.png') }}"
+                     alt="Imagem de Login"
+                     class="imagem-login">
             </div>
 
+            <a href="{{ url_for('auth_suap') }}" class="btn">Entrar com SUAP</a>
         </section>
-
     </main>
 
     <footer>
-
         <div class="footer-content">
-
             <p>&copy; 2025 Gramática Online</p>
-
-            <nav>
-                <a href="#politica">Política de Privacidade</a>
-            </nav>
-
         </div>
-
     </footer>
-
-    <script>
-
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-
-            let nome = document.getElementById("nome").value;
-            let email = document.getElementById("email").value;
-            let senha = document.getElementById("senha").value;
-
-            if (nome === "" || email === "" || senha === "") {
-
-                event.preventDefault();
-
-                alert("Por favor, preencha todos os campos antes de entrar.");
-
-            } else {
-
-                event.preventDefault();
-
-                window.location.href = "{{ url_for('usuario') }}";
-
-            }
-
-        });
-
-    </script>
 
 </body>
 </html>

@@ -4,24 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Início | Gramática Online</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v=4) }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 <body>
 
-    <header>
+    <header class="cabecalho-usuario home-header">
+        {% set usuario_logado = session.get("usuario_suap") %}
+        <div class="header-auth-area">
+            {% if usuario_logado %}
+                <details class="user-menu">
+                    <summary aria-label="Abrir menu do usuário">
+                        {% if usuario_logado.foto %}
+                            <img src="{{ usuario_logado.foto }}" alt="Foto do usuário" class="user-photo">
+                        {% else %}
+                            <span class="user-photo user-photo-placeholder">
+                                <i class="fa-regular fa-circle-user"></i>
+                            </span>
+                        {% endif %}
+                    </summary>
+                    <div class="user-menu-dropdown">
+                        <a href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+                    </div>
+                </details>
+            {% else %}
+                <a href="{{ url_for('auth_suap') }}" class="header-login-btn">
+                    <i class="fa-solid fa-right-to-bracket"></i> Entrar com SUAP
+                </a>
+            {% endif %}
+        </div>
         <div class="logo">GRAMÁTICA ONLINE</div>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i>Usuario</a></li> 
-                <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i>Gramática</a></li>
-                <li><a href="{{ url_for('atividades') }}"><i class="fa-solid fa-pen"></i>Atividades</a></li>
-            </ul>
-        </nav>
     </header>
 
     <main class="container">
         <section id="inicio" class="section">
+            {% with mensagens = get_flashed_messages() %}
+                {% if mensagens %}
+                    <div class="flash-messages">
+                        {% for mensagem in mensagens %}
+                            <p>{{ mensagem }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
             <h2>Bem-vindo(a)! Gramática Online</h2>
             
             <div class="conteudo-principal">
@@ -32,7 +58,7 @@
                         Esperamos que lhe ajude a estudar.</p>
                     
                     <br><br>
-                    <a href="/login" class="btn">INICIE AGORA</a>
+                    <a href="{{ url_for('usuario' if usuario_logado else 'auth_suap') }}" class="btn">INICIE AGORA</a>
                 </div>
 
                 <div class="tooltip-container">
@@ -46,9 +72,6 @@
         <footer>
             <div class="footer-content">
             <p>&copy; 2025 Gramatica Online </p>
-            <nav>
-                <a href="#politica">Política de Privacidade</a>
-            </nav>
             </div>
         </footer>
 </body>
