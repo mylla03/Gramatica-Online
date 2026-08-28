@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ assunto.nome }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+{% extends "base.html" %}
+
+{% block conteudo %}
     <style>
         .conteudo {
             background: #fff;
@@ -31,18 +26,7 @@
             border-radius: 6px;
         }
     </style>
-</head>
-<body>
-    <header class="cabecalho-usuario">
-        <div class="logo">GRAMÁTICA ONLINE</div>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-arrow-left"></i> Voltar</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main class="container">
         <h2 style="color: #2c3e50; border-bottom: 2px solid #27ae60; padding-bottom: 10px;">{{ assunto.nome }}</h2>
 
         <div class="conteudo">
@@ -68,10 +52,4 @@
             </div>
             {% endif %}
         </div>
-    </main>
-
-    <footer>
-        <p>&copy; 2026 Gramática Online</p>
-    </footer>
-</body>
-</html>
+{% endblock %}

@@ -1,22 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Login | Gramática Online</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
 
-    <header class="cabecalho-usuario">
-        <img
-            src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}"
-            alt="Logo"
-            class="avatar-esquerda">
-        <div class="logo">GRAMÁTICA ONLINE</div>
-    </header>
-
-    <main class="container">
+{% block conteudo %}
         <section id="inicio" class="section">
             {% with mensagens = get_flashed_messages() %}
                 {% if mensagens %}
@@ -36,13 +20,4 @@
 
             <a href="{{ url_for('auth_suap') }}" class="btn">Entrar com SUAP</a>
         </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Gramática Online</p>
-        </div>
-    </footer>
-
-</body>
-</html>
+{% endblock %}

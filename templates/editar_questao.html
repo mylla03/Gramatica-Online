@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Questão</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% extends "base.html" %}
+
+{% block conteudo %}
     <style>
         .form-container {
             max-width: 700px;
@@ -49,8 +45,6 @@
             text-decoration: none;
         }
     </style>
-</head>
-<body>
     <div class="form-container">
         <h2>Editar Questão</h2>
         <form method="POST">
@@ -112,5 +106,4 @@
             </div>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}

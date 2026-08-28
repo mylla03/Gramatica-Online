@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Usuário | Gramática Online</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v=4) }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+    <header class="cabecalho-usuario">
+        <img src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}" alt="Logo" class="avatar-esquerda">
+        {% set usuario_logado = session.get("usuario_suap") %}
+        <div class="header-auth-area">
+            <details class="user-menu">
+                <summary aria-label="Abrir menu do usuário">
+                    {% if usuario_logado and usuario_logado.foto %}
+                        <img src="{{ usuario_logado.foto }}" alt="Foto do usuário" class="user-photo">
+                    {% else %}
+                        <span class="user-photo user-photo-placeholder">
+                            <i class="fa-regular fa-circle-user"></i>
+                        </span>
+                    {% endif %}
+                </summary>
+                <div class="user-menu-dropdown">
+                    <a href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+                </div>
+            </details>
+        </div>
+    
+        <!-- <h1>Bem-vindo(a), estudante!</h1> -->
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuário</a></li>
+                <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i> Gramática</a></li>
+                <li><a href="{{ url_for('atividades') }}"><i class="fa-solid fa-pen"></i> Exercícios</a></li>
+                {# {% if usuario_logado.tipo_vinculo == 'Servidor (Docente)' %} #}
+                    <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i>Assuntos</a></li>
+                    <li><a href="{{ url_for('listar_atividades') }}"><i class="fa-solid fa-cog"></i> Atividades</a></li>
+                    <li><a href="{{ url_for('listar_questoes') }}"><i class="fa-solid fa-cog"></i>Questões</a></li>
+                {# {% endif %} #}
+            </ul>
+        </nav>
+    </header>
+    
+    <main class="conteudo-usuario">
+        {% block conteudo %}
+        {% endblock %}
+    </main>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Gramatica Online</p>
+        </div>
+    </footer>
+</body>
+</html>
