@@ -66,9 +66,7 @@ with app.app_context():
 def arquivo_permitido(nome):
     return '.' in nome and nome.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# ======================================
 # ROTAS PRINCIPAIS
-# ======================================
 @app.route("/")
 def index(): return render_template("index.html")
 @app.route("/login")
@@ -84,10 +82,10 @@ def gramatica():
         assuntos = Assunto.query.all()
         return render_template("gramatica.html", assuntos=assuntos)
     except Exception as e:
-        print("ERRO GRAMÁTICA:", str(e))  # ✅ Olha aqui no TERMINAL!
+        print("ERRO GRAMÁTICA:", str(e))
         flash("Erro ao carregar assuntos.")
         return render_template("gramatica.html", assuntos=[])
-    
+
 @app.route("/atividades")
 def atividades():
     try:
@@ -98,24 +96,19 @@ def atividades():
         flash("Erro ao carregar atividades.")
         return render_template("atividades.html", atividades=[])
 
-# ======================================
-# ✅ ROTA listar_atividades — CORRIGIDA
-# ======================================
+# ROTA listar_atividades
 @app.route('/listar_atividades')
 def listar_atividades():
     try:
         atividades = Atividade.query.all()
         assuntos = Assunto.query.all()
-        # ✅ AQUI ERA O ERRO: agora carrega listar_atividades.html
         return render_template("listar_atividades.html", atividades=atividades, assuntos=assuntos)
     except Exception as e:
         print("ERRO LISTAR ATIVIDADES:", str(e))
         flash("Erro ao carregar atividades.")
         return redirect(url_for('atividades'))
 
-# ======================================
 # GERENCIAR ASSUNTOS
-# ======================================
 @app.route('/listar_assuntos')
 def listar_assuntos():
     try:
@@ -178,9 +171,7 @@ def apagar_assunto(id):
     flash("Assunto removido!")
     return redirect(url_for('listar_assuntos'))
 
-# ======================================
 # CADASTRO E EDIÇÃO DE ATIVIDADES
-# ======================================
 @app.route('/cadastrar_atividade', methods=['GET', 'POST'])
 def cadastrar_atividade():
     assuntos = Assunto.query.all()
@@ -252,9 +243,7 @@ def apagar_atividade(id):
     flash("Atividade removida!")
     return redirect(url_for('listar_atividades'))
 
-# ======================================
 # ROTA NOVA QUESTÃO
-# ======================================
 @app.route('/nova_questao', methods=['GET', 'POST'])
 def nova_questao():
     if request.method == 'POST':
@@ -284,9 +273,7 @@ def nova_questao():
     atividades = Atividade.query.all()
     return render_template("nova_questao.html", atividades=atividades)
 
-# ======================================
 # GERENCIAR QUESTÕES
-# ======================================
 @app.route('/listar_questoes', methods=['GET', 'POST'])
 def listar_questoes():
     if request.method == 'POST':
@@ -341,9 +328,7 @@ def apagar_questao(id):
     flash("Questão removida!")
     return redirect(url_for('listar_questoes'))
 
-# ======================================
-# ROTAS DA PÁGINA GRAMÁTICA (sem att_)
-# ======================================
+# ROTAS DA PÁGINA GRAMÁTICA
 @app.route("/pontuacao")
 def pontuacao(): return render_template("pontuacao.html")
 
@@ -353,9 +338,7 @@ def periodo_simples_e_composto(): return render_template("periodo_simples_e_comp
 @app.route("/classificacao_de_palavras")
 def classificacao_de_palavras(): return render_template("classificacao_de_palavras.html")
 
-# ======================================
-# ROTAS DA PÁGINA ATIVIDADES (com att_)
-# ======================================
+# ROTAS DA PÁGINA ATIVIDADES
 @app.route("/att_pontuacao")
 def att_pontuacao(): return render_template("att_pontuacao.html")
 
@@ -368,9 +351,8 @@ def att_periodo_composto(): return render_template("att_periodo_composto.html")
 @app.route("/att_classificacao_de_palavras")
 def att_classificacao_de_palavras(): return render_template("att_classificacao_de_palavras.html")
 
-# ======================================
-# ROTAS DAS ATIVIDADES
-# ======================================
+
+# ROTAS DAS ATIVIDADES DE SINTAXE
 @app.route("/atividade1")
 def atividade1(): return render_template("atividade1.html")
 @app.route("/atividade2")
@@ -390,9 +372,7 @@ def atividade8(): return render_template("atividade8.html")
 @app.route("/atividade9")
 def atividade9(): return render_template("atividade9.html")
 
-# ======================================
-# ROTAS DE DETALHES
-# ======================================
+# ROTAS DOS CONTEUDOS DE SINTAXE
 @app.route("/sujeito_detalhe")
 def sujeito_detalhe(): return render_template("sujeito_detalhe.html")
 @app.route("/predicado_detalhe")
@@ -412,9 +392,7 @@ def adjunto_adverbial_detalhe(): return render_template("adjunto_adverbial_detal
 @app.route("/revisao_geral_detalhe")
 def revisao_geral_detalhe(): return render_template("revisao_geral_detalhe.html")
 
-# ======================================
 # ROTAS DE LOGIN SUAP
-# ======================================
 @app.route("/auth/suap")
 def auth_suap():
     redirect_uri = url_for("auth_suap_callback", _external=True)
@@ -454,8 +432,6 @@ def logout():
     session.clear()
     return redirect(url_for("index"))
 
-# ======================================
 # EXECUÇÃO
-# ======================================
 if __name__ == "__main__":
     app.run(debug=True)
