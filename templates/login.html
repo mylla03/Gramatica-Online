@@ -12,6 +12,17 @@
                 {% endif %}
             {% endwith %}
 
+    <main class="container">
+        <section id="inicio" class="section">
+            {% with mensagens = get_flashed_messages() %}
+                {% if mensagens %}
+                    <div class="flash-messages">
+                        {% for mensagem in mensagens %}
+                            <p>{{ mensagem }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
             <div class="imagem-login-container">
                 <img src="{{ url_for('static', filename='img/file_00000000234071f78708617664798a96-removebg-preview.png') }}"
                      alt="Imagem de Login"
