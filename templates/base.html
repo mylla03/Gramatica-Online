@@ -9,7 +9,9 @@
 </head>
 <body>
     <header class="cabecalho-usuario">
-        <img src="{{ url_for('static', filename='img/file_00000000745471f5b81bd5df81c66141-removebg-preview.png') }}" alt="Logo" class="avatar-esquerda">
+        <a href="{{url_for('index')}}">
+            <img src="{{ url_for('static', filename='img/nova_logo.png') }}" alt="Logo" class="avatar-esquerda">
+        </a>
         {% set usuario_logado = session.get("usuario_suap") %}
         <div class="header-auth-area">
             <details class="user-menu">

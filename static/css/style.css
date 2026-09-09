@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Basier Square';
+  src: url('../fonts/basiersquare-regular.otf') format('opentype');
+}
+
+
 :root {
     --primary-blue: #0095DB;
     --secondary-blue: #D5F7FF;
@@ -23,13 +29,18 @@
 
 /* ===== BODY ===== */
 body {
-    font-family: 'Poppins', 'Nunito', sans-serif;
+    /* font-family: 'Poppins', 'Nunito', sans-serif; */
+    font-family: 'Basier Square';
+    font-weight: 400;
+    font-size: 1.0em;
+    line-height: 1.5em;
+    letter-spacing: 0.75px;
     background-color: var(--bg-light);
-    color: var(--text-dark);
-    line-height: 1.6;
+    /* color: var(--text-dark); */ */
+    /* line-height: 1.6;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; */
 }
 
 main {
@@ -70,7 +81,7 @@ header {
     width: auto;
     position: static;
     flex-shrink: 0;
-    margin-right: 30px;
+    /* margin-right: 30px; */
 }
 
 /* ✅ Menu de Navegação — no CENTRO */
@@ -97,7 +108,7 @@ header {
     padding: 8px 12px;
     border-radius: 8px;
     transition: 0.3s;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
 }
 
 .cabecalho-usuario nav a:hover,
@@ -286,6 +297,11 @@ h3 {
 .btn-gramatica {
     background-color: var(--soft-purple);
     color: var(--text-dark);
+}
+
+.btn-salvar {
+    background-color: #00BA88;
+    font-size: 1.0em;
 }
 
 .btn-atividades {

@@ -68,7 +68,11 @@ def arquivo_permitido(nome):
 
 # ROTAS PRINCIPAIS
 @app.route("/")
-def index(): return render_template("index.html")
+def index(): 
+    if "usuario_suap" in session:
+        return redirect(url_for("usuario"))
+    else:
+        return render_template("index.html")
 @app.route("/login")
 def login(): return redirect(url_for("auth_suap"))
 @app.route("/usuario")
