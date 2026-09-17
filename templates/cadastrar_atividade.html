@@ -1,10 +1,7 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
-
         <section class="section">
             <h2><i class="fa-solid fa-plus-circle"></i> Cadastrar Nova Atividade</h2>
-
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     {% for msg in messages %}
@@ -14,29 +11,30 @@
                     {% endfor %}
                 {% endif %}
             {% endwith %}
-
             <hr>
-
             <form method="POST" class="form">
                 <label>Nome da Atividade:</label>
-                <input type="text" name="nome" placeholder="Ex: Exercícios de Sujeito" required>
-
+                <input type="text" name="nome" placeholder="Ex: Exercícios de Sujeito" required
+                       style="font-size: 18px; padding: 12px;">
+                
                 <label>Nível de Dificuldade:</label>
-                <select name="dificuldade" required>
+                <select name="dificuldade" required
+                        style="font-size: 18px; padding: 12px;">
                     <option value="Fácil">Fácil</option>
                     <option value="Médio">Médio</option>
                     <option value="Difícil">Difícil</option>
                 </select>
-
+                
                 <label>Assunto Relacionado:</label>
-                <select name="assunto_id" required>
+                <select name="assunto_id" required
+                        style="font-size: 18px; padding: 12px;">
                     <option value="">Selecione um assunto</option>
                     {% for assunto in assuntos %}
                     <option value="{{ assunto.id }}">{{ assunto.nome }}</option>
                     {% endfor %}
                 </select>
-
-                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
                     <button type="submit" class="btn btn-salvar">
                         <i class="fa-solid fa-save"></i> Cadastrar
                     </button>

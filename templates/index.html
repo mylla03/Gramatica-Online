@@ -32,8 +32,10 @@
                     <i class="fa-solid fa-right-to-bracket"></i> Entrar com SUAP
                 </a>
             {% endif %}
-        </div>
-        <div class="logo">GRAMÁTICA ONLINE</div>
+            </div>
+        <a href="{{url_for('index')}}">
+            <img src="{{ url_for('static', filename='img/nova_logo.png') }}" alt="Logo" class="avatar-esquerda">
+        </a>
     </header>
 
     <main class="container">

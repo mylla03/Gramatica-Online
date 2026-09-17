@@ -9,10 +9,12 @@
     --secondary-blue: #D5F7FF;
     --primary-pink: #FFAFCC;
     --secondary-pink: #FFECF4;
+    --pink: #FF477E;
     --mint-green: #DFFCF4;
     --success-green: #00966D;
     --soft-purple: #DDD0F8;
     --soft-yellow: #FFF0D4;
+    --yellow: #F4B740;
     --bg-light: #FAFAFA;
     --gray-light: #EDEDED;
     --gray-medium: #D6D8E7;
@@ -20,14 +22,12 @@
     --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.05);
 }
 
-/* ===== RESET ===== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* ===== BODY ===== */
 body {
     /* font-family: 'Poppins', 'Nunito', sans-serif; */
     font-family: 'Basier Square';
@@ -47,7 +47,6 @@ main {
     flex: 1;
 }
 
-/* ===== HEADER PADRÃO ===== */
 header {
     background: var(--primary-blue);
     color: white;
@@ -64,7 +63,6 @@ header {
     font-weight: 800;
 }
 
-/* ===== CABEÇALHO USUÁRIO — ✅ Logo Esquerda | Menu Centro | Foto Direita ===== */
 .cabecalho-usuario {
     background: var(--primary-blue);
     color: white;
@@ -75,16 +73,14 @@ header {
     min-height: 90px;
 }
 
-/* ✅ Logo — continua à ESQUERDA no mesmo lugar */
 .avatar-esquerda {
-    height: 60px;
+    height: 90px;
     width: auto;
     position: static;
     flex-shrink: 0;
     /* margin-right: 30px; */
 }
 
-/* ✅ Menu de Navegação — no CENTRO */
 .cabecalho-usuario nav {
     flex: 1;
     display: flex;
@@ -116,7 +112,6 @@ header {
     background: rgba(255,255,255,0.2);
 }
 
-/* ✅ Menu do Usuário — bem no CANTO DIREITO (igual antes, mas alinhado) */
 .header-auth-area {
     position: absolute;
     right: 24px;
@@ -143,7 +138,6 @@ header {
     font-size: 1.9rem;
 }
 
-/* ===== RESTO DO CSS — TUDO EXATAMENTE COMO ESTAVA ===== */
 .header-login-btn {
     display: inline-flex;
     align-items: center;
@@ -272,7 +266,7 @@ h2 {
 }
 
 h3 {
-    color: var(--soft-purple);
+    color: var(--pink);
     margin-bottom: 10px;
 }
 
@@ -305,7 +299,8 @@ h3 {
 }
 
 .btn-atividades {
-    background-color: var(--primary-blue);
+    background-color: var(--primary-pink);
+    color: var(--text-dark);
 }
 
 .btn-literatura-choice {
@@ -402,17 +397,7 @@ details p {
     opacity: 1;
 }
 
-.imagem-escolha {
-    display: block;
-    margin: 0 auto;
-    max-width: 180px;
-    height: auto;
-}
 
-.imagem-escolha {
-    max-width: 50%;
-    margin: 20px 0;
-}
 
 .imagem-escolha-container {
     text-align: center;
@@ -420,21 +405,38 @@ details p {
     padding-top: 20px;
 }
 
+.imagem-escolha {
+    display: block;
+    margin: 0 auto;
+    margin-left: 70px; 
+    max-width: 180px;
+    max-width: 50%;
+    height: auto;
+}
+
 .mensagem-fixa {
-    background-color: var(--soft-purple);
+    background-color: var(--secondary-pink);
     color: var(--text-dark);
     text-align: center;
     border-radius: 10px;
-    position: absolute;
+    position: relative; 
     padding: 10px 15px;
-    z-index: 1;
-    bottom: 100px;
-    left: 55%;
-    transform: translateX(-50%);
+    top: -260px; 
+    left: 65%; 
+    transform: translateX(-50%); 
     width: 200px;
     font-size: 0.9em;
     font-weight: 600;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: none;
+    pointer-events: none;
+    z-index: 10; 
+}
+
+.mensagem-fixa:hover {
+    transform: translateX(-50%);
+    top: 220px;
+    left: 55%;
 }
 
 .form {
@@ -673,13 +675,13 @@ input[type="checkbox"]:checked ~ .gabarito {
 }
 
 .bnt-periodo_composto {
-    background-color: var(--mint-green);
+    background-color: var(--soft-yellow);
     color: #000;
     margin: 5px;
 }
 
 .bnt-classificacao_de_palavras {
-    background-color: var(--soft-purple);
+    background-color: #DFFCF4;
     color: #000;
     margin: 5px;
 }
@@ -693,7 +695,6 @@ input[type="checkbox"]:checked ~ .gabarito {
     top: 20px;
 }
 
-/* ===== RESPONSIVO ===== */
 @media (max-width: 768px) {
     .cabecalho-usuario {
         flex-wrap: wrap;
@@ -728,7 +729,7 @@ input[type="checkbox"]:checked ~ .gabarito {
     }
 
     .mensagem-fixa {
-        left: 50%;
+        left: 60%;
         right: auto;
         bottom: 10px;
         font-size: 0.9em;
@@ -753,4 +754,14 @@ input[type="checkbox"]:checked ~ .gabarito {
         margin: 10px auto;
         display: block;
     }
+}
+
+.btn-detalheatt {
+    background-color: var(--primary-pink); 
+    color: var(--text-dark);
+}
+
+.btn-detalhe-gramatica {
+    background-color: var(--soft-purple); 
+    color: var(--text-dark);
 }
