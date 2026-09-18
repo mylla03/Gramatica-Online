@@ -289,7 +289,7 @@ h3 {
 }
 
 .btn-gramatica {
-    background-color: var(--soft-purple);
+    background-color: var(--primary-pink);
     color: var(--text-dark);
 }
 
@@ -756,12 +756,3 @@ input[type="checkbox"]:checked ~ .gabarito {
     }
 }
 
-.btn-detalheatt {
-    background-color: var(--primary-pink); 
-    color: var(--text-dark);
-}
-
-.btn-detalhe-gramatica {
-    background-color: var(--soft-purple); 
-    color: var(--text-dark);
-}
