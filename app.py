@@ -66,7 +66,6 @@ with app.app_context():
 def arquivo_permitido(nome):
     return '.' in nome and nome.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# ROTAS PRINCIPAIS
 @app.route("/")
 def index(): 
     if "usuario_suap" in session:
@@ -100,7 +99,6 @@ def atividades():
         flash("Erro ao carregar atividades.")
         return render_template("atividades.html", atividades=[])
 
-# ROTA listar_atividades
 @app.route('/listar_atividades')
 def listar_atividades():
     try:
@@ -112,7 +110,6 @@ def listar_atividades():
         flash("Erro ao carregar atividades.")
         return redirect(url_for('atividades'))
 
-# GERENCIAR ASSUNTOS
 @app.route('/listar_assuntos')
 def listar_assuntos():
     try:
@@ -175,7 +172,6 @@ def apagar_assunto(id):
     flash("Assunto removido!")
     return redirect(url_for('listar_assuntos'))
 
-# CADASTRO E EDIÇÃO DE ATIVIDADES
 @app.route('/cadastrar_atividade', methods=['GET', 'POST'])
 def cadastrar_atividade():
     assuntos = Assunto.query.all()
@@ -247,7 +243,6 @@ def apagar_atividade(id):
     flash("Atividade removida!")
     return redirect(url_for('listar_atividades'))
 
-# ROTA NOVA QUESTÃO
 @app.route('/nova_questao', methods=['GET', 'POST'])
 def nova_questao():
     if request.method == 'POST':
@@ -277,7 +272,6 @@ def nova_questao():
     atividades = Atividade.query.all()
     return render_template("nova_questao.html", atividades=atividades)
 
-# GERENCIAR QUESTÕES
 @app.route('/listar_questoes', methods=['GET', 'POST'])
 def listar_questoes():
     if request.method == 'POST':
@@ -332,7 +326,6 @@ def apagar_questao(id):
     flash("Questão removida!")
     return redirect(url_for('listar_questoes'))
 
-# ROTAS DA PÁGINA GRAMÁTICA
 @app.route("/pontuacao")
 def pontuacao(): return render_template("pontuacao.html")
 
@@ -342,7 +335,6 @@ def periodo_simples_e_composto(): return render_template("periodo_simples_e_comp
 @app.route("/classificacao_de_palavras")
 def classificacao_de_palavras(): return render_template("classificacao_de_palavras.html")
 
-# ROTAS DA PÁGINA ATIVIDADES
 @app.route("/att_pontuacao")
 def att_pontuacao(): return render_template("att_pontuacao.html")
 
@@ -355,8 +347,6 @@ def att_periodo_composto(): return render_template("att_periodo_composto.html")
 @app.route("/att_classificacao_de_palavras")
 def att_classificacao_de_palavras(): return render_template("att_classificacao_de_palavras.html")
 
-
-# ROTAS DAS ATIVIDADES DE SINTAXE
 @app.route("/atividade1")
 def atividade1(): return render_template("atividade1.html")
 @app.route("/atividade2")
@@ -376,7 +366,6 @@ def atividade8(): return render_template("atividade8.html")
 @app.route("/atividade9")
 def atividade9(): return render_template("atividade9.html")
 
-# ROTAS DOS CONTEUDOS DE SINTAXE
 @app.route("/sujeito_detalhe")
 def sujeito_detalhe(): return render_template("sujeito_detalhe.html")
 @app.route("/predicado_detalhe")
@@ -396,7 +385,189 @@ def adjunto_adverbial_detalhe(): return render_template("adjunto_adverbial_detal
 @app.route("/revisao_geral_detalhe")
 def revisao_geral_detalhe(): return render_template("revisao_geral_detalhe.html")
 
-# ROTAS DE LOGIN SUAP
+@app.route("/resposta_atividade1", methods=["POST"])
+def resposta_atividade1():
+    gabarito = {
+        "q1": "a",  # Sujeito simples — Maria
+        "q2": "b",  # Sujeito oculto — Estudamos
+        "q3": "b",  # Verbo impessoal — Faz muito calor
+        "q4": "b",  # Verbo impessoal — Havia
+        "q5": "b"   # Oração sem sujeito — Faz três meses
+    }
+    acertos = 0
+    total = len(gabarito)
+    resultados = {}
+    for q, certa in gabarito.items():
+        resp = request.form.get(q, "").strip().lower()
+        acertou = (resp == certa.lower())
+        resultados[q] = acertou
+        if acertou: acertos += 1
+    nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    return render_template("atividade1.html", enviado=True, resultados=resultados, nota=nota)
+
+@app.route("/resposta_atividade2", methods=["POST"])
+def resposta_atividade2():
+    gabarito = {
+        "q1": "c",  # As meninas
+        "q2": "c",  # Inexistente
+        "q3": "d",  # Composto
+        "q4": "b",  # Oculto
+        "q5": "c"   # O cachorro
+    }
+    acertos = 0
+    total = len(gabarito)
+    resultados = {}
+    for q, certa in gabarito.items():
+        resp = request.form.get(q, "").strip().lower()
+        acertou = (resp == certa.lower())
+        resultados[q] = acertou
+        if acertou: acertos += 1
+    nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    return render_template("atividade2.html", enviado=True, resultados=resultados, nota=nota)
+
+@app.route("/resposta_atividade3", methods=["POST"])
+def resposta_atividade3():
+    gabarito = {
+        "q1": "b",  # Aposto explicativo
+        "q2": "a",  # Aposto explicativo
+        "q3": "d",  # Aposto resumitivo
+        "q4": "c",  # Aposto distributivo
+        "q5": "d"   # Vocativo
+    }
+    acertos = 0
+    total = len(gabarito)
+    resultados = {}
+    for q, certa in gabarito.items():
+        resp = request.form.get(q, "").strip().lower()
+        acertou = (resp == certa.lower())
+        resultados[q] = acertou
+        if acertou: acertos += 1
+    nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    return render_template("atividade3.html", enviado=True, resultados=resultados, nota=nota)
+
+@app.route("/resposta_atividade4", methods=["POST"])
+def resposta_atividade4():
+    gabarito = {
+        "q1": "b",  # Termo essencial
+        "q2": "c",  # Preposição
+        "q3": "c",  # Objeto Direto
+        "q4": "c",  # Dois complementos
+        "q5": "c"   # Sentido completo
+    }
+    acertos = 0
+    total = len(gabarito)
+    resultados = {}
+    for q, certa in gabarito.items():
+        resp = request.form.get(q, "").strip().lower()
+        acertou = (resp == certa.lower())
+        resultados[q] = acertou
+        if acertou: acertos += 1
+    nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    return render_template("atividade4.html", enviado=True, resultados=resultados, nota=nota)
+
+@app.route("/resposta_atividade5", methods=["POST"])
+def resposta_atividade5():
+    gabarito = {
+        "q1": "c",  # Sempre com preposição
+        "q2": "c",  # de suas raízes
+        "q3": "c",  # CN → nomes; OI → verbos
+        "q4": "b",  # Subst. abstratos, adj., advérbios
+        "q5": "b"   # Subst. abstrato (medo)
+    }
+    acertos = 0
+    total = len(gabarito)
+    resultados = {}
+    for q, certa in gabarito.items():
+        resp = request.form.get(q, "").strip().lower()
+        acertou = (resp == certa.lower())
+        resultados[q] = acertou
+        if acertou: acertos += 1
+    nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    return render_template("atividade5.html", enviado=True, resultados=resultados, nota=nota)
+
+@app.route("/resposta_atividade6", methods=["POST"])
+def resposta_atividade6():
+    gabarito = {
+        "q1": "d",  # Somente na passiva analítica
+        "q2": "c",  # pelos invasores
+        "q3": "c",  # OD→sujeito; sujeito→agente
+        "q4": "c",  # Preposição marca quem pratica
+        "q5": "a"   # O quadro foi pintado pelo artista
+    }
+    acertos = 0
+    total = len(gabarito)
+    resultados = {}
+    for q, certa in gabarito.items():
+        resp = request.form.get(q, "").strip().lower()
+        acertou = (resp == certa.lower())
+        resultados[q] = acertou
+        if acertou: acertos += 1
+    nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    return render_template("atividade6.html", enviado=True, resultados=resultados, nota=nota)
+
+@app.route("/resposta_atividade7", methods=["POST"])
+def resposta_atividade7():
+    gabarito = {
+        "q1": "c",  # Adjunto Adnominal
+        "q2": "a",  # Adjunto Adnominal
+        "q3": "b",  # Objeto Indireto
+        "q4": "b",  # Complemento Nominal
+        "q5": "c",  # Complemento Nominal
+        "q6": "a",  # Adjunto Adnominal
+        "q7": "d"   # Complemento Nominal
+    }
+    acertos = 0
+    total = len(gabarito)
+    resultados = {}
+    for q, certa in gabarito.items():
+        resp = request.form.get(q, "").strip().lower()
+        acertou = (resp == certa.lower())
+        resultados[q] = acertou
+        if acertou: acertos += 1
+    nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    return render_template("atividade7.html", enviado=True, resultados=resultados, nota=nota)
+
+@app.route("/resposta_atividade8", methods=["POST"])
+def resposta_atividade8():
+    gabarito = {
+        "q1": "b",  # Tempo
+        "q2": "d",  # Lugar
+        "q3": "a",  # Modo
+        "q4": "c",  # Causa
+        "q5": "d",  # Finalidade
+        "q6": "a"   # Dúvida
+    }
+    acertos = 0
+    total = len(gabarito)
+    resultados = {}
+    for q, certa in gabarito.items():
+        resp = request.form.get(q, "").strip().lower()
+        acertou = (resp == certa.lower())
+        resultados[q] = acertou
+        if acertou: acertos += 1
+    nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    return render_template("atividade8.html", enviado=True, resultados=resultados, nota=nota)
+
+@app.route("/resposta_atividade9", methods=["POST"])
+def resposta_atividade9():
+    gabarito = {
+        "q1": "c",  # Adjunto Adnominal
+        "q2": "d",  # Adj. Adnominal e Adj. Adverbial
+        "q3": "a",  # Adjetivos e subst. abstratos
+        "q4": "b"   # Caracteriza um nome
+    }
+    acertos = 0
+    total = len(gabarito)
+    resultados = {}
+    for q, certa in gabarito.items():
+        resp = request.form.get(q, "").strip().lower()
+        acertou = (resp == certa.lower())
+        resultados[q] = acertou
+        if acertou: acertos += 1
+    nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    return render_template("atividade9.html", enviado=True, resultados=resultados, nota=nota)
+
+
 @app.route("/auth/suap")
 def auth_suap():
     redirect_uri = url_for("auth_suap_callback", _external=True)
@@ -436,6 +607,5 @@ def logout():
     session.clear()
     return redirect(url_for("index"))
 
-# EXECUÇÃO
 if __name__ == "__main__":
     app.run(debug=True)

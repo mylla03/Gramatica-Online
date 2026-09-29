@@ -544,24 +544,22 @@ footer {
     margin-right: 8px;
 }
 
+
 .botao {
     display: inline-block;
+    margin-top: 20px;
     background: var(--success-green);
-    color: white;
-    padding: 12px 18px;
-    border-radius: 18px;
-    margin-top: 10px;
-    cursor: pointer;
-    font-weight: 800;
-    text-align: center;
-    transition: 0.2s;
-    box-shadow: 0 4px #0fb374;
+    color: var(--text-dark);
+    padding: 16px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
 .botao:hover {
-    background: #30e09a;
-    transform: translateY(2px);
-    box-shadow: 0 2px #0fb374;
+    transform: translateY(-2px);
+    opacity: 0.9;
 }
 
 input[type="checkbox"] {

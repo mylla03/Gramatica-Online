@@ -1,118 +1,167 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
-        <section id="morfologia-detalhes" class="section">
-            <h2>QUESTÕES — ADJUNTO ADVERBIAL</h2>
+<section id="morfologia-detalhes" class="section">
+    <h2>QUESTÕES — ADJUNTO ADVERBIAL</h2>
 
+    <!-- ✅ RESULTADOS — SÓ APARECE APÓS ENVIAR -->
+    {% if enviado %}
+        <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 25px;">
+            <h3 style="margin-top: 0;">Seu Resultado</h3>
+            <p><strong>Nota: {{ nota }}/10</strong></p>
+            {% for q, acertou in resultados.items() %}
+                <p style="margin: 8px 0;">
+                    <strong>Questão {{ loop.index }}:</strong>
+                    {% if acertou %}
+                        <span style="color: #2e7d32; font-weight: bold; margin-left: 10px;">✅ Correta!</span>
+                    {% else %}
+                        <span style="color: #c62828; font-weight: bold; margin-left: 10px;">❌ Incorreta</span>
+                    {% endif %}
+                </p>
+            {% endfor %}
+            <p style="margin-top: 15px; font-style: italic;">
+                {% if nota >= 5 %} Parabéns! 🎉
+                {% elif nota >= 3 %} Quase lá! Revise e tente novamente 💪
+                {% else %} Não desista! Revise o conteúdo e tente novamente 📚
+                {% endif %}
+            </p>
+            <a href="{{ url_for('atividade8') }}" class="botao" style="display: inline-block; margin-top: 10px;">
+                <i class="fa-solid fa-rotate-right"></i> Responder Novamente
+            </a>
+        </div>
+    {% endif %}
 
-            <div class="atividade">
-                <h2>1. Em “ele esteve aqui mais cedo”, o termo destacado é um adjunto adverbial de:</h2>
-                <label class="opcao">
-                    <input type="radio" name="q1">a) modo</label>
-                <label class="opcao">
-                    <input type="radio" name="q1">b) tempo</label>
-                <label class="opcao">
-                    <input type="radio" name="q1">c) intensidade</label>
-                <label class="opcao">
-                    <input type="radio" name="q1">d) negação</label>
-                <input type="checkbox" id="ver1">
-                <label for="ver1" class="botao">Ver resposta</label>
-                <div class="gabarito">
-                     A resposta correta é: <strong>b) tempo</strong>
-                </div>
-            </div>
+    <!-- ✅ FORMULÁRIO — SÓ APARECE SE AINDA NÃO ENVIOU -->
+    {% if not enviado %}
+    <form method="POST" action="{{ url_for('resposta_atividade8') }}" class="form-atividade">
+        <div class="atividade">
+            <h3>1. Em “ele esteve aqui mais cedo”, o termo destacado é um adjunto adverbial de:</h3>
+            <label class="opcao">
+                <input type="radio" name="q1" value="a" required>
+                a) modo
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q1" value="b">
+                b) tempo
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q1" value="c">
+                c) intensidade
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q1" value="d">
+                d) negação
+            </label>
+        </div>
 
-            <div class="atividade">
-                <h2>2. Em “ela estava na escola”, o adjunto adverbial é de:</h2>
-                <label class="opcao">
-                    <input type="radio" name="q2">a) causa</label>
-                <label class="opcao">
-                    <input type="radio" name="q2">b) modo</label>
-                <label class="opcao">
-                    <input type="radio" name="q2">c) dúvida</label>
-                <label class="opcao">
-                    <input type="radio" name="q2">d) lugar</label>
-                <input type="checkbox" id="ver2">
-                <label for="ver2" class="botao">Ver resposta</label>
-                <div class="gabarito">
-                     A resposta correta é: <strong>d) lugar</strong>
-                </div>
-            </div>
+        <div class="atividade">
+            <h3>2. Em “ela estava na escola”, o adjunto adverbial é de:</h3>
+            <label class="opcao">
+                <input type="radio" name="q2" value="a" required>
+                a) causa
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q2" value="b">
+                b) modo
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q2" value="c">
+                c) dúvida
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q2" value="d">
+                d) lugar
+            </label>
+        </div>
 
-            <div class="atividade">
-                <h2>3. Em “ele me explicou calmamente”, o termo destacado é adjunto adverbial de:</h2>
-                <label class="opcao">
-                    <input type="radio" name="q3">a) modo</label>
-                <label class="opcao">
-                    <input type="radio" name="q3">b) tempo</label>
-                <label class="opcao">
-                    <input type="radio" name="q3">c) intensidade</label>
-                <label class="opcao">
-                    <input type="radio" name="q3">d) causa</label>
-                <input type="checkbox" id="ver3">
-                <label for="ver3" class="botao">Ver resposta</label>
-                <div class="gabarito">
-                     A resposta correta é: <strong>a) modo</strong>
-                </div>
-            </div>
+        <div class="atividade">
+            <h3>3. Em “ele me explicou calmamente”, o termo destacado é adjunto adverbial de:</h3>
+            <label class="opcao">
+                <input type="radio" name="q3" value="a" required>
+                a) modo
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q3" value="b">
+                b) tempo
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q3" value="c">
+                c) intensidade
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q3" value="d">
+                d) causa
+            </label>
+        </div>
 
-            <div class="atividade">
-                <h2>4. Em “está muito frio por causa do ar condicionado”, o termo destacado é adjunto adverbial de:</h2>
-                <label class="opcao">
-                    <input type="radio" name="q4">a) meio</label>
-                <label class="opcao">
-                    <input type="radio" name="q4">b) afirmação</label>
-                <label class="opcao">
-                    <input type="radio" name="q4">c) causa</label>
-                <label class="opcao">
-                    <input type="radio" name="q4">d) finalidade</label>
-                <input type="checkbox" id="ver4">
-                <label for="ver4" class="botao">Ver resposta</label>
-                <div class="gabarito">
-                     A resposta correta é: <strong>c) causa</strong>
-                </div>
-            </div>
+        <div class="atividade">
+            <h3>4. Em “está muito frio por causa do ar condicionado”, o termo destacado é adjunto adverbial de:</h3>
+            <label class="opcao">
+                <input type="radio" name="q4" value="a" required>
+                a) meio
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q4" value="b">
+                b) afirmação
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q4" value="c">
+                c) causa
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q4" value="d">
+                d) finalidade
+            </label>
+        </div>
 
-            <div class="atividade">
-                <h2>5. Em “tenho que ir para a consulta”, o termo destacado indica:</h2>
-                <label class="opcao">
-                    <input type="radio" name="q5">a) causa</label>
-                <label class="opcao">
-                    <input type="radio" name="q5">b) intensidade</label>
-                <label class="opcao">
-                    <input type="radio" name="q5">c) modo</label>
-                <label class="opcao">
-                    <input type="radio" name="q5">d) finalidade</label>
-                <input type="checkbox" id="ver5">
-                <label for="ver5" class="botao">Ver resposta</label>
-                <div class="gabarito">
-                     A resposta correta é: <strong>d) finalidade</strong>
-                </div>
-            </div>
+        <div class="atividade">
+            <h3>5. Em “tenho que ir para a consulta”, o termo destacado indica:</h3>
+            <label class="opcao">
+                <input type="radio" name="q5" value="a" required>
+                a) causa
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q5" value="b">
+                b) intensidade
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q5" value="c">
+                c) modo
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q5" value="d">
+                d) finalidade
+            </label>
+        </div>
 
-            <div class="atividade">
-                <h2>6. Em “talvez eu não possa ir”, o termo destacado é adjunto adverbial de:</h2>
-                <label class="opcao">
-                    <input type="radio" name="q6">a) dúvida</label>
-                <label class="opcao">
-                    <input type="radio" name="q6">b) afirmação</label>
-                <label class="opcao">
-                    <input type="radio" name="q6">c) modo</label>
-                <label class="opcao">
-                    <input type="radio" name="q6">d) intensidade</label>
-                <input type="checkbox" id="ver6">
-                <label for="ver6" class="botao">Ver resposta</label>
-                <div class="gabarito">
-                     A resposta correta é: <strong>a) dúvida</strong>
-                </div>
-            </div>
+        <div class="atividade">
+            <h3>6. Em “talvez eu não possa ir”, o termo destacado é adjunto adverbial de:</h3>
+            <label class="opcao">
+                <input type="radio" name="q6" value="a" required>
+                a) dúvida
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q6" value="b">
+                b) afirmação
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q6" value="c">
+                c) modo
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q6" value="d">
+                d) intensidade
+            </label>
+        </div>
 
-            
-            <a href="{{ url_for('gramatica') }}"
-            class="btn btn-gramatica">
-
-             <i class="fa-solid fa-arrow-left"></i>
-             Ir para Tópicos
-         </a>
-     </section>
+        <div style="margin-top: 30px;">
+            <button type="submit" class="botao">
+                <i class="fa-solid fa-paper-plane"></i> Enviar Respostas
+            </button>
+            <a href="{{ url_for('gramatica') }}" class="btn btn-gramatica">
+                <i class="fa-solid fa-arrow-left"></i> Voltar
+            </a>
+        </div>
+    </form>
+    {% endif %}
+</section>
 {% endblock %}

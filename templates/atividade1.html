@@ -1,216 +1,152 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
-        <section id="morfologia-detalhes" class="section">
+<section id="morfologia-detalhes" class="section">
+    <h2>QUESTÕES – Sujeito:</h2>
 
-            <h2>QUESTÕES – Sujeito:</h2>
-
-            <div class="atividade">
-
-                <h2>1. Identifique o tipo de sujeito na frase:</h2>
-
-                <p>“Maria foi à padaria pela manhã.”</p>
-
-                <label class="opcao">
-                    <input type="radio" name="q1">
-                    a) Sujeito simples
-                </label>
-
-                <label class="opcao">
-                    <input type="radio" name="q1">
-                    b) Sujeito composto
-                </label>
-
-                <label class="opcao">
-                    <input type="radio" name="q1">
-                    c) Sujeito indeterminado
-                </label>
-
-                <label class="opcao">
-                    <input type="radio" name="q1">
-                    d) Sujeito oculto
-                </label>
-
-                <input type="checkbox" id="ver1">
-
-                <label for="ver1" class="botao">
-                    Ver resposta
-                </label>
-
-                <div class="gabarito">
-                    ✔ A resposta correta é:
-                    <strong>a) Sujeito simples</strong>
-                </div>
-
-            </div>
-
-            <div class="atividade">
-
-                <h2>2. Assinale a frase em que o sujeito é oculto:</h2>
-
-                <label class="opcao">
-                    <input type="radio" name="q2">
-                    a) Ontem compraram muitas frutas.
-                </label>
-
-                <label class="opcao">
-                    <input type="radio" name="q2">
-                    b) Estudamos para a prova de português.
-                </label>
-
-                <label class="opcao">
-                    <input type="radio" name="q2">
-                    c) Marina e Mariana foram ao mercado.
-                </label>
-
-                <label class="opcao">
-                    <input type="radio" name="q2">
-                    d) Havia muitas pessoas na loja.
-                </label>
-
-                <input type="checkbox" id="ver2">
-
-                <label for="ver2" class="botao">
-                    Ver resposta
-                </label>
-
-                <div class="gabarito">
-                    ✔ A resposta correta é:
-                    <strong>
-                        b) Estudamos para a prova de português.
-                    </strong>
-                </div>
-
-            </div>
-
-            <div class="atividade">
-
-                <h2>
-                    3. Em qual alternativa o verbo é impessoal,
-                    indicando oração sem sujeito?
-                </h2>
-
-                <label class="opcao">
-                    <input type="radio" name="q3">
-                    a) Precisa-se de voluntários.
-                </label>
-
-                <label class="opcao">
-                    <input type="radio" name="q3">
-                    b) Faz muito calor no verão.
-                </label>
-
-                <label class="opcao">
-                    <input type="radio" name="q3">
-                    c) Os alunos terminaram cedo.
-                </label>
-
-                <label class="opcao">
-                    <input type="radio" name="q3">
-                    d) Trabalhamos ontem.
-                </label>
-
-                <input type="checkbox" id="ver3">
-
-                <label for="ver3" class="botao">
-                    Ver resposta
-                </label>
-
-                <div class="gabarito">
-                    ✔ A resposta correta é:
-                    <strong>b) Faz muito calor no verão</strong>
-                </div>
-
-            </div>
-
-            <div class="atividade">
-
-                <h2>4. Complete a frase corretamente:</h2>
-
-                <p>“________ poucas pessoas no shopping ontem.”</p>
-
-                <label class="opcao">
-                    <input type="radio" name="q4">
-                    a) Haviam
-                </label>
-
-                <label class="opcao">
-                    <input type="radio" name="q4">
-                    b) Havia
-                </label>
-
-                <label class="opcao">
-                    <input type="radio" name="q4">
-                    c) Existiam
-                </label>
-
-                <label class="opcao">
-                    <input type="radio" name="q4">
-                    d) Tinha
-                </label>
-
-                <p>Dica: verbo impessoal</p>
-
-                <input type="checkbox" id="ver4">
-
-                <label for="ver4" class="botao">
-                    Ver resposta
-                </label>
-
-                <div class="gabarito">
-                    ✔ A resposta correta é:
-                    <strong>b) Havia</strong>
-                </div>
-
-            </div>
-
-            <div class="atividade">
-
-                <h2>
-                    5. Complete a frase com a opção
-                    que forma uma oração sem sujeito:
-                </h2>
-
-                <p>“______ três meses que não vou à praia.”</p>
-
-                <label class="opcao">
-                    <input type="radio" name="q5">
-                    a) Fazem
-                </label>
-
-                <label class="opcao">
-                    <input type="radio" name="q5">
-                    b) Faz
-                </label>
-
-                <label class="opcao">
-                    <input type="radio" name="q5">
-                    c) Tem
-                </label>
-
-                <label class="opcao">
-                    <input type="radio" name="q5">
-                    d) Estão
-                </label>
-
-                <input type="checkbox" id="ver5">
-
-                <label for="ver5" class="botao">
-                    Ver resposta
-                </label>
-
-                <div class="gabarito">
-                    ✔ A resposta correta é:
-                    <strong>b) Faz</strong>
-                </div>
-
-            </div>
-
-            <a href="{{ url_for('gramatica') }}"
-               class="btn btn-gramatica">
-
-                <i class="fa-solid fa-arrow-left"></i>
-                Ir para Tópicos
+    <!-- ✅ RESULTADOS — SÓ APARECE APÓS ENVIAR -->
+    {% if enviado %}
+        <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 25px;">
+            <h3 style="margin-top: 0;">Seu Resultado</h3>
+            <p><strong>Nota: {{ nota }}/10</strong></p>
+            {% for q, acertou in resultados.items() %}
+                <p style="margin: 8px 0;">
+                    <strong>Questão {{ loop.index }}:</strong>
+                    {% if acertou %}
+                        <span style="color: #2e7d32; font-weight: bold; margin-left: 10px;">✅ Correta!</span>
+                    {% else %}
+                        <span style="color: #c62828; font-weight: bold; margin-left: 10px;">❌ Incorreta</span>
+                    {% endif %}
+                </p>
+            {% endfor %}
+            <p style="margin-top: 15px; font-style: italic;">
+                {% if nota >= 7 %} Parabéns! 🎉
+                {% elif nota >= 5 %} Quase lá! Revise e tente novamente 💪
+                {% else %} Não desista! Revise o conteúdo e tente novamente 📚
+                {% endif %}
+            </p>
+            <a href="{{ url_for('atividade1') }}" class="botao" style="display: inline-block; margin-top: 10px;">
+                <i class="fa-solid fa-rotate-right"></i> Responder Novamente
             </a>
-        </section>
+        </div>
+    {% endif %}
+
+    <!-- ✅ FORMULÁRIO — action aponta para rota correta -->
+    {% if not enviado %}
+    <form method="POST" action="{{ url_for('resposta_atividade1') }}" class="form-atividade">
+
+        <div class="atividade">
+            <h3>1. Identifique o tipo de sujeito na frase:</h3>
+            <p>“Maria foi à padaria pela manhã.”</p>
+            <label class="opcao">
+                <input type="radio" name="q1" value="a" required>
+                a) Sujeito simples
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q1" value="b">
+                b) Sujeito composto
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q1" value="c">
+                c) Sujeito indeterminado
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q1" value="d">
+                d) Sujeito oculto
+            </label>
+        </div>
+
+        <div class="atividade">
+            <h3>2. Assinale a frase em que o sujeito é oculto:</h3>
+            <label class="opcao">
+                <input type="radio" name="q2" value="a" required>
+                a) Ontem compraram muitas frutas.
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q2" value="b">
+                b) Estudamos para a prova de português.
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q2" value="c">
+                c) Marina e Mariana foram ao mercado.
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q2" value="d">
+                d) Havia muitas pessoas na loja.
+            </label>
+        </div>
+
+        <div class="atividade">
+            <h3>3. Em qual alternativa o verbo é impessoal, indicando oração sem sujeito?</h3>
+            <label class="opcao">
+                <input type="radio" name="q3" value="a" required>
+                a) Precisa-se de voluntários.
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q3" value="b">
+                b) Faz muito calor no verão.
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q3" value="c">
+                c) Os alunos terminaram cedo.
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q3" value="d">
+                d) Trabalhamos ontem.
+            </label>
+        </div>
+
+        <div class="atividade">
+            <h3>4. Complete a frase corretamente:</h3>
+            <p>“________ poucas pessoas no shopping ontem.”</p>
+            <label class="opcao">
+                <input type="radio" name="q4" value="a" required>
+                a) Haviam
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q4" value="b">
+                b) Havia
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q4" value="c">
+                c) Existiam
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q4" value="d">
+                d) Tinha
+            </label>
+            <p><em>Dica: verbo impessoal</em></p>
+        </div>
+
+        <div class="atividade">
+            <h3>5. Complete a frase com a opção que forma uma oração sem sujeito:</h3>
+            <p>“______ três meses que não vou à praia.”</p>
+            <label class="opcao">
+                <input type="radio" name="q5" value="a" required>
+                a) Fazem
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q5" value="b">
+                b) Faz
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q5" value="c">
+                c) Tem
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q5" value="d">
+                d) Estão
+            </label>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <button type="submit" class="botao">
+                <i class="fa-solid fa-paper-plane"></i> Enviar Respostas
+            </button>
+            <a href="{{ url_for('gramatica') }}" class="btn btn-gramatica">
+                <i class="fa-solid fa-arrow-left"></i> Voltar
+            </a>
+        </div>
+    </form>
+    {% endif %}
+</section>
 {% endblock %}

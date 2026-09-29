@@ -1,104 +1,148 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
-        <section id="morfologia-detalhes" class="section">
-            <h2>QUESTÕES — COMPLEMENTO NOMINAL</h2>
+<section id="morfologia-detalhes" class="section">
+    <h2>QUESTÕES — COMPLEMENTO NOMINAL</h2>
 
-
-            <div class="atividade">
-                <h2>1. Qual a principal característica obrigatória do Complemento Nominal (CN)?</h2>
-                <label class="opcao">
-                    <input type="radio" name="q1">a) É sempre ligado a um verbo.</label>
-                <label class="opcao">
-                    <input type="radio" name="q1">b) É sempre um termo acessório.</label>
-                <label class="opcao">
-                    <input type="radio" name="q1">c) É sempre introduzido por preposição.</label>
-                <label class="opcao">
-                    <input type="radio" name="q1">d) Completa o sentido de um substantivo concreto.</label>
-                <input type="checkbox" id="ver1">
-                <label for="ver1" class="botao">Ver resposta</label>
-                <div class="gabarito">
-                    ✔ A resposta correta é: <strong>c) É sempre introduzido por preposição.</strong>
-                </div>
-            </div>
-
-            <div class="atividade">
-                <h2>2. Identifique o Complemento Nominal na frase: “Ela tem orgulho de suas raízes.”</h2>
-                <label class="opcao">
-                    <input type="radio" name="q2">a) Ela</label>
-                <label class="opcao">
-                    <input type="radio" name="q2">b) tem orgulho</label>
-                <label class="opcao">
-                    <input type="radio" name="q2">c) de suas raízes</label>
-                <label class="opcao">
-                    <input type="radio" name="q2">d) raízes</label>
-                <input type="checkbox" id="ver2">
-                <label for="ver2" class="botao">Ver resposta</label>
-                <div class="gabarito">
-                    ✔ A resposta correta é: <strong>c) de suas raízes</strong>
-                </div>
-            </div>
-
-            <div class="atividade">
-                <h2>3. A principal diferença estrutural entre o Complemento Nominal (CN) e o Objeto Indireto (OI) é que:
-                </h2>
-                <label class="opcao">
-                    <input type="radio" name="q3">a) O CN liga-se a verbos, e o OI a nomes (substantivos, adjetivos,
-                    advérbios).</label>
-                <label class="opcao">
-                    <input type="radio" name="q3">b) O CN é introduzido por preposição, e o OI nunca é.</label>
-                <label class="opcao">
-                    <input type="radio" name="q3">c) O CN liga-se a nomes, e o OI liga-se a verbos.</label>
-                <label class="opcao">
-                    <input type="radio" name="q3">d) O CN é facultativo, e o OI é obrigatório.</label>
-                <input type="checkbox" id="ver3">
-                <label for="ver3" class="botao">Ver resposta</label>
-                <div class="gabarito">
-                    ✔ A resposta correta é: <strong>c) O CN liga-se a nomes, e o OI liga-se a verbos.</strong>
-                </div>
-            </div>
-
-            <div class="atividade">
-                <h2>4. O Complemento Nominal complementa, predominantemente, o sentido de quais classes de palavras?
-                </h2>
-                <label class="opcao">
-                    <input type="radio" name="q4">a) Verbos, preposições e pronomes.</label>
-                <label class="opcao">
-                    <input type="radio" name="q4">b) Adjetivos, substantivos abstratos e advérbios.</label>
-                <label class="opcao">
-                    <input type="radio" name="q4">c) Substantivos concretos, artigos e numerais.</label>
-                <label class="opcao">
-                    <input type="radio" name="q4">d) Conjunções, interjeições e verbos.</label>
-                <input type="checkbox" id="ver4">
-                <label for="ver4" class="botao">Ver resposta</label>
-                <div class="gabarito">
-                    ✔ A resposta correta é: <strong>b) Adjetivos, substantivos abstratos e advérbios.</strong>
-                </div>
-            </div>
-
-            <div class="atividade">
-                <h2>5. Em “Tenho medo de altura”, a expressão “de altura” é Complemento Nominal porque complementa o
-                    sentido de:</h2>
-                <label class="opcao">
-                    <input type="radio" name="q5">a) um verbo (Tenho).</label>
-                <label class="opcao">
-                    <input type="radio" name="q5">b) um substantivo abstrato (medo).</label>
-                <label class="opcao">
-                    <input type="radio" name="q5">c) um advérbio de intensidade.</label>
-                <label class="opcao">
-                    <input type="radio" name="q5">d) um substantivo concreto.</label>
-                <input type="checkbox" id="ver5">
-                <label for="ver5" class="botao">Ver resposta</label>
-                <div class="gabarito">
-                    ✔ A resposta correta é: <strong>b) um substantivo abstrato (medo).</strong>
-                </div>
-            </div>
-
-            <a href="{{ url_for('gramatica') }}"
-               class="btn btn-gramatica">
-
-                <i class="fa-solid fa-arrow-left"></i>
-                Ir para Tópicos
+    <!-- ✅ RESULTADOS -->
+    {% if enviado %}
+        <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 25px;">
+            <h3 style="margin-top: 0;">Seu Resultado</h3>
+            <p><strong>Nota: {{ nota }}/10</strong></p>
+            {% for q, acertou in resultados.items() %}
+                <p style="margin: 8px 0;">
+                    <strong>Questão {{ loop.index }}:</strong>
+                    {% if acertou %}
+                        <span style="color: #2e7d32; font-weight: bold; margin-left: 10px;">✅ Correta!</span>
+                    {% else %}
+                        <span style="color: #c62828; font-weight: bold; margin-left: 10px;">❌ Incorreta</span>
+                    {% endif %}
+                </p>
+            {% endfor %}
+            <p style="margin-top: 15px; font-style: italic;">
+                {% if nota >= 7 %} Parabéns! 🎉
+                {% elif nota >= 5 %} Quase lá! Revise e tente novamente 💪
+                {% else %} Não desista! Revise o conteúdo e tente novamente 📚
+                {% endif %}
+            </p>
+            <a href="{{ url_for('atividade5') }}" class="botao" style="display: inline-block; margin-top: 10px;">
+                <i class="fa-solid fa-rotate-right"></i> Responder Novamente
             </a>
-        </section>
+        </div>
+    {% endif %}
+
+    <!-- ✅ FORMULÁRIO -->
+    {% if not enviado %}
+    <form method="POST" action="{{ url_for('resposta_atividade5') }}" class="form-atividade">
+
+        <div class="atividade">
+            <h3>1. Qual a principal característica obrigatória do Complemento Nominal (CN)?</h3>
+            <label class="opcao">
+                <input type="radio" name="q1" value="a" required>
+                a) É sempre ligado a um verbo.
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q1" value="b">
+                b) É sempre um termo acessório.
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q1" value="c">
+                c) É sempre introduzido por preposição.
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q1" value="d">
+                d) Completa o sentido de um substantivo concreto.
+            </label>
+        </div>
+
+        <div class="atividade">
+            <h3>2. Identifique o Complemento Nominal na frase: “Ela tem orgulho de suas raízes.”</h3>
+            <label class="opcao">
+                <input type="radio" name="q2" value="a" required>
+                a) Ela
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q2" value="b">
+                b) tem orgulho
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q2" value="c">
+                c) de suas raízes
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q2" value="d">
+                d) raízes
+            </label>
+        </div>
+
+        <div class="atividade">
+            <h3>3. A principal diferença estrutural entre o Complemento Nominal (CN) e o Objeto Indireto (OI) é que:</h3>
+            <label class="opcao">
+                <input type="radio" name="q3" value="a" required>
+                a) O CN liga-se a verbos, e o OI a nomes (substantivos, adjetivos, advérbios).
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q3" value="b">
+                b) O CN é introduzido por preposição, e o OI nunca é.
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q3" value="c">
+                c) O CN liga-se a nomes, e o OI liga-se a verbos.
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q3" value="d">
+                d) O CN é facultativo, e o OI é obrigatório.
+            </label>
+        </div>
+
+        <div class="atividade">
+            <h3>4. O Complemento Nominal complementa, predominantemente, o sentido de quais classes de palavras?</h3>
+            <label class="opcao">
+                <input type="radio" name="q4" value="a" required>
+                a) Verbos, preposições e pronomes.
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q4" value="b">
+                b) Adjetivos, substantivos abstratos e advérbios.
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q4" value="c">
+                c) Substantivos concretos, artigos e numerais.
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q4" value="d">
+                d) Conjunções, interjeições e verbos.
+            </label>
+        </div>
+
+        <div class="atividade">
+            <h3>5. Em “Tenho medo de altura”, a expressão “de altura” é Complemento Nominal porque complementa o sentido de:</h3>
+            <label class="opcao">
+                <input type="radio" name="q5" value="a" required>
+                a) um verbo (Tenho).
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q5" value="b">
+                b) um substantivo abstrato (medo).
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q5" value="c">
+                c) um advérbio de intensidade.
+            </label>
+            <label class="opcao">
+                <input type="radio" name="q5" value="d">
+                d) um substantivo concreto.
+            </label>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <button type="submit" class="botao">
+                <i class="fa-solid fa-paper-plane"></i> Enviar Respostas
+            </button>
+            <a href="{{ url_for('gramatica') }}" class="btn btn-gramatica">
+                <i class="fa-solid fa-arrow-left"></i> Voltar
+            </a>
+        </div>
+    </form>
+    {% endif %}
+</section>
 {% endblock %}
