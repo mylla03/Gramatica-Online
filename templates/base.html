@@ -25,12 +25,12 @@
                     {% endif %}
                 </summary>
                 <div class="user-menu-dropdown">
+                    <a href="{{ url_for('ranking') }}"><i class="fa-solid fa-trophy"></i> Ranking</a>
                     <a href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
                 </div>
             </details>
         </div>
-    
-        <!-- <h1>Bem-vindo(a), estudante!</h1> -->
+        
         <nav>
             <ul>
                 <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuário</a></li>

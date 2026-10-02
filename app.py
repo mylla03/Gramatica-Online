@@ -2,12 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from database import db
 import os
 from werkzeug.utils import secure_filename
-from sqlalchemy import text
+from sqlalchemy import text, func
 from flask import session
 from dotenv import load_dotenv
 from authlib.integrations.flask_client import OAuth
 from authlib.integrations.base_client.errors import OAuthError
 from requests.exceptions import RequestException
+from datetime import datetime
 
 load_dotenv()
 
@@ -19,8 +20,10 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.jinja_env.auto_reload = True
 
 oauth = OAuth(app)
+
 SUAP_BASE_URL = os.environ.get("SUAP_BASE_URL", "https://suap.ifrn.edu.br").rstrip("/")
 SUAP_USER_INFO_ENDPOINT = os.environ.get("SUAP_USER_INFO_ENDPOINT", "api/rh/eu/").lstrip("/")
+
 suap_client_kwargs = {}
 suap_scope = os.environ.get("SUAP_SCOPE", "").strip()
 if suap_scope:
@@ -43,7 +46,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 db.init_app(app)
 
-from models import Assunto, Atividade, Questao
+from models import Assunto, Atividade, Questao, ResultadoAtividade
 
 with app.app_context():
     try: db.session.execute(text("ALTER TABLE atividade ADD COLUMN nome VARCHAR(150);")); db.session.commit()
@@ -62,20 +65,60 @@ with app.app_context():
     except Exception: pass
     try: db.session.execute(text("ALTER TABLE questao ADD COLUMN resposta_correta VARCHAR(1);")); db.session.commit()
     except Exception: pass
+    db.create_all()
 
 def arquivo_permitido(nome):
     return '.' in nome and nome.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# ==================================================
+# FUNCAO AUXILIAR: SALVA SOMENTE A PRIMEIRA TENTATIVA
+# ==================================================
+def salvar_primeira_tentativa(atividade_num, acertos, total):
+    if "usuario_suap" not in session:
+        return False
+    
+    usuario = session["usuario_suap"]
+    matricula = usuario["matricula"]
+    nome = usuario["nome"]
+    
+    # Verifica se ja existe registro
+    ja_existe = ResultadoAtividade.query.filter_by(
+        usuario_matricula=matricula,
+        atividade_numero=atividade_num
+    ).first()
+    
+    if ja_existe:
+        return False  # Ja tentou, nao altera
+    
+    nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    novo = ResultadoAtividade(
+        usuario_nome=nome,
+        usuario_matricula=matricula,
+        atividade_numero=atividade_num,
+        nota=nota,
+        acertos=acertos,
+        total_questoes=total
+    )
+    db.session.add(novo)
+    db.session.commit()
+    return True
+
+# ==================================================
+# ROTAS PRINCIPAIS
+# ==================================================
 @app.route("/")
 def index(): 
     if "usuario_suap" in session:
         return redirect(url_for("usuario"))
     else:
         return render_template("index.html")
+
 @app.route("/login")
 def login(): return redirect(url_for("auth_suap"))
+
 @app.route("/usuario")
 def usuario(): return render_template("usuario.html")
+
 @app.route("/escolha")
 def escolha(): return render_template("escolha.html")
 
@@ -85,7 +128,7 @@ def gramatica():
         assuntos = Assunto.query.all()
         return render_template("gramatica.html", assuntos=assuntos)
     except Exception as e:
-        print("ERRO GRAMÁTICA:", str(e))
+        print("ERRO GRAMATICA:", str(e))
         flash("Erro ao carregar assuntos.")
         return render_template("gramatica.html", assuntos=[])
 
@@ -177,7 +220,7 @@ def cadastrar_atividade():
     assuntos = Assunto.query.all()
     if request.method == 'POST':
         nome = request.form.get('nome', '').strip() or "Atividade sem nome"
-        dificuldade = request.form.get('dificuldade', 'Fácil')
+        dificuldade = request.form.get('dificuldade', 'Facil')
         assunto_id = request.form.get('assunto_id')
         if not assunto_id:
             flash("Selecione o assunto da atividade!")
@@ -264,7 +307,7 @@ def nova_questao():
             )
             db.session.add(nova)
             db.session.commit()
-            flash("Questão cadastrada com sucesso!")
+            flash("Questao cadastrada com sucesso!")
         else:
             flash("Preencha todos os campos corretamente!")
         return redirect(url_for('listar_questoes'))
@@ -292,7 +335,7 @@ def listar_questoes():
             )
             db.session.add(nova)
             db.session.commit()
-            flash("Questão cadastrada!")
+            flash("Questao cadastrada!")
         else:
             flash("Preencha todos os campos corretamente!")
         return redirect(url_for('listar_questoes'))
@@ -314,7 +357,7 @@ def editar_questao(id):
         questao.alternativa_e = request.form.get('alternativa_e', '').strip()
         questao.resposta_correta = request.form.get('resposta_correta', '').upper().strip()
         db.session.commit()
-        flash("Questão atualizada com sucesso!")
+        flash("Questao atualizada com sucesso!")
         return redirect(url_for('listar_questoes'))
     return render_template("editar_questao.html", questao=questao, atividades=atividades)
 
@@ -323,9 +366,12 @@ def apagar_questao(id):
     q = Questao.query.get_or_404(id)
     db.session.delete(q)
     db.session.commit()
-    flash("Questão removida!")
+    flash("Questao removida!")
     return redirect(url_for('listar_questoes'))
 
+# ==================================================
+# ROTAS DE CONTEUDO E ATIVIDADES
+# ==================================================
 @app.route("/pontuacao")
 def pontuacao(): return render_template("pontuacao.html")
 
@@ -349,50 +395,65 @@ def att_classificacao_de_palavras(): return render_template("att_classificacao_d
 
 @app.route("/atividade1")
 def atividade1(): return render_template("atividade1.html")
+
 @app.route("/atividade2")
 def atividade2(): return render_template("atividade2.html")
+
 @app.route("/atividade3")
 def atividade3(): return render_template("atividade3.html")
+
 @app.route("/atividade4")
 def atividade4(): return render_template("atividade4.html")
+
 @app.route("/atividade5")
 def atividade5(): return render_template("atividade5.html")
+
 @app.route("/atividade6")
 def atividade6(): return render_template("atividade6.html")
+
 @app.route("/atividade7")
 def atividade7(): return render_template("atividade7.html")
+
 @app.route("/atividade8")
 def atividade8(): return render_template("atividade8.html")
+
 @app.route("/atividade9")
 def atividade9(): return render_template("atividade9.html")
 
 @app.route("/sujeito_detalhe")
 def sujeito_detalhe(): return render_template("sujeito_detalhe.html")
+
 @app.route("/predicado_detalhe")
 def predicado_detalhe(): return render_template("predicado_detalhe.html")
+
 @app.route("/aposto_detalhe")
 def aposto_detalhe(): return render_template("aposto_detalhe.html")
+
 @app.route("/complemento_verbal_detalhe")
 def complemento_verbal_detalhe(): return render_template("complemento_verbal_detalhe.html")
+
 @app.route("/complemento_nominal_detalhe")
 def complemento_nominal_detalhe(): return render_template("complemento_nominal_detalhe.html")
+
 @app.route("/agente_da_passiva_detalhe")
 def agente_da_passiva_detalhe(): return render_template("agente_da_passiva_detalhe.html")
+
 @app.route("/adjunto_adnominal_detalhe")
 def adjunto_adnominal_detalhe(): return render_template("adjunto_adnominal_detalhe.html")
+
 @app.route("/adjunto_adverbial_detalhe")
 def adjunto_adverbial_detalhe(): return render_template("adjunto_adverbial_detalhe.html")
+
 @app.route("/revisao_geral_detalhe")
 def revisao_geral_detalhe(): return render_template("revisao_geral_detalhe.html")
 
+# ==================================================
+# ROTAS DE RESPOSTA DAS ATIVIDADES + SALVAMENTO NO RANKING
+# ==================================================
 @app.route("/resposta_atividade1", methods=["POST"])
 def resposta_atividade1():
     gabarito = {
-        "q1": "a",  # Sujeito simples — Maria
-        "q2": "b",  # Sujeito oculto — Estudamos
-        "q3": "b",  # Verbo impessoal — Faz muito calor
-        "q4": "b",  # Verbo impessoal — Havia
-        "q5": "b"   # Oração sem sujeito — Faz três meses
+        "q1": "a", "q2": "b", "q3": "b", "q4": "b", "q5": "b"
     }
     acertos = 0
     total = len(gabarito)
@@ -403,16 +464,13 @@ def resposta_atividade1():
         resultados[q] = acertou
         if acertou: acertos += 1
     nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    salvar_primeira_tentativa(1, acertos, total)
     return render_template("atividade1.html", enviado=True, resultados=resultados, nota=nota)
 
 @app.route("/resposta_atividade2", methods=["POST"])
 def resposta_atividade2():
     gabarito = {
-        "q1": "c",  # As meninas
-        "q2": "c",  # Inexistente
-        "q3": "d",  # Composto
-        "q4": "b",  # Oculto
-        "q5": "c"   # O cachorro
+        "q1": "c", "q2": "c", "q3": "d", "q4": "b", "q5": "c"
     }
     acertos = 0
     total = len(gabarito)
@@ -423,16 +481,13 @@ def resposta_atividade2():
         resultados[q] = acertou
         if acertou: acertos += 1
     nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    salvar_primeira_tentativa(2, acertos, total)
     return render_template("atividade2.html", enviado=True, resultados=resultados, nota=nota)
 
 @app.route("/resposta_atividade3", methods=["POST"])
 def resposta_atividade3():
     gabarito = {
-        "q1": "b",  # Aposto explicativo
-        "q2": "a",  # Aposto explicativo
-        "q3": "d",  # Aposto resumitivo
-        "q4": "c",  # Aposto distributivo
-        "q5": "d"   # Vocativo
+        "q1": "b", "q2": "a", "q3": "d", "q4": "c", "q5": "d"
     }
     acertos = 0
     total = len(gabarito)
@@ -443,16 +498,13 @@ def resposta_atividade3():
         resultados[q] = acertou
         if acertou: acertos += 1
     nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    salvar_primeira_tentativa(3, acertos, total)
     return render_template("atividade3.html", enviado=True, resultados=resultados, nota=nota)
 
 @app.route("/resposta_atividade4", methods=["POST"])
 def resposta_atividade4():
     gabarito = {
-        "q1": "b",  # Termo essencial
-        "q2": "c",  # Preposição
-        "q3": "c",  # Objeto Direto
-        "q4": "c",  # Dois complementos
-        "q5": "c"   # Sentido completo
+        "q1": "b", "q2": "c", "q3": "c", "q4": "c", "q5": "c"
     }
     acertos = 0
     total = len(gabarito)
@@ -463,16 +515,13 @@ def resposta_atividade4():
         resultados[q] = acertou
         if acertou: acertos += 1
     nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    salvar_primeira_tentativa(4, acertos, total)
     return render_template("atividade4.html", enviado=True, resultados=resultados, nota=nota)
 
 @app.route("/resposta_atividade5", methods=["POST"])
 def resposta_atividade5():
     gabarito = {
-        "q1": "c",  # Sempre com preposição
-        "q2": "c",  # de suas raízes
-        "q3": "c",  # CN → nomes; OI → verbos
-        "q4": "b",  # Subst. abstratos, adj., advérbios
-        "q5": "b"   # Subst. abstrato (medo)
+        "q1": "c", "q2": "c", "q3": "c", "q4": "b", "q5": "b"
     }
     acertos = 0
     total = len(gabarito)
@@ -483,16 +532,13 @@ def resposta_atividade5():
         resultados[q] = acertou
         if acertou: acertos += 1
     nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    salvar_primeira_tentativa(5, acertos, total)
     return render_template("atividade5.html", enviado=True, resultados=resultados, nota=nota)
 
 @app.route("/resposta_atividade6", methods=["POST"])
 def resposta_atividade6():
     gabarito = {
-        "q1": "d",  # Somente na passiva analítica
-        "q2": "c",  # pelos invasores
-        "q3": "c",  # OD→sujeito; sujeito→agente
-        "q4": "c",  # Preposição marca quem pratica
-        "q5": "a"   # O quadro foi pintado pelo artista
+        "q1": "d", "q2": "c", "q3": "c", "q4": "c", "q5": "a"
     }
     acertos = 0
     total = len(gabarito)
@@ -503,18 +549,13 @@ def resposta_atividade6():
         resultados[q] = acertou
         if acertou: acertos += 1
     nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    salvar_primeira_tentativa(6, acertos, total)
     return render_template("atividade6.html", enviado=True, resultados=resultados, nota=nota)
 
 @app.route("/resposta_atividade7", methods=["POST"])
 def resposta_atividade7():
     gabarito = {
-        "q1": "c",  # Adjunto Adnominal
-        "q2": "a",  # Adjunto Adnominal
-        "q3": "b",  # Objeto Indireto
-        "q4": "b",  # Complemento Nominal
-        "q5": "c",  # Complemento Nominal
-        "q6": "a",  # Adjunto Adnominal
-        "q7": "d"   # Complemento Nominal
+        "q1": "c", "q2": "a", "q3": "b", "q4": "b", "q5": "c", "q6": "a", "q7": "d"
     }
     acertos = 0
     total = len(gabarito)
@@ -525,17 +566,13 @@ def resposta_atividade7():
         resultados[q] = acertou
         if acertou: acertos += 1
     nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    salvar_primeira_tentativa(7, acertos, total)
     return render_template("atividade7.html", enviado=True, resultados=resultados, nota=nota)
 
 @app.route("/resposta_atividade8", methods=["POST"])
 def resposta_atividade8():
     gabarito = {
-        "q1": "b",  # Tempo
-        "q2": "d",  # Lugar
-        "q3": "a",  # Modo
-        "q4": "c",  # Causa
-        "q5": "d",  # Finalidade
-        "q6": "a"   # Dúvida
+        "q1": "b", "q2": "d", "q3": "a", "q4": "c", "q5": "d", "q6": "a"
     }
     acertos = 0
     total = len(gabarito)
@@ -546,15 +583,13 @@ def resposta_atividade8():
         resultados[q] = acertou
         if acertou: acertos += 1
     nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    salvar_primeira_tentativa(8, acertos, total)
     return render_template("atividade8.html", enviado=True, resultados=resultados, nota=nota)
 
 @app.route("/resposta_atividade9", methods=["POST"])
 def resposta_atividade9():
     gabarito = {
-        "q1": "c",  # Adjunto Adnominal
-        "q2": "d",  # Adj. Adnominal e Adj. Adverbial
-        "q3": "a",  # Adjetivos e subst. abstratos
-        "q4": "b"   # Caracteriza um nome
+        "q1": "c", "q2": "d", "q3": "a", "q4": "b"
     }
     acertos = 0
     total = len(gabarito)
@@ -565,9 +600,31 @@ def resposta_atividade9():
         resultados[q] = acertou
         if acertou: acertos += 1
     nota = round((acertos / total) * 10, 1) if total > 0 else 0
+    salvar_primeira_tentativa(9, acertos, total)
     return render_template("atividade9.html", enviado=True, resultados=resultados, nota=nota)
 
+# ==================================================
+# ROTA DO RANKING
+# ==================================================
+@app.route("/ranking")
+def ranking():
+    resultados = db.session.query(
+        ResultadoAtividade.usuario_nome,
+        ResultadoAtividade.usuario_matricula,
+        func.sum(ResultadoAtividade.nota).label("pontuacao_total"),
+        func.count(ResultadoAtividade.id).label("atividades_concluidas")
+    ).group_by(
+        ResultadoAtividade.usuario_matricula,
+        ResultadoAtividade.usuario_nome
+    ).order_by(
+        db.desc("pontuacao_total")
+    ).all()
+    
+    return render_template("ranking.html", ranking=resultados)
 
+# ==================================================
+# LOGIN SUAP
+# ==================================================
 @app.route("/auth/suap")
 def auth_suap():
     redirect_uri = url_for("auth_suap_callback", _external=True)
@@ -576,23 +633,23 @@ def auth_suap():
 @app.route("/auth/suap/callback")
 def auth_suap_callback():
     if request.args.get("error"):
-        flash(f"Falha no login SUAP: {request.args.get('error')}")
+        flash("Falha no login SUAP: " + request.args.get("error"))
         return redirect(url_for("index"))
     try:
         token = suap.authorize_access_token()
     except OAuthError as e:
-        flash(f"Falha no login SUAP: {e.error}")
+        flash("Falha no login SUAP: " + e.error)
         return redirect(url_for("index"))
     try:
         resp = suap.get(SUAP_USER_INFO_ENDPOINT, token=token)
         resp.raise_for_status()
         dados = resp.json()
     except RequestException:
-        flash("Falha ao buscar os dados do usuário no SUAP.")
+        flash("Falha ao buscar os dados do usuario no SUAP.")
         return redirect(url_for("index"))
     foto = dados.get("foto")
     if foto and foto.startswith("/"):
-        foto = f"{SUAP_BASE_URL}{foto}"
+        foto = SUAP_BASE_URL + foto
     session["usuario_suap"] = {
         "nome": dados.get("nome_usual") or dados.get("nome"),
         "email": dados.get("email"),
