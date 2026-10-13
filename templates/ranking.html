@@ -25,15 +25,22 @@
             </thead>
             <tbody>
                 {% set posicao = 1 %}
+                {% set ultima_pontuacao = None %}
+                
                 {% for item in ranking %}
+                    {% if ultima_pontuacao != item.pontuacao_total %}
+                        {% set posicao = loop.index %}
+                        {% set ultima_pontuacao = item.pontuacao_total %}
+                    {% endif %}
+                    
                 <tr style="border-bottom: 1px solid #eee;">
                     <td style="padding: 12px; text-align: center; font-weight: bold; font-size: 1.1em;">
                         {% if posicao == 1 %}
-                            <i class="fa-solid fa-medal" style="color: #ffd700;"></i> 1º
+                            <i class="fa-solid fa-medal" style="color: #ffd700;"></i> {{ posicao }}º
                         {% elif posicao == 2 %}
-                            <i class="fa-solid fa-medal" style="color: #c0c0c0;"></i> 2º
+                            <i class="fa-solid fa-medal" style="color: #c0c0c0;"></i> {{ posicao }}º
                         {% elif posicao == 3 %}
-                            <i class="fa-solid fa-medal" style="color: #cd7f32;"></i> 3º
+                            <i class="fa-solid fa-medal" style="color: #cd7f32;"></i> {{ posicao }}º
                         {% else %}
                             {{ posicao }}º
                         {% endif %}
@@ -44,7 +51,6 @@
                         {{ item.pontuacao_total | round(1) }}
                     </td>
                 </tr>
-                {% set posicao = posicao + 1 %}
                 {% endfor %}
             </tbody>
         </table>
