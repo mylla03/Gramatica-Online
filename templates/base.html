@@ -25,7 +25,6 @@
                     {% endif %}
                 </summary>
                 <div class="user-menu-dropdown">
-                    <a href="{{ url_for('ranking') }}"><i class="fa-solid fa-trophy"></i> Ranking</a>
                     <a href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
                 </div>
             </details>
@@ -33,9 +32,10 @@
         
         <nav>
             <ul>
-                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Usuário</a></li>
+                <li><a href="{{ url_for('usuario') }}"><i class="fa-regular fa-circle-user"></i> Início</a></li>
                 <li><a href="{{ url_for('gramatica') }}"><i class="fa-solid fa-book"></i> Gramática</a></li>
                 <li><a href="{{ url_for('atividades') }}"><i class="fa-solid fa-pen"></i> Exercícios</a></li>
+                <li><a href="{{ url_for('ranking') }}"><i class="fa-solid fa-trophy"></i> Ranking</a></li>
                 {# {% if usuario_logado.tipo_vinculo == 'Servidor (Docente)' %} #}
                     <li><a href="{{ url_for('listar_assuntos') }}"><i class="fa-solid fa-cog"></i>Assuntos</a></li>
                     <li><a href="{{ url_for('listar_atividades') }}"><i class="fa-solid fa-cog"></i> Atividades</a></li>
