@@ -447,27 +447,43 @@ def adjunto_adverbial_detalhe(): return render_template("adjunto_adverbial_detal
 @app.route("/revisao_geral_detalhe")
 def revisao_geral_detalhe(): return render_template("revisao_geral_detalhe.html")
 
-# ==================================================
-# ROTAS DE RESPOSTA DAS ATIVIDADES + SALVAMENTO NO RANKING
-# ==================================================
-@app.route("/resposta_atividade1", methods=["POST"])
-def resposta_atividade1():
-    gabarito = {
-        "q1": "a", "q2": "b", "q3": "b", "q4": "b", "q5": "b"
-    }
-    acertos = 0
-    total = len(gabarito)
-    resultados = {}
-    for q, certa in gabarito.items():
-        resp = request.form.get(q, "").strip().lower()
-        acertou = (resp == certa.lower())
-        resultados[q] = acertou
-        if acertou: acertos += 1
-    nota = round((acertos / total) * 10, 1) if total > 0 else 0
-    salvar_primeira_tentativa(1, acertos, total)
-    return render_template("atividade1.html", enviado=True, resultados=resultados, nota=nota)
 
-@app.route("/resposta_atividade2", methods=["POST"])
+@app.route("/atividade/<int:atividade_id>", methods=["GET","POST"])
+def atividade_dinamica(atividade_id):
+    from moldels import Atividade, Questao
+    from database import db
+
+    atividade = Atividade.query.get_or_404(atividade_id)
+
+    if request.method == "POST":
+        acertos = 0
+        total = len(atividade.questoes)
+        
+        for questao in atividade.questoes:
+            resp_aluno = request.form.get(f"q{questao.id}", "").upper().strip()
+            resp_correta = questao.resposta_correta.upper().strip()
+            if resp_aluno == resp_correta:
+                acertos += 1
+        
+        nota = round((acertos / total) * 10, 1) if total > 0 else 0
+        
+        if "usuario_suap" in session:
+            from services.ranking_service import RankingService
+            RankingService.salvar_primeira_tentativa(
+                usuario_matricula=session["usuario_suap"]["matricula"],
+                usuario_nome=session["usuario_suap"]["nome"],
+                atividade_numero=atividade_id,
+                acertos=acertos,
+                total=total
+            )
+        
+        return render_template("atividade_dinamica.html", 
+            atividade=atividade, enviado=True, acertos=acertos, total=total, nota=nota)
+    
+    return render_template("atividade_dinamica.html", atividade=atividade, enviado=False)
+    
+    
+    @app.route("/resposta_atividade2", methods=["POST"])
 def resposta_atividade2():
     gabarito = {
         "q1": "c", "q2": "c", "q3": "d", "q4": "b", "q5": "c"
