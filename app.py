@@ -10,6 +10,7 @@ from authlib.integrations.base_client.errors import OAuthError
 from requests.exceptions import RequestException
 from datetime import datetime
 
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -49,7 +50,7 @@ db.init_app(app)
 from models import Assunto, Atividade, Questao, ResultadoAtividade
 
 with app.app_context():
-    # ✅ ADICIONEI A COLUNA TIPO AQUI — resolve o erro sem apagar o banco!
+    #  Adiciona coluna tipo se não existir
     try: 
         db.session.execute(text("ALTER TABLE atividade ADD COLUMN tipo VARCHAR(50) NOT NULL DEFAULT 'USUARIO';"))
         db.session.commit()
@@ -73,6 +74,7 @@ with app.app_context():
     try: db.session.execute(text("ALTER TABLE questao ADD COLUMN resposta_correta VARCHAR(1);")); db.session.commit()
     except Exception: pass
     db.create_all()
+
 
 def arquivo_permitido(nome):
     return '.' in nome and nome.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -424,27 +426,8 @@ def adjunto_adverbial_detalhe(): return render_template("adjunto_adverbial_detal
 @app.route("/revisao_geral_detalhe")
 def revisao_geral_detalhe(): return render_template("revisao_geral_detalhe.html")
 
-@app.route("/atividade1")
-def atividade1(): return render_template("atividade1.html")
-@app.route("/atividade2")
-def atividade2(): return render_template("atividade2.html")
-@app.route("/atividade3")
-def atividade3(): return render_template("atividade3.html")
-@app.route("/atividade4")
-def atividade4(): return render_template("atividade4.html")
-@app.route("/atividade5")
-def atividade5(): return render_template("atividade5.html")
-@app.route("/atividade6")
-def atividade6(): return render_template("atividade6.html")
-@app.route("/atividade7")
-def atividade7(): return render_template("atividade7.html")
-@app.route("/atividade8")
-def atividade8(): return render_template("atividade8.html")
-@app.route("/atividade9")
-def atividade9(): return render_template("atividade9.html")
-
 # ==================================================
-# ROTA DINÂMICA DE ATIVIDADE
+# ROTA DINÂMICA — ATIVIDADES DE USUÁRIO
 # ==================================================
 @app.route("/atividade/<int:atividade_id>", methods=["GET", "POST"])
 def atividade_dinamica(atividade_id):
@@ -473,6 +456,42 @@ def atividade_dinamica(atividade_id):
             nota=nota,
             acertos=acertos,
             total=total)
+    
+    return render_template("atividade_dinamica.html", atividade=atividade, enviado=False)
+
+# ==================================================
+#  ROTA ESPECIAL — ATIVIDADES DE SISTEMA POR POSIÇÃO
+# ==================================================
+@app.route("/sistema/<int:indice>", methods=["GET", "POST"])
+def atividade_sistema(indice):
+    atividades_sistema = Atividade.query.filter_by(tipo="SISTEMA").order_by(Atividade.id).all()
+    
+    idx = indice - 1  
+    if idx < 0 or idx >= len(atividades_sistema):
+        flash("Atividade não encontrada!")
+        return redirect(url_for('atividades'))
+    
+    atividade = atividades_sistema[idx]
+    
+    if request.method == "POST":
+        acertos = 0
+        total = len(atividade.questoes)
+        resultados = {}
+        
+        for i, q in enumerate(atividade.questoes, 1):
+            resp_aluno = request.form.get(f"q{i}", "").upper().strip()
+            resp_correta = q.resposta_correta.upper().strip() if q.resposta_correta else ""
+            acertou = (resp_aluno == resp_correta)
+            resultados[i] = acertou
+            if acertou:
+                acertos += 1
+        
+        nota = round((acertos / total) * 10, 1) if total > 0 else 0
+        salvar_primeira_tentativa(atividade.id, acertos, total)
+        
+        return render_template("atividade_dinamica.html",
+            atividade=atividade, enviado=True, resultados=resultados,
+            nota=nota, acertos=acertos, total=total)
     
     return render_template("atividade_dinamica.html", atividade=atividade, enviado=False)
 

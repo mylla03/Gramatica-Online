@@ -10,8 +10,10 @@ def inserir_atividades_sistema():
         
         print("Inserindo atividades do sistema no banco de dados...")
         
+
+
         #  ATIVIDADE 1 - Sujeito 
-        atividade1 = Atividade(nome="Atividade 1 - Sujeito", dificuldade="Fácil", tipo="SISTEMA")
+        atividade1 = Atividade(nome="Atividade 1 - Sujeito", dificuldade="Fácil", assunto_id=1, tipo="SISTEMA")
         db.session.add(atividade1)
         db.session.flush()
         
@@ -140,11 +142,11 @@ def inserir_atividades_sistema():
         db.session.add(Questao(enunciado="1. Qual a principal característica obrigatória do Complemento Nominal (CN)?",
             alternativa_a="É sempre ligado a um verbo.", alternativa_b="É sempre um termo acessório.",
             alternativa_c="Completa o sentido de um substantivo concreto.", alternativa_d="É sempre introduzido por preposição.",
-            resposta_correta="d", atividade_id=atividade5.id))Completa o sentido de um substantivo concreto.
+            resposta_correta="d", atividade_id=atividade5.id))
         
         db.session.add(Questao(enunciado="2. Identifique o Complemento Nominal na frase: 'Ela tem orgulho de suas raízes.'",
             alternativa_a="de suas raízes", alternativa_b="tem orgulho", alternativa_c="Ela", alternativa_d="raízes",
-            resposta_correta="a", atividade_id=atividade5.id))de suas raízes
+            resposta_correta="a", atividade_id=atividade5.id))
         
         db.session.add(Questao(enunciado="3. A principal diferença estrutural entre o Complemento Nominal (CN) e o Objeto Indireto (OI) é que:",
             alternativa_a="O CN liga-se a verbos, e o OI a nomes (substantivos, adjetivos, advérbios).",
