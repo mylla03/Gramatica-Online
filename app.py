@@ -49,6 +49,13 @@ db.init_app(app)
 from models import Assunto, Atividade, Questao, ResultadoAtividade
 
 with app.app_context():
+    # ✅ ADICIONEI A COLUNA TIPO AQUI — resolve o erro sem apagar o banco!
+    try: 
+        db.session.execute(text("ALTER TABLE atividade ADD COLUMN tipo VARCHAR(50) NOT NULL DEFAULT 'USUARIO';"))
+        db.session.commit()
+    except Exception: 
+        pass
+
     try: db.session.execute(text("ALTER TABLE atividade ADD COLUMN nome VARCHAR(150);")); db.session.commit()
     except Exception: pass
     try: db.session.execute(text("ALTER TABLE atividade ADD COLUMN dificuldade VARCHAR(50);")); db.session.commit()
@@ -71,9 +78,9 @@ def arquivo_permitido(nome):
     return '.' in nome and nome.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # ==================================================
-# FUNCAO AUXILIAR: SALVA SOMENTE A PRIMEIRA TENTATIVA
+# FUNÇÃO AUXILIAR: SALVA SOMENTE A PRIMEIRA TENTATIVA
 # ==================================================
-def salvar_primeira_tentativa(atividade_num, acertos, total):
+def salvar_primeira_tentativa(atividade_id, acertos, total):
     if "usuario_suap" not in session:
         return False
     
@@ -81,20 +88,19 @@ def salvar_primeira_tentativa(atividade_num, acertos, total):
     matricula = usuario["matricula"]
     nome = usuario["nome"]
     
-    # Verifica se ja existe registro
     ja_existe = ResultadoAtividade.query.filter_by(
         usuario_matricula=matricula,
-        atividade_numero=atividade_num
+        atividade_numero=atividade_id
     ).first()
     
     if ja_existe:
-        return False  # Ja tentou, nao altera
+        return False
     
     nota = round((acertos / total) * 10, 1) if total > 0 else 0
     novo = ResultadoAtividade(
         usuario_nome=nome,
         usuario_matricula=matricula,
-        atividade_numero=atividade_num,
+        atividade_numero=atividade_id,
         nota=nota,
         acertos=acertos,
         total_questoes=total
@@ -114,13 +120,16 @@ def index():
         return render_template("index.html")
 
 @app.route("/login")
-def login(): return redirect(url_for("auth_suap"))
+def login(): 
+    return redirect(url_for("auth_suap"))
 
 @app.route("/usuario")
-def usuario(): return render_template("usuario.html")
+def usuario(): 
+    return render_template("usuario.html")
 
 @app.route("/escolha")
-def escolha(): return render_template("escolha.html")
+def escolha(): 
+    return render_template("escolha.html")
 
 @app.route("/gramatica")
 def gramatica():
@@ -170,6 +179,7 @@ def novo_assunto():
         if not nome:
             flash("Preencha o nome do assunto!")
             return redirect(url_for('novo_assunto'))
+        
         caminho_pdf = None
         if 'arquivo_pdf' in request.files:
             arq = request.files['arquivo_pdf']
@@ -177,6 +187,7 @@ def novo_assunto():
                 nome_seg = secure_filename(f"{nome}_{arq.filename}")
                 arq.save(os.path.join(app.config['UPLOAD_FOLDER'], nome_seg))
                 caminho_pdf = f"uploads/{nome_seg}"
+        
         caminho_img = None
         if 'imagem' in request.files:
             arq = request.files['imagem']
@@ -184,11 +195,14 @@ def novo_assunto():
                 nome_seg = secure_filename(f"{nome}_{arq.filename}")
                 arq.save(os.path.join(app.config['UPLOAD_FOLDER'], nome_seg))
                 caminho_img = f"uploads/{nome_seg}"
-        novo = Assunto(nome=nome, conteudo=request.form.get('conteudo',''), arquivo_pdf=caminho_pdf, imagem=caminho_img)
+        
+        novo = Assunto(nome=nome, conteudo=request.form.get('conteudo',''), 
+                       arquivo_pdf=caminho_pdf, imagem=caminho_img)
         db.session.add(novo)
         db.session.commit()
         flash("Assunto cadastrado com sucesso!")
         return redirect(url_for('listar_assuntos'))
+    
     return render_template("novo_assunto.html")
 
 @app.route('/ver_assunto/<int:id>')
@@ -225,11 +239,13 @@ def cadastrar_atividade():
         if not assunto_id:
             flash("Selecione o assunto da atividade!")
             return redirect(url_for('cadastrar_atividade'))
-        nova = Atividade(nome=nome, dificuldade=dificuldade, assunto_id=assunto_id)
+        
+        nova = Atividade(nome=nome, dificuldade=dificuldade, assunto_id=assunto_id, tipo="USUARIO")
         db.session.add(nova)
         db.session.commit()
         flash("Atividade cadastrada!")
         return redirect(url_for('listar_atividades'))
+    
     atividades = Atividade.query.all()
     return render_template("cadastrar_atividade.html", assuntos=assuntos, atividades=atividades)
 
@@ -307,7 +323,7 @@ def nova_questao():
             )
             db.session.add(nova)
             db.session.commit()
-            flash("Questao cadastrada com sucesso!")
+            flash("Questão cadastrada com sucesso!")
         else:
             flash("Preencha todos os campos corretamente!")
         return redirect(url_for('listar_questoes'))
@@ -326,6 +342,7 @@ def listar_questoes():
         d = request.form.get('alternativa_d', '').strip()
         e = request.form.get('alternativa_e', '').strip()
         correta = request.form.get('resposta_correta', '').upper().strip()
+        
         if atividade_id and enunciado and correta in ['A','B','C','D','E']:
             nova = Questao(
                 enunciado=enunciado,
@@ -335,10 +352,11 @@ def listar_questoes():
             )
             db.session.add(nova)
             db.session.commit()
-            flash("Questao cadastrada!")
+            flash("Questão cadastrada!")
         else:
             flash("Preencha todos os campos corretamente!")
         return redirect(url_for('listar_questoes'))
+    
     questoes = Questao.query.all()
     atividades = Atividade.query.all()
     return render_template("listar_questoes.html", questoes=questoes, atividades=atividades)
@@ -357,7 +375,7 @@ def editar_questao(id):
         questao.alternativa_e = request.form.get('alternativa_e', '').strip()
         questao.resposta_correta = request.form.get('resposta_correta', '').upper().strip()
         db.session.commit()
-        flash("Questao atualizada com sucesso!")
+        flash("Questão atualizada com sucesso!")
         return redirect(url_for('listar_questoes'))
     return render_template("editar_questao.html", questao=questao, atividades=atividades)
 
@@ -366,258 +384,97 @@ def apagar_questao(id):
     q = Questao.query.get_or_404(id)
     db.session.delete(q)
     db.session.commit()
-    flash("Questao removida!")
+    flash("Questão removida!")
     return redirect(url_for('listar_questoes'))
 
 # ==================================================
-# ROTAS DE CONTEUDO E ATIVIDADES
+# ROTAS DE CONTEÚDO
 # ==================================================
 @app.route("/pontuacao")
 def pontuacao(): return render_template("pontuacao.html")
-
 @app.route("/periodo_simples_e_composto")
 def periodo_simples_e_composto(): return render_template("periodo_simples_e_composto.html")
-
 @app.route("/classificacao_de_palavras")
 def classificacao_de_palavras(): return render_template("classificacao_de_palavras.html")
-
 @app.route("/att_pontuacao")
 def att_pontuacao(): return render_template("att_pontuacao.html")
-
 @app.route("/att_periodo_simples")
 def att_periodo_simples(): return render_template("att_periodo_simples.html")
-
 @app.route("/att_periodo_composto")
 def att_periodo_composto(): return render_template("att_periodo_composto.html")
-
 @app.route("/att_classificacao_de_palavras")
 def att_classificacao_de_palavras(): return render_template("att_classificacao_de_palavras.html")
 
-@app.route("/atividade1")
-def atividade1(): return render_template("atividade1.html")
-
-@app.route("/atividade2")
-def atividade2(): return render_template("atividade2.html")
-
-@app.route("/atividade3")
-def atividade3(): return render_template("atividade3.html")
-
-@app.route("/atividade4")
-def atividade4(): return render_template("atividade4.html")
-
-@app.route("/atividade5")
-def atividade5(): return render_template("atividade5.html")
-
-@app.route("/atividade6")
-def atividade6(): return render_template("atividade6.html")
-
-@app.route("/atividade7")
-def atividade7(): return render_template("atividade7.html")
-
-@app.route("/atividade8")
-def atividade8(): return render_template("atividade8.html")
-
-@app.route("/atividade9")
-def atividade9(): return render_template("atividade9.html")
-
 @app.route("/sujeito_detalhe")
 def sujeito_detalhe(): return render_template("sujeito_detalhe.html")
-
 @app.route("/predicado_detalhe")
 def predicado_detalhe(): return render_template("predicado_detalhe.html")
-
 @app.route("/aposto_detalhe")
 def aposto_detalhe(): return render_template("aposto_detalhe.html")
-
 @app.route("/complemento_verbal_detalhe")
 def complemento_verbal_detalhe(): return render_template("complemento_verbal_detalhe.html")
-
 @app.route("/complemento_nominal_detalhe")
 def complemento_nominal_detalhe(): return render_template("complemento_nominal_detalhe.html")
-
 @app.route("/agente_da_passiva_detalhe")
 def agente_da_passiva_detalhe(): return render_template("agente_da_passiva_detalhe.html")
-
 @app.route("/adjunto_adnominal_detalhe")
 def adjunto_adnominal_detalhe(): return render_template("adjunto_adnominal_detalhe.html")
-
 @app.route("/adjunto_adverbial_detalhe")
 def adjunto_adverbial_detalhe(): return render_template("adjunto_adverbial_detalhe.html")
-
 @app.route("/revisao_geral_detalhe")
 def revisao_geral_detalhe(): return render_template("revisao_geral_detalhe.html")
 
+@app.route("/atividade1")
+def atividade1(): return render_template("atividade1.html")
+@app.route("/atividade2")
+def atividade2(): return render_template("atividade2.html")
+@app.route("/atividade3")
+def atividade3(): return render_template("atividade3.html")
+@app.route("/atividade4")
+def atividade4(): return render_template("atividade4.html")
+@app.route("/atividade5")
+def atividade5(): return render_template("atividade5.html")
+@app.route("/atividade6")
+def atividade6(): return render_template("atividade6.html")
+@app.route("/atividade7")
+def atividade7(): return render_template("atividade7.html")
+@app.route("/atividade8")
+def atividade8(): return render_template("atividade8.html")
+@app.route("/atividade9")
+def atividade9(): return render_template("atividade9.html")
 
-@app.route("/atividade/<int:atividade_id>", methods=["GET","POST"])
+# ==================================================
+# ROTA DINÂMICA DE ATIVIDADE
+# ==================================================
+@app.route("/atividade/<int:atividade_id>", methods=["GET", "POST"])
 def atividade_dinamica(atividade_id):
-    from moldels import Atividade, Questao
-    from database import db
-
     atividade = Atividade.query.get_or_404(atividade_id)
-
+    
     if request.method == "POST":
         acertos = 0
         total = len(atividade.questoes)
+        resultados = {}
         
-        for questao in atividade.questoes:
-            resp_aluno = request.form.get(f"q{questao.id}", "").upper().strip()
-            resp_correta = questao.resposta_correta.upper().strip()
-            if resp_aluno == resp_correta:
+        for idx, q in enumerate(atividade.questoes, 1):
+            resp_aluno = request.form.get(f"q{idx}", "").upper().strip()
+            resp_correta = q.resposta_correta.upper().strip() if q.resposta_correta else ""
+            acertou = (resp_aluno == resp_correta)
+            resultados[idx] = acertou
+            if acertou:
                 acertos += 1
         
         nota = round((acertos / total) * 10, 1) if total > 0 else 0
-        
-        if "usuario_suap" in session:
-            from services.ranking_service import RankingService
-            RankingService.salvar_primeira_tentativa(
-                usuario_matricula=session["usuario_suap"]["matricula"],
-                usuario_nome=session["usuario_suap"]["nome"],
-                atividade_numero=atividade_id,
-                acertos=acertos,
-                total=total
-            )
+        salvar_primeira_tentativa(atividade_id, acertos, total)
         
         return render_template("atividade_dinamica.html", 
-            atividade=atividade, enviado=True, acertos=acertos, total=total, nota=nota)
+            atividade=atividade, 
+            enviado=True, 
+            resultados=resultados,
+            nota=nota,
+            acertos=acertos,
+            total=total)
     
     return render_template("atividade_dinamica.html", atividade=atividade, enviado=False)
-    
-    
-    @app.route("/resposta_atividade2", methods=["POST"])
-def resposta_atividade2():
-    gabarito = {
-        "q1": "c", "q2": "c", "q3": "d", "q4": "b", "q5": "c"
-    }
-    acertos = 0
-    total = len(gabarito)
-    resultados = {}
-    for q, certa in gabarito.items():
-        resp = request.form.get(q, "").strip().lower()
-        acertou = (resp == certa.lower())
-        resultados[q] = acertou
-        if acertou: acertos += 1
-    nota = round((acertos / total) * 10, 1) if total > 0 else 0
-    salvar_primeira_tentativa(2, acertos, total)
-    return render_template("atividade2.html", enviado=True, resultados=resultados, nota=nota)
-
-@app.route("/resposta_atividade3", methods=["POST"])
-def resposta_atividade3():
-    gabarito = {
-        "q1": "b", "q2": "a", "q3": "d", "q4": "c", "q5": "d"
-    }
-    acertos = 0
-    total = len(gabarito)
-    resultados = {}
-    for q, certa in gabarito.items():
-        resp = request.form.get(q, "").strip().lower()
-        acertou = (resp == certa.lower())
-        resultados[q] = acertou
-        if acertou: acertos += 1
-    nota = round((acertos / total) * 10, 1) if total > 0 else 0
-    salvar_primeira_tentativa(3, acertos, total)
-    return render_template("atividade3.html", enviado=True, resultados=resultados, nota=nota)
-
-@app.route("/resposta_atividade4", methods=["POST"])
-def resposta_atividade4():
-    gabarito = {
-        "q1": "b", "q2": "c", "q3": "c", "q4": "c", "q5": "c"
-    }
-    acertos = 0
-    total = len(gabarito)
-    resultados = {}
-    for q, certa in gabarito.items():
-        resp = request.form.get(q, "").strip().lower()
-        acertou = (resp == certa.lower())
-        resultados[q] = acertou
-        if acertou: acertos += 1
-    nota = round((acertos / total) * 10, 1) if total > 0 else 0
-    salvar_primeira_tentativa(4, acertos, total)
-    return render_template("atividade4.html", enviado=True, resultados=resultados, nota=nota)
-
-@app.route("/resposta_atividade5", methods=["POST"])
-def resposta_atividade5():
-    gabarito = {
-        "q1": "c", "q2": "c", "q3": "c", "q4": "b", "q5": "b"
-    }
-    acertos = 0
-    total = len(gabarito)
-    resultados = {}
-    for q, certa in gabarito.items():
-        resp = request.form.get(q, "").strip().lower()
-        acertou = (resp == certa.lower())
-        resultados[q] = acertou
-        if acertou: acertos += 1
-    nota = round((acertos / total) * 10, 1) if total > 0 else 0
-    salvar_primeira_tentativa(5, acertos, total)
-    return render_template("atividade5.html", enviado=True, resultados=resultados, nota=nota)
-
-@app.route("/resposta_atividade6", methods=["POST"])
-def resposta_atividade6():
-    gabarito = {
-        "q1": "d", "q2": "c", "q3": "c", "q4": "c", "q5": "a"
-    }
-    acertos = 0
-    total = len(gabarito)
-    resultados = {}
-    for q, certa in gabarito.items():
-        resp = request.form.get(q, "").strip().lower()
-        acertou = (resp == certa.lower())
-        resultados[q] = acertou
-        if acertou: acertos += 1
-    nota = round((acertos / total) * 10, 1) if total > 0 else 0
-    salvar_primeira_tentativa(6, acertos, total)
-    return render_template("atividade6.html", enviado=True, resultados=resultados, nota=nota)
-
-@app.route("/resposta_atividade7", methods=["POST"])
-def resposta_atividade7():
-    gabarito = {
-        "q1": "c", "q2": "a", "q3": "b", "q4": "b", "q5": "c", "q6": "a", "q7": "d"
-    }
-    acertos = 0
-    total = len(gabarito)
-    resultados = {}
-    for q, certa in gabarito.items():
-        resp = request.form.get(q, "").strip().lower()
-        acertou = (resp == certa.lower())
-        resultados[q] = acertou
-        if acertou: acertos += 1
-    nota = round((acertos / total) * 10, 1) if total > 0 else 0
-    salvar_primeira_tentativa(7, acertos, total)
-    return render_template("atividade7.html", enviado=True, resultados=resultados, nota=nota)
-
-@app.route("/resposta_atividade8", methods=["POST"])
-def resposta_atividade8():
-    gabarito = {
-        "q1": "b", "q2": "d", "q3": "a", "q4": "c", "q5": "d", "q6": "a"
-    }
-    acertos = 0
-    total = len(gabarito)
-    resultados = {}
-    for q, certa in gabarito.items():
-        resp = request.form.get(q, "").strip().lower()
-        acertou = (resp == certa.lower())
-        resultados[q] = acertou
-        if acertou: acertos += 1
-    nota = round((acertos / total) * 10, 1) if total > 0 else 0
-    salvar_primeira_tentativa(8, acertos, total)
-    return render_template("atividade8.html", enviado=True, resultados=resultados, nota=nota)
-
-@app.route("/resposta_atividade9", methods=["POST"])
-def resposta_atividade9():
-    gabarito = {
-        "q1": "c", "q2": "d", "q3": "a", "q4": "b"
-    }
-    acertos = 0
-    total = len(gabarito)
-    resultados = {}
-    for q, certa in gabarito.items():
-        resp = request.form.get(q, "").strip().lower()
-        acertou = (resp == certa.lower())
-        resultados[q] = acertou
-        if acertou: acertos += 1
-    nota = round((acertos / total) * 10, 1) if total > 0 else 0
-    salvar_primeira_tentativa(9, acertos, total)
-    return render_template("atividade9.html", enviado=True, resultados=resultados, nota=nota)
 
 # ==================================================
 # ROTA DO RANKING
@@ -651,21 +508,25 @@ def auth_suap_callback():
     if request.args.get("error"):
         flash("Falha no login SUAP: " + request.args.get("error"))
         return redirect(url_for("index"))
+    
     try:
         token = suap.authorize_access_token()
     except OAuthError as e:
         flash("Falha no login SUAP: " + e.error)
         return redirect(url_for("index"))
+    
     try:
         resp = suap.get(SUAP_USER_INFO_ENDPOINT, token=token)
         resp.raise_for_status()
         dados = resp.json()
     except RequestException:
-        flash("Falha ao buscar os dados do usuario no SUAP.")
+        flash("Falha ao buscar os dados do usuário no SUAP.")
         return redirect(url_for("index"))
+    
     foto = dados.get("foto")
     if foto and foto.startswith("/"):
         foto = SUAP_BASE_URL + foto
+    
     session["usuario_suap"] = {
         "nome": dados.get("nome_usual") or dados.get("nome"),
         "email": dados.get("email"),
@@ -673,6 +534,7 @@ def auth_suap_callback():
         "tipo_vinculo": dados.get("tipo_vinculo") or dados.get("tipo_usuario"),
         "foto": foto,
     }
+    
     return redirect(url_for("usuario"))
 
 @app.route("/logout")

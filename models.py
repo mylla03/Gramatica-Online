@@ -16,6 +16,11 @@ class Atividade(db.Model):
     nome = db.Column(db.String(150), nullable=True)
     dificuldade = db.Column(db.String(50), nullable=True)
     assunto_id = db.Column(db.Integer, db.ForeignKey("assunto.id"), nullable=True)
+    
+    # ✅ Novo atributo — conforme solicitado
+    tipo = db.Column(db.String(50), nullable=False, default="USUARIO")
+    # Valores permitidos: 'SISTEMA', 'PESQUISA', 'USUARIO'
+    
     assunto = db.relationship("Assunto", back_populates="atividades")
     questoes = db.relationship("Questao", back_populates="atividade", lazy=True, cascade="all, delete-orphan")
 
@@ -36,18 +41,14 @@ class ResultadoAtividade(db.Model):
     __tablename__ = "resultado_atividade"
     
     id = db.Column(db.Integer, primary_key=True)
-    # Dados do usuário
     usuario_nome = db.Column(db.String(150), nullable=False)
     usuario_matricula = db.Column(db.String(50), nullable=False)
-    # Número da atividade (1 a 9)
     atividade_numero = db.Column(db.Integer, nullable=False)
-    # Resultado
     nota = db.Column(db.Float, nullable=False)
     acertos = db.Column(db.Integer, nullable=False)
     total_questoes = db.Column(db.Integer, nullable=False)
     data_primeira_tentativa = db.Column(db.DateTime, default=datetime.utcnow)
     
-    # Garante: UMA entrada por usuário + atividade (só primeira tentativa conta!)
     __table_args__ = (
         db.UniqueConstraint('usuario_matricula', 'atividade_numero', name='_usuario_atividade_unico'),
     )

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<section id="morfologia-detalhes" class="section">
+    <h2>{{ atividade.nome }}</h2>
+        <p> Para fins de classificação no ranking, será considerada apenas a <br>
+            primeira resposta enviada pelo usuário em cada atividade. </p>
+    
+    {% if enviado %}
+        <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 25px;">
+            <h3 style="margin-top: 0;">Seu Resultado</h3>
+            <p><strong>Nota: {{ nota }}/10</strong></p>
+            {% for questao in atividade.questoes %}
+                {% set q_id = questao.id %}
+                {% set acertou = (respostas_corretas[q_id] == True) %}
+                <p style="margin: 8px 0;">
+                    <strong>Questão {{ loop.index }}:</strong>
+                    {% if acertou %}
+                        <span style="color: #2e7d32; font-weight: bold; margin-left: 10px;"><i class="fa-solid fa-check"></i> Correta!</span>
+                    {% else %}
+                        <span style="color: #c62828; font-weight: bold; margin-left: 10px;"><i class="fa-solid fa-xmark"></i> Incorreta</span>
+                    {% endif %}
+                </p>
+            {% endfor %}
+            <p style="margin-top: 15px; font-style: italic;">
+                {% if nota >= 7 %} Parabéns! <i class="fa-solid fa-trophy"></i>
+                {% elif nota >= 5 %} Quase lá! Revise e tente novamente <i class="fa-solid fa-pencil"></i>
+                {% else %} Não desista! Revise o conteúdo e tente novamente <i class="fa-solid fa-book"></i>
+                {% endif %}
+            </p>
+            <a href="{{ url_for('atividade_dinamica', atividade_id=atividade.id) }}" class="botao" style="display: inline-block; margin-top: 10px;">
+                <i class="fa-solid fa-rotate-right"></i> Responder Novamente
+            </a>
+        </div>
+    {% endif %}
+    
+    {% if not enviado %}
+    <form method="POST" class="form-atividade">
+        {% for questao in atividade.questoes %}
+        <div class="atividade">
+            <h3>{{ loop.index }}. {{ questao.enunciado }}</h3>
+            
+            {% if questao.alternativa_a %}
+            <label class="opcao">
+                <input type="radio" name="q{{ questao.id }}" value="a" required>
+                {{ questao.alternativa_a }}
+            </label>
+            {% endif %}
+            
+            {% if questao.alternativa_b %}
+            <label class="opcao">
+                <input type="radio" name="q{{ questao.id }}" value="b">
+                {{ questao.alternativa_b }}
+            </label>
+            {% endif %}
+            
+            {% if questao.alternativa_c %}
+            <label class="opcao">
+                <input type="radio" name="q{{ questao.id }}" value="c">
+                {{ questao.alternativa_c }}
+            </label>
+            {% endif %}
+            
+            {% if questao.alternativa_d %}
+            <label class="opcao">
+                <input type="radio" name="q{{ questao.id }}" value="d">
+                {{ questao.alternativa_d }}
+            </label>
+            {% endif %}
+            
+            {% if questao.alternativa_e %}
+            <label class="opcao">
+                <input type="radio" name="q{{ questao.id }}" value="e">
+                {{ questao.alternativa_e }}
+            </label>
+            {% endif %}
+        </div>
+        {% endfor %}
+        
+        <div style="margin-top: 30px;">
+            <button type="submit" class="botao">
+                <i class="fa-solid fa-paper-plane"></i> Enviar Respostas
+            </button>
+            <a href="{{ url_for('gramatica') }}" class="btn btn-gramatica">
+                <i class="fa-solid fa-arrow-left"></i> Voltar
+            </a>
+        </div>
+    </form>
+    {% endif %}
+</section>
+{% endblock %}

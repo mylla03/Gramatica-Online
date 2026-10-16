@@ -1,41 +1,36 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
         <section id="gramatica" class="section">
             <h2>Atividades</h2>
             <p>Hora de praticar!<br>Clique nos tópicos abaixo para iniciar sua prática.<br>Boa Sorte!</p>
-
             <div class="topicos-principais">
                 <p><a href="{{ url_for('att_pontuacao') }}" class="btn btn-detalhe bnt-pontuacao"><i class="fa-solid fa-star"></i> Atividade de Pontuação</a></p>
                 <p><a href="{{ url_for('att_periodo_simples') }}" class="btn btn-detalhe bnt-periodo_simples"><i class="fa-solid fa-star"></i> Atividade de Período Simples</a></p>
                 <p><a href="{{ url_for('att_periodo_composto') }}" class="btn btn-detalhe bnt-periodo_composto"><i class="fa-solid fa-star"></i> Atividade de Período Composto</a></p>
                 <p><a href="{{ url_for('att_classificacao_de_palavras') }}" class="btn btn-detalhe bnt-classificacao_de_palavras"><i class="fa-solid fa-star"></i> Atividade de Classificação de Palavras</a></p>
             </div>
-
             <br>
             <p>Clique no tópico abaixo para expandir o conteúdo e iniciar seu estudo de forma interativa.</p>
             <div class="topicos-gramatica">
                 <details>
                     <summary>Atividades:</summary>
-                    <p><a href="{{ url_for('atividade_dinamica_id=1') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Sujeito</a></p>
-                    <p><a href="{{ url_for('atividade_dinamica_id=2') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Predicado</a></p>
-                    <p><a href="{{ url_for('atividade_dinamica_id=3') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Aposto</a></p>
-                    <p><a href="{{ url_for('atividade_dinamica_id=4') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Complemento Verbal</a></p>
-                    <p><a href="{{ url_for('atividade_dinamica_id=5') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Complemento Nominal</a></p>
-                    <p><a href="{{ url_for('atividade_dinamica_id=6') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Agente da Passiva</a></p>
-                    <p><a href="{{ url_for('atividade_dinamica_id=7') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Adjunto Adnominal</a></p>
-                    <p><a href="{{ url_for('atividade_dinamica_id=8') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Adjunto Adverbial</a></p>
-                    <p><a href="{{ url_for('atividade_dinamica_id=9') }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Revisão Geral</a></p>
+                    <p><a href="{{ url_for('atividade_dinamica', atividade_id=1) }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Sujeito</a></p>
+                    <p><a href="{{ url_for('atividade_dinamica', atividade_id=2) }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Predicado</a></p>
+                    <p><a href="{{ url_for('atividade_dinamica', atividade_id=3) }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Aposto</a></p>
+                    <p><a href="{{ url_for('atividade_dinamica', atividade_id=4) }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Complemento Verbal</a></p>
+                    <p><a href="{{ url_for('atividade_dinamica', atividade_id=5) }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Complemento Nominal</a></p>
+                    <p><a href="{{ url_for('atividade_dinamica', atividade_id=6) }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Agente da Passiva</a></p>
+                    <p><a href="{{ url_for('atividade_dinamica', atividade_id=7) }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Adjunto Adnominal</a></p>
+                    <p><a href="{{ url_for('atividade_dinamica', atividade_id=8) }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Adjunto Adverbial</a></p>
+                    <p><a href="{{ url_for('atividade_dinamica', atividade_id=9) }}" class="btn btn-detalhe"><i class="fa-solid fa-star"></i> Atividade de Revisão Geral</a></p>
                     <div class="imagem-artigo-container"><img src="{{ url_for('static', filename='img/numeral.png') }}" alt="mão" class="imagem-artigo"></div>
                     <div class="imagem-kaelgramatica-container"><img src="{{ url_for('static', filename='img/1000160377.png') }}" alt="imagem do Kael" class="imagem-kaelgramatica"></div>
                 </details>
             </div>
-
             <br><br>
             <h3 style="color: #2c3e50; border-bottom: 2px solid #2980b9; padding-bottom: 8px;">
                 <i class="fa-solid fa-users"></i> Atividades Adicionadas pelos Usuários
             </h3>
-
             <div class="topicos-principais">
                 {% if atividades %}
                     {% for atividade in atividades %}
@@ -61,7 +56,6 @@
                     </p>
                 {% endif %}
             </div>
-
             <br>
             <a href="{{ url_for('usuario') }}" class="btn btn-gramatica"><i class="fa-solid fa-arrow-left"></i> Ir para Usuário </a>
         </section>
