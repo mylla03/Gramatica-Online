@@ -8,26 +8,111 @@ def inserir_atividades_sistema():
             print("Atividades do sistema já existem no banco de dados.")
             return
         
-        print("Inserindo assuntos e atividades do sistema...\n")
+        print("Inserindo assuntos e atividades do grupo...\n")
 
         # ASSUNTO 1 — Sujeito
-        assunto_sujeito = Assunto.query.filter_by(nome="Sujeito").first()
-        if not assunto_sujeito:
-            assunto_sujeito = Assunto(
-                nome="Sujeito",
-                conteudo="O sujeito é o ser principal da oração e indica quem participa, pratica ou sofre a ação. Tipos: simples, composto, oculto, indeterminado e oração sem sujeito."
+        assunto1 = Assunto.query.filter_by(nome="Módulo 1: Sujeito").first()
+        if not assunto1:
+            assunto1 = Assunto(
+                nome="Módulo 1: Sujeito",
+                conteudo="""
+<h3>O que é sujeito?</h3>
+<p>O sujeito é o ser principal da oração e indica quem participa, pratica ou sofre a ação.</p>
+
+<h3>Tipos de sujeito</h3>
+<p>No total, existem cinco tipos principais de sujeito na língua portuguesa: simples, composto, oculto, indeterminado e oração sem sujeito.</p>
+
+<h3>Sujeito simples:</h3>
+<p>O sujeito simples é aquele que possui apenas um núcleo, isto é, uma palavra principal que indica quem realiza ou sofre a ação.</p>
+<p>Observe as seguintes frases:</p>
+<ul>
+    <li>O menino dormiu.</li>
+    <li>A menina mordeu a maçã.</li>
+</ul>
+<p>Na frase "O menino dormiu", menino é o sujeito e dormiu é a ação.</p>
+<p>Em "A menina mordeu a maçã", menina é o sujeito, mordeu é a ação e maçã é o objeto direto, que sofreu a ação.</p>
+<p><em>Dica: O sujeito simples fala de apenas uma pessoa ou coisa.</em></p>
+
+<h3>Sujeito Oculto (ou Elíptico):</h3>
+<p>O sujeito oculto (ou elíptico) é aquele que não aparece na oração, mas pode ser identificado pelo verbo ou pelo contexto.</p>
+<p>Exemplos:</p>
+<ul>
+    <li>Fui à praia ontem.</li>
+    <p>O sujeito não está explícito, mas o verbo "fui" indica que o sujeito é eu.</p>
+    <li>Fomos ao cinema hoje.</li>
+    <p>O verbo "fomos" está na primeira pessoa do plural, então percebemos que o sujeito oculto é "nós", mesmo que não esteja escrito na frase.</p>
+</ul>
+
+<h3>Sujeito Composto:</h3>
+<p>O sujeito composto é aquele que possui dois ou mais núcleos, isto é, duas ou mais palavras principais que indicam quem realiza ou sofre a ação.</p>
+<p>Exemplos:</p>
+<ul>
+    <li>Marina e Mariana foram ao shopping.</li>
+    <p>Os núcleos são Marina e Mariana. O verbo está no plural porque, na frase, existe mais de um núcleo.</p>
+    <li>Cecília e Gael foram ao mercado.</li>
+    <p>Os núcleos são Cecília e Gael.</p>
+</ul>
+<p><em>Dica: se houver dois ou mais núcleos, o sujeito é composto.</em></p>
+
+<h3>Sujeito Indeterminado:</h3>
+<p>O sujeito indeterminado é aquele em que alguém realiza uma ação, mas não sabemos exatamente quem.</p>
+<p>1. Com o verbo na terceira pessoa do plural, sem indicar quem é o sujeito.</p>
+<p>Exemplo:</p>
+<ul><li>Pegaram minha comida.</li></ul>
+<p>Nesse caso, alguém pegou, mas não sabemos quem.</p>
+<p>2. Com o verbo na terceira pessoa do singular, acompanhado da partícula "se", que é o índice de indeterminação do sujeito.</p>
+<p>Exemplos:</p>
+<ul>
+    <li>Dorme-se pouco nessa cidade.<br>(Alguém dorme, mas não sabemos quem.)</li>
+    <li>Precisa-se de atendente.<br>(Alguém precisa, mas não sabemos quem.)</li>
+</ul>
+
+<h3>Oração sem Sujeito:</h3>
+<p>A oração sem sujeito é aquela que não possui um sujeito possível, isto é, não tem alguém que realiza a ação.</p>
+<p>Nesses casos, o verbo é impessoal, pois não se refere a ninguém.</p>
+
+<p>Isso pode acontecer com:</p>
+<p><strong>1. Fenômenos da natureza:</strong></p>
+<ul>
+    <li>Fez muito sol ontem.</li>
+    <li>Hoje está nublado.</li>
+</ul>
+<p>Esses verbos indicam acontecimentos da natureza, então não têm sujeito.</p>
+
+<p><strong>2. Verbo "haver" com sentido de acontecer ou existir:</strong></p>
+<ul>
+    <li>Havia poucas pessoas na praia.</li>
+    <li>Vai haver passeio amanhã.</li>
+</ul>
+<p>O verbo "haver" é impessoal nesses sentidos, portanto, a oração não tem sujeito.</p>
+
+<p><strong>3. Verbo "fazer" indicando tempo ou fenômeno natural:</strong></p>
+<ul>
+    <li>Faz três anos que moro longe.</li>
+    <li>Faz vento hoje.</li>
+</ul>
+<p>Nesse caso, o verbo "fazer" também é impessoal, então a oração é sem sujeito.</p>
+
+<p><em>Dica: Se não há alguém realizando a ação e não dá pra saber quem faz, é uma oração sem sujeito.</em></p>
+
+<h3>Mapa Mental</h3>
+<div class="mapa-mental-container">
+<img src="{{ url_for('static', filename='img/mapa_sujeito.png') }}" alt="Mapa Mental de Sujeito" class="mapa-mental">
+</div>
+
+<h3>Próximos Passos</h3>
+<p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
+                """
             )
-            db.session.add(assunto_sujeito)
+            db.session.add(assunto1)
             db.session.flush()
             print(" Assunto 1 — Sujeito criado")
-        else:
-            print(" Assunto 1 — Sujeito já existe")
 
         atividade1 = Atividade(
             nome="Atividade 1 - Sujeito",
             dificuldade="Fácil",
             tipo="SISTEMA",
-            assunto_id=assunto_sujeito.id
+            assunto_id=assunto1.id
         )
         db.session.add(atividade1)
         db.session.flush()
@@ -52,23 +137,71 @@ def inserir_atividades_sistema():
             resposta_correta="c", atividade_id=atividade1.id))
 
         # ASSUNTO 2 — Predicado
-        assunto_predicado = Assunto.query.filter_by(nome="Predicado").first()
-        if not assunto_predicado:
-            assunto_predicado = Assunto(
-                nome="Predicado",
-                conteudo="O predicado é a parte da oração que contém aquilo que se afirma sobre o sujeito. Tipos: verbal (núcleo verbo de ação), nominal (núcleo nome/adjetivo + verbo de ligação) e verbo-nominal (combina ação e característica)."
+        assunto2 = Assunto.query.filter_by(nome="Módulo 2: Predicado").first()
+        if not assunto2:
+            assunto2 = Assunto(
+                nome="Módulo 2: Predicado",
+                conteudo="""
+<h3>O que é predicado?</h3>
+<p>O predicado é uma parte da oração que contém aquilo que se afirma sobre o sujeito.</p>
+<p>Ele traz ação, característica ou estado atribuído ao sujeito.</p>
+<p>Exemplo:</p>
+<ul><li>O menino brincou no parquinho.</li></ul>
+<p>Sujeito: O menino.</p>
+<p>Predicado: brincou no parquinho.</p>
+
+<h3>Tipos de predicado:</h3>
+<p>Na língua portuguesa, temos três tipos principais de predicado: predicado verbal, nominal e verbo-nominal.</p>
+
+<h3>Predicado verbal:</h3>
+<p>O núcleo do predicado é um verbo de ação. O foco está no que o sujeito faz.</p>
+<p>Quando ocorre, há um verbo significativo, como correr, cantar ou brincar. Esse verbo é o elemento principal.</p>
+<p>Exemplo:</p>
+<ul><li>Essa menina dança muito.</li></ul>
+<p>Núcleo verbal: dança.</p>
+
+<h3>Predicado nominal:</h3>
+<p>O predicado nominal é aquele em que o núcleo é um nome, adjetivo ou substantivo, e o verbo de ligação demonstra característica ou estado do sujeito.</p>
+<p>Nesse caso, o verbo apenas liga o sujeito a uma característica, não indica uma ação.</p>
+<p>Alguns verbos de ligação comuns são: estar, ficar, permanecer, ser, aparecer e continuar.</p>
+<p>Exemplo:</p>
+<ul><li>A menina está animada.</li></ul>
+<p>Núcleo: animada, característica do sujeito.</p>
+
+<h3>Predicado verbo-nominal:</h3>
+<p>O predicado verbo-nominal combina os dois anteriores.</p>
+<p>Mostra uma ação e, ao mesmo tempo, uma característica ou estado do sujeito.</p>
+<p>Exemplo:</p>
+<ul><li>O menino chegou atrasado.</li></ul>
+<p>Ação: chegou.</p>
+<p>Estado: atrasado.</p>
+
+<h3>Relação entre sujeito e predicado:</h3>
+<p>Toda oração pode ser dividida em sujeito e predicado.</p>
+<p>O sujeito é alguém ou algo sobre o qual se faz uma declaração, enquanto o predicado é a informação dada sobre ele.</p>
+<p>Exemplo:</p>
+<ul><li>As meninas ficaram animadas com o passeio.</li></ul>
+<p>Sujeito: As meninas.</p>
+<p>Predicado: ficaram animadas com o passeio.</p>
+<p>Tipo: verbo-nominal.</p>
+
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2f_fPWs4I60" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+<h3>Próximos Passos</h3>
+<p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
+                """
             )
-            db.session.add(assunto_predicado)
+            db.session.add(assunto2)
             db.session.flush()
             print(" Assunto 2 — Predicado criado")
-        else:
-            print(" Assunto 2 — Predicado já existe")
 
         atividade2 = Atividade(
             nome="Atividade 2 - Predicado",
             dificuldade="Fácil",
             tipo="SISTEMA",
-            assunto_id=assunto_predicado.id
+            assunto_id=assunto2.id
         )
         db.session.add(atividade2)
         db.session.flush()
@@ -91,23 +224,96 @@ def inserir_atividades_sistema():
             resposta_correta="c", atividade_id=atividade2.id))
 
         # ASSUNTO 3 — Aposto
-        assunto_aposto = Assunto.query.filter_by(nome="Aposto").first()
-        if not assunto_aposto:
-            assunto_aposto = Assunto(
-                nome="Aposto",
-                conteudo="Aposto é o termo que aparece junto de um substantivo para especificar, explicar, resumir ou transmitir informações sobre ele. Tipos: explicativo, especificativo, resumitivo e distributivo. Diferencia-se do vocativo, que serve apenas para chamar alguém."
+        assunto3 = Assunto.query.filter_by(nome="Módulo 3: Aposto").first()
+        if not assunto3:
+            assunto3 = Assunto(
+                nome="Módulo 3: Aposto",
+                conteudo="""
+<h3>O que é aposto?</h3>
+<p>Aposto é um termo que aparece junto de um substantivo para especificar, explicar, resumir ou transmitir informações sobre ele.</p>
+<p>Exemplo:</p>
+<ul><li>Alice, minha vizinha, é engraçada.</li></ul>
+<p>→ "minha vizinha" é o aposto, pois explica quem é Alice.</p>
+
+<h3>Tipos de aposto</h3>
+
+<h3>Aposto explicativo</h3>
+<ul>
+<li>Explica quem é a pessoa ou o que é o termo.</li>
+<li>Geralmente fica entre vírgulas.</li>
+</ul>
+<p>Exemplo:</p>
+<ul><li>Theo, meu primo, ganhou um carrinho novo.</li></ul>
+<p>→ "meu primo" é o aposto.</p>
+
+<h3>Aposto especificativo:</h3>
+<ul>
+<li>Especifica qual pessoa ou objeto estamos falando.</li>
+<li>Não fica entre vírgulas.</li>
+</ul>
+<p>Exemplo 1:</p>
+<ul><li>A menina de vestido rosa é minha amiga.</li></ul>
+<p>→ "de vestido rosa" é o aposto.</p>
+<p>Exemplo 2:</p>
+<ul><li>O menino que chegou agora é meu primo.</li></ul>
+<p>→ "que chegou agora" é o aposto.</p>
+
+<h3>Aposto resumitivo</h3>
+<ul>
+<li>Resume vários elementos citados anteriormente.</li>
+</ul>
+<p>Exemplo:</p>
+<ul><li>Vestidos, saias, blusas, todas essas peças são tendências.</li></ul>
+<p>→ "todas essas peças" é o aposto.</p>
+
+<h3>Aposto distributivo</h3>
+<p>O aposto distributivo aparece normalmente depois de dois ou mais elementos.</p>
+<p>Ele distribui uma ação ou característica para cada um deles separadamente.</p>
+<p>Exemplos:</p>
+<ul>
+<li>Catarina e Manuella, ambas amigas, foram embora cedo da pizzaria.</li>
+<li>Marina e Théo, cada um com sua garrafa, foram à academia.</li>
+</ul>
+
+<h3>Aposto e vocativo: qual a diferença?</h3>
+
+<h4>Aposto:</h4>
+<ul>
+<li>Acrescenta informações sobre um elemento da frase.</li>
+<li>Ele faz parte da estrutura da oração e não chama ninguém.</li>
+<li>Apenas explica, especifica ou caracteriza algo ou alguém.</li>
+</ul>
+
+<h4>Vocativo:</h4>
+<ul>
+<li>O vocativo não faz parte da estrutura da frase.</li>
+<li>Ele serve para chamar, invocar ou atrair a atenção de alguém.</li>
+<li>É como um chamado dentro da frase.</li>
+</ul>
+<p>Exemplos de vocativo:</p>
+<ul>
+<li>Maria, pega meu caderno, por favor.</li>
+<li>Gente, prestem atenção.</li>
+</ul>
+
+<h3>Mapa Mental</h3>
+<div class="mapa-mental-container">
+<img src="{{ url_for('static', filename='img/mapa_aposto.png') }}" alt="Mapa Mental de Aposto" class="mapa-mental">
+</div>
+
+<h3>Próximos Passos</h3>
+<p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
+                """
             )
-            db.session.add(assunto_aposto)
+            db.session.add(assunto3)
             db.session.flush()
             print(" Assunto 3 — Aposto criado")
-        else:
-            print(" Assunto 3 — Aposto já existe")
 
         atividade3 = Atividade(
             nome="Atividade 3 - Aposto",
             dificuldade="Fácil",
             tipo="SISTEMA",
-            assunto_id=assunto_aposto.id
+            assunto_id=assunto3.id
         )
         db.session.add(atividade3)
         db.session.flush()
@@ -116,7 +322,7 @@ def inserir_atividades_sistema():
             alternativa_a="Aposto especificativo", alternativa_b="Aposto explicativo",
             alternativa_c="Aposto resumitivo", alternativa_d="Aposto distributivo",
             resposta_correta="b", atividade_id=atividade3.id))
-        db.session.add(Questao(enunciado="2. Na frase 'Os estudantes que se deram bem, estudaram para a prova', o trecho destacado é:",
+        db.session.add(Questao(enunciado="2. Na frase 'Os estudantes que se deram bem estudaram para a prova', o trecho destacado é:",
             alternativa_a="Aposto explicativo", alternativa_b="Aposto especificativo",
             alternativa_c="Aposto resumitivo", alternativa_d="Vocativo",
             resposta_correta="a", atividade_id=atividade3.id))
@@ -140,277 +346,418 @@ def inserir_atividades_sistema():
             resposta_correta="d", atividade_id=atividade3.id))
 
         # ASSUNTO 4 — Complemento Verbal
-        assunto_comp_verbal = Assunto.query.filter_by(nome="Complemento Verbal").first()
-        if not assunto_comp_verbal:
-            assunto_comp_verbal = Assunto(
-                nome="Complemento Verbal",
-                conteudo="Os complementos verbais são termos que completam o sentido de verbos que não têm significado completo sozinhos. Objeto Direto: sem preposição. Objeto Indireto: com preposição. Verbos transitivos diretos, indiretos e bitransitivos. Verbos intransitivos não precisam de complemento."
+        assunto4 = Assunto.query.filter_by(nome="Módulo 4: Complemento Verbal").first()
+        if not assunto4:
+            assunto4 = Assunto(
+                nome="Módulo 4: Complemento Verbal",
+                conteudo="""
+<h3>O que são?</h3>
+<p>Os complementos verbais são termos que completam o sentido de um verbo, já que nem todos conseguem ter um significado completo sozinhos.</p>
+<p>Quando o verbo precisa de um complemento sem preposição, esse termo é chamado de <strong>objeto direto</strong>.</p>
+<p>Exemplo:</p>
+<ul><li>"Comprei um livro."</li></ul>
+<p>O verbo comprar precisa de algo que complete a ideia, e esse algo é um livro.</p>
+<p>Já quando o verbo exige preposição, o complemento é o <strong>objeto indireto</strong>.</p>
+<p>Exemplo:</p>
+<ul><li>"Gosto de música."</li></ul>
+<p>O verbo gostar pede a preposição de, por isso a música é o objeto indireto.</p>
+<p>Os verbos que precisam desses complementos são chamados <strong>verbos transitivos</strong>, podendo ser transitivos diretos, indiretos ou diretos e indiretos.</p>
+<p>Por outro lado, os <strong>verbos intransitivos</strong> não precisam de complemento para ter sentido completo.</p>
+<p>Exemplo:</p>
+<ul><li>"O bebê dormiu."</li></ul>
+<p>O verbo dormir já tem significado completo sozinho.</p>
+
+<h3>Mapa Mental</h3>
+<div class="mapa-mental-container">
+<img src="{{ url_for('static', filename='img/mapa_complemento_verbal.png') }}" alt="Mapa Mental de Complemento Verbal" class="mapa-mental">
+</div>
+
+<h3>Próximos Passos</h3>
+<p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
+                """
             )
-            db.session.add(assunto_comp_verbal)
+            db.session.add(assunto4)
             db.session.flush()
             print(" Assunto 4 — Complemento Verbal criado")
-        else:
-            print(" Assunto 4 — Complemento Verbal já existe")
 
         atividade4 = Atividade(
             nome="Atividade 4 - Complemento Verbal",
             dificuldade="Médio",
             tipo="SISTEMA",
-            assunto_id=assunto_comp_verbal.id
+            assunto_id=assunto4.id
         )
         db.session.add(atividade4)
         db.session.flush()
 
-        db.session.add(Questao(enunciado="1. Qual alternativa define corretamente o Complemento Verbal e a necessidade de alguns verbos por ele?",
+        db.session.add(Questao(enunciado="1. Qual alternativa define corretamente o Complemento Verbal?",
             alternativa_a="Termo acessório que indica circunstância e é necessário para verbos intransitivos.",
-            alternativa_b="Termo essencial que completa o sentido de verbos transitivos, pois eles não possuem sentido completo por si só.",
+            alternativa_b="Termo essencial que completa o sentido de verbos transitivos.",
             alternativa_c="Termo que modifica um nome e só é usado com verbos de ligação.",
             alternativa_d="Termo que é sempre preposicionado e obrigatório para todos os verbos.",
             resposta_correta="b", atividade_id=atividade4.id))
-        db.session.add(Questao(enunciado="2. A principal diferença entre Objeto Direto (OD) e Objeto Indireto (OI) é a presença ou ausência de:",
-            alternativa_a="Advérbios.", alternativa_b="Substantivos.", alternativa_c="Artigos definidos.", alternativa_d="Preposição obrigatória.",
-            resposta_correta="d", atividade_id=atividade4.id))
-        db.session.add(Questao(enunciado="3. Na frase 'A menina encontrou seu gato', o termo destacado 'seu gato' é classificado como:",
-            alternativa_a="Objeto Direto.", alternativa_b="Adjunto Adverbial.", alternativa_c="Objeto Indireto.", alternativa_d="Complemento Nominal.",
+        db.session.add(Questao(enunciado="2. A principal diferença entre Objeto Direto e Objeto Indireto é:",
+            alternativa_a="Advérbios.", alternativa_b="Substantivos.",
+            alternativa_c="Preposição obrigatória.", alternativa_d="Artigos definidos.",
+            resposta_correta="c", atividade_id=atividade4.id))
+        db.session.add(Questao(enunciado="3. Na frase 'A menina encontrou seu gato', 'seu gato' é:",
+            alternativa_a="Objeto Direto.", alternativa_b="Adjunto Adverbial.",
+            alternativa_c="Objeto Indireto.", alternativa_d="Complemento Nominal.",
             resposta_correta="a", atividade_id=atividade4.id))
-        db.session.add(Questao(enunciado="4. Um verbo é classificado como Transitivo Direto e Indireto (Bitransitivo) quando:",
+        db.session.add(Questao(enunciado="4. Verbo transitivo direto e indireto é aquele que:",
             alternativa_a="Possui apenas um complemento sem preposição.",
             alternativa_b="Não exige complemento para ter sentido completo.",
-            alternativa_c="Possui dois complementos: um Objeto Direto e um Objeto Indireto.",
-            alternativa_d="Liga o sujeito a uma característica por meio de um predicativo.",
+            alternativa_c="Possui dois complementos: um OD e um OI.",
+            alternativa_d="Liga o sujeito a uma característica.",
             resposta_correta="c", atividade_id=atividade4.id))
-        db.session.add(Questao(enunciado="5. O verbo dormir na frase 'O bebê dormiu' é classificado como intransitivo porque:",
-            alternativa_a="Ele é um verbo de ligação.", alternativa_b="Ele possui sentido completo e não exige complemento.",
-            alternativa_c="O sujeito está oculto.", alternativa_d="Exige apenas um complemento preposicionado.",
+        db.session.add(Questao(enunciado="5. O verbo 'dormir' em 'O bebê dormiu' é intransitivo porque:",
+            alternativa_a="É verbo de ligação.", alternativa_b="Não exige complemento.",
+            alternativa_c="O sujeito está oculto.", alternativa_d="Exige preposição.",
             resposta_correta="b", atividade_id=atividade4.id))
 
         # ASSUNTO 5 — Complemento Nominal
-        assunto_comp_nominal = Assunto.query.filter_by(nome="Complemento Nominal").first()
-        if not assunto_comp_nominal:
-            assunto_comp_nominal = Assunto(
-                nome="Complemento Nominal",
-                conteudo="O complemento nominal completa o sentido de um nome (substantivo, adjetivo ou advérbio) que exige preposição. Diferencia-se do Objeto Indireto: CN liga-se a nomes, OI liga-se a verbos. A preposição é obrigatória, exigida pelo próprio nome."
+        assunto5 = Assunto.query.filter_by(nome="Módulo 5: Complemento Nominal").first()
+        if not assunto5:
+            assunto5 = Assunto(
+                nome="Módulo 5: Complemento Nominal",
+                conteudo="""
+<h3>O que é Complemento nominal?</h3>
+<p>O complemento nominal completa o sentido de um nome (substantivo, adjetivo ou advérbio) que exige preposição.</p>
+<p>Ele sempre vem acompanhado de uma preposição obrigatória e geralmente indica quem recebe a ação.</p>
+<p>Exemplo:</p>
+<ul><li>"Tenho medo de altura." → "de altura" é o complemento nominal.</li></ul>
+
+<p>Diferença entre Complemento Nominal e Objeto Indireto:</p>
+<ul>
+<li>CN completa um nome; OI completa um verbo.</li>
+<li>CN é sempre preposicionado; OI nem sempre.</li>
+</ul>
+
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zFMsnEeAoGA" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<h3>Próximos Passos</h3>
+<p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
+                """
             )
-            db.session.add(assunto_comp_nominal)
+            db.session.add(assunto5)
             db.session.flush()
             print(" Assunto 5 — Complemento Nominal criado")
-        else:
-            print(" Assunto 5 — Complemento Nominal já existe")
 
         atividade5 = Atividade(
             nome="Atividade 5 - Complemento Nominal",
             dificuldade="Médio",
             tipo="SISTEMA",
-            assunto_id=assunto_comp_nominal.id
+            assunto_id=assunto5.id
         )
         db.session.add(atividade5)
         db.session.flush()
 
-        db.session.add(Questao(enunciado="1. Qual a principal característica obrigatória do Complemento Nominal (CN)?",
-            alternativa_a="É sempre ligado a um verbo.", alternativa_b="É sempre um termo acessório.",
-            alternativa_c="Completa o sentido de um substantivo concreto.", alternativa_d="É sempre introduzido por preposição.",
-            resposta_correta="d", atividade_id=atividade5.id))
-        db.session.add(Questao(enunciado="2. Identifique o Complemento Nominal na frase: 'Ela tem orgulho de suas raízes.'",
-            alternativa_a="de suas raízes", alternativa_b="tem orgulho", alternativa_c="Ela", alternativa_d="raízes",
-            resposta_correta="a", atividade_id=atividade5.id))
-        db.session.add(Questao(enunciado="3. A principal diferença estrutural entre o Complemento Nominal (CN) e o Objeto Indireto (OI) é que:",
-            alternativa_a="O CN liga-se a verbos, e o OI a nomes (substantivos, adjetivos, advérbios).",
-            alternativa_b="O CN é introduzido por preposição, e o OI nunca é.",
-            alternativa_c="O CN liga-se a nomes, e o OI liga-se a verbos.",
-            alternativa_d="O CN é facultativo, e o OI é obrigatório.",
-            resposta_correta="c", atividade_id=atividade5.id))
-        db.session.add(Questao(enunciado="4. O Complemento Nominal complementa, predominantemente, o sentido de quais classes de palavras?",
-            alternativa_a="Verbos, preposições e pronomes.",
-            alternativa_b="Adjetivos, substantivos abstratos e advérbios.",
-            alternativa_c="Substantivos concretos, artigos e numerais.",
-            alternativa_d="Conjunções, interjeições e verbos.",
+        db.session.add(Questao(enunciado="1. Característica obrigatória do Complemento Nominal:",
+            alternativa_a="Liga-se a um verbo.", alternativa_b="É sempre preposicionado.",
+            alternativa_c="Modifica um verbo.", alternativa_d="É opcional.",
             resposta_correta="b", atividade_id=atividade5.id))
-        db.session.add(Questao(enunciado="5. Em 'Tenho medo de altura', a expressão 'de altura' é Complemento Nominal porque complementa o sentido de:",
-            alternativa_a="um verbo (Tenho).", alternativa_b="um substantivo abstrato (medo).",
-            alternativa_c="um advérbio de intensidade.", alternativa_d="um substantivo concreto.",
+        db.session.add(Questao(enunciado="2. Em 'Tenho medo de altura', o CN é:",
+            alternativa_a="Tenho", alternativa_b="medo", alternativa_c="de altura", alternativa_d="altura",
+            resposta_correta="c", atividade_id=atividade5.id))
+        db.session.add(Questao(enunciado="3. Diferença estrutural entre CN e OI:",
+            alternativa_a="CN liga-se a nomes; OI a verbos.",
+            alternativa_b="CN é opcional; OI é obrigatório.",
+            alternativa_c="CN não usa preposição; OI sim.",
+            alternativa_d="CN modifica verbos; OI modifica nomes.",
+            resposta_correta="a", atividade_id=atividade5.id))
+        db.session.add(Questao(enunciado="4. O CN complementa principalmente:",
+            alternativa_a="Verbos.", alternativa_b="Substantivos, adjetivos e advérbios.",
+            alternativa_c="Artigos e pronomes.", alternativa_d="Conjunções.",
+            resposta_correta="b", atividade_id=atividade5.id))
+        db.session.add(Questao(enunciado="5. Em 'Ela está ansiosa por novidades', o CN é:",
+            alternativa_a="ansiosa", alternativa_b="por novidades",
+            alternativa_c="Ela", alternativa_d="novidades",
             resposta_correta="b", atividade_id=atividade5.id))
 
         # ASSUNTO 6 — Agente da Passiva
-        assunto_agente_passiva = Assunto.query.filter_by(nome="Agente da Passiva").first()
-        if not assunto_agente_passiva:
-            assunto_agente_passiva = Assunto(
-                nome="Agente da Passiva",
-                conteudo="O agente da passiva é o termo que indica quem praticou a ação na voz passiva analítica, sempre introduzido por preposição (geralmente 'por'). Na transformação da voz ativa para passiva: o objeto direto vira sujeito paciente, o verbo vai para 'ser + particípio' e o antigo sujeito vira agente da passiva."
+        assunto6 = Assunto.query.filter_by(nome="Módulo 6: Agente da Passiva").first()
+        if not assunto6:
+            assunto6 = Assunto(
+                nome="Módulo 6: Agente da Passiva",
+                conteudo="""
+<h3>O que é o Agente da Passiva?</h3>
+<p>Termo que indica quem praticou a ação na voz passiva, sempre introduzido por preposição (por/pela/pelo).</p>
+<p>Exemplo:</p>
+<ul><li>"O livro foi escrito por Machado de Assis."</li></ul>
+
+<h3>Transformação Ativa → Passiva:</h3>
+<ol>
+<li>Objeto direto da ativa vira sujeito paciente da passiva.</li>
+<li>Verbo vira: ser + particípio.</li>
+<li>Sujeito da ativa vira agente da passiva.</li>
+</ol>
+<p>Exemplo:</p>
+<ul>
+<li>Ativa: "A professora corrigiu as provas."</li>
+<li>Passiva: "As provas foram corrigidas pela professora."</li>
+</ul>
+
+<h3>Mapa Mental</h3>
+<div class="mapa-mental-container">
+<img src="{{ url_for('static', filename='img/mapa_agente_da_passiva.png') }}" alt="Mapa Mental" class="mapa-mental">
+</div>
+
+<h3>Próximos Passos</h3>
+<p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
+                """
             )
-            db.session.add(assunto_agente_passiva)
+            db.session.add(assunto6)
             db.session.flush()
             print(" Assunto 6 — Agente da Passiva criado")
-        else:
-            print(" Assunto 6 — Agente da Passiva já existe")
 
         atividade6 = Atividade(
             nome="Atividade 6 - Agente da Passiva",
             dificuldade="Médio",
             tipo="SISTEMA",
-            assunto_id=assunto_agente_passiva.id
+            assunto_id=assunto6.id
         )
         db.session.add(atividade6)
         db.session.flush()
 
-        db.session.add(Questao(enunciado="1. O Agente da Passiva é encontrado exclusivamente em qual construção e indica quem praticou a ação?",
-            alternativa_a="Voz ativa e liga-se sempre sem preposição.",
-            alternativa_b="Voz passiva, introduzido por preposição (geralmente 'por').",
-            alternativa_c="Voz reflexiva, sem preposição.",
-            alternativa_d="Apenas na voz passiva sintética, sem preposição.",
+        db.session.add(Questao(enunciado="1. O Agente da Passiva é encontrado somente na:",
+            alternativa_a="Voz ativa.", alternativa_b="Voz passiva analítica.",
+            alternativa_c="Voz reflexiva.", alternativa_d="Oração sem sujeito.",
             resposta_correta="b", atividade_id=atividade6.id))
-        db.session.add(Questao(enunciado="2. Na frase 'A carta foi escrita por mim', o trecho 'por mim' é:",
-            alternativa_a="Sujeito da voz ativa.", alternativa_b="Objeto Direto.",
-            alternativa_c="Agente da Passiva.", alternativa_d="Complemento Nominal.",
+        db.session.add(Questao(enunciado="2. Em 'A cidade foi destruída pelos invasores', o Agente da Passiva é:",
+            alternativa_a="A cidade", alternativa_b="foi destruída",
+            alternativa_c="pelos invasores", alternativa_d="invasores",
             resposta_correta="c", atividade_id=atividade6.id))
-        db.session.add(Questao(enunciado="3. Na transformação: 'O aluno fez o trabalho' → 'O trabalho foi feito pelo aluno', o trecho 'pelo aluno' corresponde:",
-            alternativa_a="ao sujeito da voz ativa.", alternativa_b="ao objeto direto da voz ativa.",
-            alternativa_c="ao sujeito paciente da voz passiva.", alternativa_d="ao verbo da voz ativa.",
+        db.session.add(Questao(enunciado="3. Passo correto Ativa → Passiva:",
+            alternativa_a="Sujeito vira OD, OD vira Sujeito.",
+            alternativa_b="OD vira Sujeito, Sujeito vira Agente da Passiva, verbo → ser+particípio.",
+            alternativa_c="Sujeito vira predicativo.",
+            alternativa_d="Verbo permanece igual.",
+            resposta_correta="b", atividade_id=atividade6.id))
+        db.session.add(Questao(enunciado="4. O Agente da Passiva é introduzido por:",
+            alternativa_a="Verbo de ligação.", alternativa_b="Preposição.",
+            alternativa_c="Advérbio.", alternativa_d="Artigo.",
+            resposta_correta="b", atividade_id=atividade6.id))
+        db.session.add(Questao(enunciado="5. 'O artista pintou o quadro' → Passiva correta:",
+            alternativa_a="O quadro foi pintado pelo artista.",
+            alternativa_b="O artista foi pintado.",
+            alternativa_c="Pintou-se o quadro.",
+            alternativa_d="O quadro pintou o artista.",
             resposta_correta="a", atividade_id=atividade6.id))
-        db.session.add(Questao(enunciado="4. Assinale a alternativa que apresenta corretamente o Agente da Passiva:",
-            alternativa_a="As crianças brincaram no parque.",
-            alternativa_b="O parque foi visitado por muitas pessoas.",
-            alternativa_c="Visitou-se o parque com alegria.",
-            alternativa_d="Muitas pessoas visitaram o parque.",
-            resposta_correta="b", atividade_id=atividade6.id))
-        db.session.add(Questao(enunciado="5. Na construção da voz passiva analítica, o sujeito da voz ativa transforma-se em:",
-            alternativa_a="Sujeito da voz passiva.", alternativa_b="Objeto Indireto.",
-            alternativa_c="Agente da Passiva.", alternativa_d="Complemento Verbal.",
-            resposta_correta="c", atividade_id=atividade6.id))
 
         # ASSUNTO 7 — Adjunto Adnominal
-        assunto_adj_adnominal = Assunto.query.filter_by(nome="Adjunto Adnominal").first()
-        if not assunto_adj_adnominal:
-            assunto_adj_adnominal = Assunto(
-                nome="Adjunto Adnominal",
-                conteudo="Adjunto Adnominal é o termo acessório que acompanha e caracteriza um substantivo, indicando tipo, posse, matéria etc. Pode ser adjetivo, artigo, numeral ou pronome. Diferencia-se do Complemento Nominal: o adjunto caracteriza, o complemento completa o sentido exigido pelo nome."
+        assunto7 = Assunto.query.filter_by(nome="Módulo 7: Adjunto Adnominal").first()
+        if not assunto7:
+            assunto7 = Assunto(
+                nome="Módulo 7: Adjunto Adnominal",
+                conteudo="""
+<h3>O que é Adjunto Adnominal?</h3>
+<p>Termo acessório que modifica, caracteriza ou acompanha um substantivo. Pode ser adjetivo, artigo, numeral ou pronome.</p>
+<p>Diferença para Complemento Nominal:</p>
+<ul>
+<li>Adjunto Adnominal: caracteriza, é opcional, indica posse, matéria, tipo.</li>
+<li>Complemento Nominal: completa nome que exige, é essencial, indica alvo/objeto da ideia.</li>
+</ul>
+<p>Exemplos:</p>
+<ul>
+<li>O livro da estante → Adjunto Adnominal (caracteriza)</li>
+<li>O amor de Deus → Adjunto Adnominal (quem ama)</li>
+<li>O amor a Deus → Complemento Nominal (quem é amado)</li>
+</ul>
+
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WuRXBvnNCnQ" frameborder="0" allowfullscreen></iframe>
+<p><em>O vídeo também fala sobre Adjunto Adverbial</em></p>
+</div>
+
+<h3>Próximos Passos</h3>
+<p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
+                """
             )
-            db.session.add(assunto_adj_adnominal)
+            db.session.add(assunto7)
             db.session.flush()
             print(" Assunto 7 — Adjunto Adnominal criado")
-        else:
-            print(" Assunto 7 — Adjunto Adnominal já existe")
 
         atividade7 = Atividade(
             nome="Atividade 7 - Adjunto Adnominal",
             dificuldade="Médio",
             tipo="SISTEMA",
-            assunto_id=assunto_adj_adnominal.id
+            assunto_id=assunto7.id
         )
         db.session.add(atividade7)
         db.session.flush()
 
-        db.session.add(Questao(enunciado="1. Em 'Os filmes antigos da Disney', o termo destacado funciona como:",
-            alternativa_a="complemento nominal", alternativa_b="objeto indireto",
-            alternativa_c="adjunto adnominal", alternativa_d="adjunto adverbial",
-            resposta_correta="c", atividade_id=atividade7.id))
-        db.session.add(Questao(enunciado="2. Em 'o carro rosa da Penélope Charmosa', o termo destacado é:",
-            alternativa_a="adjunto adnominal", alternativa_b="complemento nominal",
-            alternativa_c="predicativo", alternativa_d="objeto direto",
-            resposta_correta="a", atividade_id=atividade7.id))
-        db.session.add(Questao(enunciado="3. Em 'ela não gosta de viagens longas', o termo destacado é:",
-            alternativa_a="adjunto adnominal", alternativa_b="objeto indireto",
-            alternativa_c="agente da passiva", alternativa_d="complemento nominal",
-            resposta_correta="d", atividade_id=atividade7.id))
-        db.session.add(Questao(enunciado="4. Em 'o cuidado à natureza é importante', o termo destacado é:",
-            alternativa_a="adjunto adnominal", alternativa_b="complemento nominal",
-            alternativa_c="predicativo", alternativa_d="adjunto adverbial",
+        db.session.add(Questao(enunciado="1. 'Os filmes antigos da Disney' → termo destacado é:",
+            alternativa_a="Complemento Nominal", alternativa_b="Adjunto Adnominal",
+            alternativa_c="Objeto Indireto", alternativa_d="Predicativo",
             resposta_correta="b", atividade_id=atividade7.id))
-        db.session.add(Questao(enunciado="5. Em 'o respeito ao próximo é importante', o termo destacado é:",
-            alternativa_a="objeto indireto", alternativa_b="adjunto adnominal",
-            alternativa_c="complemento nominal", alternativa_d="agente da passiva",
-            resposta_correta="c", atividade_id=atividade7.id))
-        db.session.add(Questao(enunciado="6. Em 'as músicas do Stray Kids são boas', o termo destacado é:",
-            alternativa_a="adjunto adnominal", alternativa_b="objeto indireto",
-            alternativa_c="complemento nominal", alternativa_d="adjunto adverbial",
+        db.session.add(Questao(enunciado="2. 'O carro rosa da Penélope' → termo destacado é:",
+            alternativa_a="Adjunto Adnominal", alternativa_b="Complemento Nominal",
+            alternativa_c="Objeto Direto", alternativa_d="Agente da Passiva",
             resposta_correta="a", atividade_id=atividade7.id))
-        db.session.add(Questao(enunciado="7. Em 'no final do ano a vontade de estudar diminui', o termo destacado é:",
-            alternativa_a="predicativo", alternativa_b="adjunto adnominal",
-            alternativa_c="adjunto adverbial", alternativa_d="complemento nominal",
+        db.session.add(Questao(enunciado="3. 'Ela não gosta de viagens longas' → termo destacado é:",
+            alternativa_a="Adjunto Adnominal", alternativa_b="Complemento Nominal",
+            alternativa_c="Objeto Indireto", alternativa_d="Adjunto Adverbial",
+            resposta_correta="b", atividade_id=atividade7.id))
+        db.session.add(Questao(enunciado="4. 'O cuidado à natureza é importante' → termo destacado é:",
+            alternativa_a="Adjunto Adnominal", alternativa_b="Complemento Nominal",
+            alternativa_c="Agente da Passiva", alternativa_d="Predicativo",
+            resposta_correta="b", atividade_id=atividade7.id))
+        db.session.add(Questao(enunciado="5. 'O respeito ao próximo é importante' → termo destacado é:",
+            alternativa_a="Adjunto Adnominal", alternativa_b="Complemento Nominal",
+            alternativa_c="Objeto Indireto", alternativa_d="Adjunto Adverbial",
+            resposta_correta="b", atividade_id=atividade7.id))
+        db.session.add(Questao(enunciado="6. 'As músicas do Stray Kids' → termo destacado é:",
+            alternativa_a="Adjunto Adnominal", alternativa_b="Complemento Nominal",
+            alternativa_c="Objeto Indireto", alternativa_d="Agente da Passiva",
+            resposta_correta="a", atividade_id=atividade7.id))
+        db.session.add(Questao(enunciado="7. 'No final do ano, a vontade de estudar diminui' → 'de estudar' é:",
+            alternativa_a="Adjunto Adnominal", alternativa_b="Complemento Nominal",
+            alternativa_c="Objeto Direto", alternativa_d="Adjunto Adverbial",
             resposta_correta="b", atividade_id=atividade7.id))
 
         # ASSUNTO 8 — Adjunto Adverbial
-        assunto_adj_adverbial = Assunto.query.filter_by(nome="Adjunto Adverbial").first()
-        if not assunto_adj_adverbial:
-            assunto_adj_adverbial = Assunto(
-                nome="Adjunto Adverbial",
-                conteudo="Adjunto Adverbial é o termo acessório que indica uma circunstância ligada ao verbo ou à oração inteira: tempo, lugar, modo, causa, finalidade, intensidade, negação, dúvida, afirmação etc. Responde a perguntas como 'quando?', 'onde?', 'como?', 'por quê?', 'para quê?'."
+        assunto8 = Assunto.query.filter_by(nome="Módulo 8: Adjunto Adverbial").first()
+        if not assunto8:
+            assunto8 = Assunto(
+                nome="Módulo 8: Adjunto Adverbial",
+                conteudo="""
+<h3>O que é Adjunto Adverbial?</h3>
+<p>Termo acessório que indica circunstância ligada ao verbo ou à oração inteira: tempo, lugar, modo, causa, finalidade, intensidade, negação, afirmação, dúvida, meio, instrumento, companhia...</p>
+<p>Responde perguntas como: quando? onde? como? por quê? para quê?</p>
+<p>Exemplos:</p>
+<ul>
+<li>Cheguei <strong>ontem</strong> → tempo</li>
+<li>Estou <strong>bem</strong> → modo</li>
+<li>Atrasou <strong>por causa do trânsito</strong> → causa</li>
+</ul>
+
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WuRXBvnNCnQ" frameborder="0" allowfullscreen></iframe>
+<p><em>Mesmo vídeo do assunto anterior</em></p>
+</div>
+
+<h3>Próximos Passos</h3>
+<p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
+                """
             )
-            db.session.add(assunto_adj_adverbial)
+            db.session.add(assunto8)
             db.session.flush()
             print(" Assunto 8 — Adjunto Adverbial criado")
-        else:
-            print(" Assunto 8 — Adjunto Adverbial já existe")
 
         atividade8 = Atividade(
             nome="Atividade 8 - Adjunto Adverbial",
             dificuldade="Médio",
             tipo="SISTEMA",
-            assunto_id=assunto_adj_adverbial.id
+            assunto_id=assunto8.id
         )
         db.session.add(atividade8)
         db.session.flush()
 
-        db.session.add(Questao(enunciado="1. Em 'ele esteve aqui mais cedo', o termo destacado é um adjunto adverbial de:",
-            alternativa_a="modo", alternativa_b="tempo", alternativa_c="intensidade", alternativa_d="negação",
+        db.session.add(Questao(enunciado="1. 'Ele esteve aqui mais cedo' → tipo de adjunto adverbial:",
+            alternativa_a="modo", alternativa_b="tempo/lugar", alternativa_c="causa", alternativa_d="intensidade",
             resposta_correta="b", atividade_id=atividade8.id))
-        db.session.add(Questao(enunciado="2. Em 'ela estava na escola', o adjunto adverbial é de:",
-            alternativa_a="causa", alternativa_b="modo", alternativa_c="dúvida", alternativa_d="lugar",
-            resposta_correta="d", atividade_id=atividade8.id))
-        db.session.add(Questao(enunciado="3. Em 'ele me explicou calmamente', o termo destacado é adjunto adverbial de:",
-            alternativa_a="modo", alternativa_b="tempo", alternativa_c="intensidade", alternativa_d="causa",
+        db.session.add(Questao(enunciado="2. 'Ela estava na escola' → tipo:",
+            alternativa_a="lugar", alternativa_b="modo", alternativa_c="causa", alternativa_d="finalidade",
             resposta_correta="a", atividade_id=atividade8.id))
-        db.session.add(Questao(enunciado="4. Em 'está muito frio por causa do ar condicionado', o termo destacado é adjunto adverbial de:",
-            alternativa_a="meio", alternativa_b="afirmação", alternativa_c="causa", alternativa_d="finalidade",
-            resposta_correta="c", atividade_id=atividade8.id))
-        db.session.add(Questao(enunciado="5. Em 'tenho que ir para a consulta', o termo destacado indica:",
-            alternativa_a="causa", alternativa_b="intensidade", alternativa_c="modo", alternativa_d="finalidade",
-            resposta_correta="d", atividade_id=atividade8.id))
-        db.session.add(Questao(enunciado="6. Em 'talvez eu não possa ir', o termo destacado é adjunto adverbial de:",
-            alternativa_a="dúvida", alternativa_b="afirmação", alternativa_c="modo", alternativa_d="intensidade",
+        db.session.add(Questao(enunciado="3. 'Ele me explicou calmamente' → tipo:",
+            alternativa_a="modo", alternativa_b="tempo", alternativa_c="causa", alternativa_d="intensidade",
             resposta_correta="a", atividade_id=atividade8.id))
+        db.session.add(Questao(enunciado="4. 'Está muito frio por causa do ar-condicionado' → 'por causa de' indica:",
+            alternativa_a="causa", alternativa_b="finalidade", alternativa_c="meio", alternativa_d="concessão",
+            resposta_correta="a", atividade_id=atividade8.id))
+        db.session.add(Questao(enunciado="5. 'Estudou para passar' → 'para' indica:",
+            alternativa_a="causa", alternativa_b="finalidade", alternativa_c="meio", alternativa_d="modo",
+            resposta_correta="b", atividade_id=atividade8.id))
 
         # ASSUNTO 9 — Revisão Geral
-        assunto_revisao = Assunto.query.filter_by(nome="Revisão Geral").first()
-        if not assunto_revisao:
-            assunto_revisao = Assunto(
-                nome="Revisão Geral",
-                conteudo="Revisão da estrutura da oração: termos essenciais (sujeito, predicado), integrantes (objeto direto, indireto, complemento nominal, predicativo) e acessórios (adjunto adnominal, adjunto adverbial). Diferenças e relações entre todos os termos estudados."
+        assunto9 = Assunto.query.filter_by(nome="Módulo 9: Revisão Geral").first()
+        if not assunto9:
+            assunto9 = Assunto(
+                nome="Módulo 9: Revisão Geral",
+                conteudo="""
+<h3>Como se relacionam na estrutura da oração:</h3>
+<p><strong>Termos essenciais:</strong> Sujeito e Predicado — formam o núcleo da oração.</p>
+<p><strong>Termos integrantes (complementos):</strong></p>
+<ul>
+<li>Objeto Direto</li>
+<li>Objeto Indireto</li>
+<li>Complemento Nominal</li>
+<li>Predicativo do Sujeito / do Objeto</li>
+</ul>
+<p><strong>Termos acessórios:</strong></p>
+<ul>
+<li>Adjunto Adnominal — caracteriza/substantivo, opcional</li>
+<li>Adjunto Adverbial — circunstância/verbo, opcional</li>
+<li>Aposto — explica/substantivo</li>
+<li>Vocativo — chama alguém, fora da estrutura</li>
+</ul>
+
+<h3>Resumo prático:</h3>
+<ul>
+<li>Se completa verbo → complemento verbal (OD/OI)</li>
+<li>Se completa nome → complemento nominal</li>
+<li>Se caracteriza substantivo → adjunto adnominal</li>
+<li>Se indica circunstância → adjunto adverbial</li>
+<li>Se pratica ação na passiva → agente da passiva</li>
+</ul>
+
+<h3>Material de Estudo</h3>
+<a href="https://drive.google.com/open?id=1SyMjR6UpN1ZgHtkF1e_7NCZsuWsxWOv0" target="_blank" class="btn btn-detalhe">
+ Abrir PDF de Exercícios
+</a>
+
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zouWyLPtcXY" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<h3>Próximos Passos</h3>
+<p>Pronto para testar tudo? Boa revisão!</p>
+                """
             )
-            db.session.add(assunto_revisao)
+            db.session.add(assunto9)
             db.session.flush()
             print(" Assunto 9 — Revisão Geral criado")
-        else:
-            print(" Assunto 9 — Revisão Geral já existe")
 
         atividade9 = Atividade(
             nome="Atividade 9 - Revisão Geral",
-            dificuldade="Médio",
+            dificuldade="Difícil",
             tipo="SISTEMA",
-            assunto_id=assunto_revisao.id
+            assunto_id=assunto9.id
         )
         db.session.add(atividade9)
         db.session.flush()
 
-        db.session.add(Questao(enunciado="1. Em 'as integrantes do BlackPink arrasaram', o termo destacado é:",
-            alternativa_a="objeto direto", alternativa_b="complemento nominal",
-            alternativa_c="adjunto adnominal", alternativa_d="adjunto adverbial",
+        db.session.add(Questao(enunciado="1. Qual conjunto contém apenas termos integrantes da oração?",
+            alternativa_a="Adjunto Adnominal, Adjunto Adverbial, Aposto",
+            alternativa_b="Sujeito, Predicado, Vocativo",
+            alternativa_c="Objeto Direto, Objeto Indireto, Complemento Nominal",
+            alternativa_d="Agente da Passiva, Aposto, Vocativo",
             resposta_correta="c", atividade_id=atividade9.id))
-        db.session.add(Questao(enunciado="2. Qual alternativa apresenta somente termos acessórios?",
-            alternativa_a="objeto direto e predicativo", alternativa_b="complemento nominal e objeto indireto",
-            alternativa_c="objeto direto e adjunto adnominal", alternativa_d="adjunto adnominal e adjunto adverbial",
-            resposta_correta="d", atividade_id=atividade9.id))
-        db.session.add(Questao(enunciado="3. O complemento nominal se liga normalmente a:",
-            alternativa_a="adjetivos ou substantivos abstratos", alternativa_b="verbos transitivos",
-            alternativa_c="advérbios", alternativa_d="substantivos concretos",
-            resposta_correta="a", atividade_id=atividade9.id))
-        db.session.add(Questao(enunciado="4. O adjunto adnominal:",
-            alternativa_a="completa o sentido de um adjetivo", alternativa_b="caracteriza um nome",
-            alternativa_c="indica circunstância do verbo", alternativa_d="é exigido pelo nome",
+        db.session.add(Questao(enunciado="2. Qual alternativa apresenta corretamente a diferença entre Complemento Nominal e Adjunto Adnominal?",
+            alternativa_a="Ambos completam o substantivo, mas o Adjunto Adnominal é obrigatório.",
+            alternativa_b="O Complemento Nominal completa nome que exige; o Adjunto Adnominal apenas caracteriza.",
+            alternativa_c="Não há diferença, são sinônimos.",
+            alternativa_d="O Adjunto Adnominal liga-se a verbos; o Complemento Nominal a nomes.",
             resposta_correta="b", atividade_id=atividade9.id))
+        db.session.add(Questao(enunciado="3. Em 'O respeito à pátria é sagrado', o termo destacado é:",
+            alternativa_a="Adjunto Adnominal", alternativa_b="Complemento Nominal",
+            alternativa_c="Objeto Indireto", alternativa_d="Agente da Passiva",
+            resposta_correta="b", atividade_id=atividade9.id))
+        db.session.add(Questao(enunciado="4. Assinale a alternativa correta sobre o Adjunto Adverbial:",
+            alternativa_a="É termo essencial, sem ele a frase não tem sentido.",
+            alternativa_b="Responde perguntas como 'quando? onde? como?' e pode ser deslocado.",
+            alternativa_c="Sempre vem antes do verbo.",
+            alternativa_d="Completa o sentido do sujeito.",
+            resposta_correta="b", atividade_id=atividade9.id))
+        db.session.add(Questao(enunciado="5. Na transformação de voz ativa para passiva, o sujeito da ativa passa a ser:",
+            alternativa_a="Sujeito da passiva", alternativa_b="Objeto Direto",
+            alternativa_c="Agente da Passiva", alternativa_d="Predicativo",
+            resposta_correta="c", atividade_id=atividade9.id))
 
-        # FIM — Salvar tudo no banco!
         db.session.commit()
-        print("\n TODOS os dados foram inseridos com SUCESSO no banco de dados!")
+        print("\n TODOS os assuntos e atividades foram inseridos com sucesso!")
+        print(f" Total: 9 assuntos | 9 atividades | ~50 questões")
 
 if __name__ == "__main__":
     inserir_atividades_sistema()

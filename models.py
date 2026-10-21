@@ -15,9 +15,9 @@ class Atividade(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(150), nullable=True)
     dificuldade = db.Column(db.String(50), nullable=True)
-    assunto_id = db.Column(db.Integer, db.ForeignKey("assunto.id"), nullable=True)
+    assunto_id = db.Column(db.Integer, db.ForeignKey("assunto.id"), nullable=False)  
     
-    # ✅ Novo atributo — conforme solicitado
+    # Novo atributo — conforme solicitado
     tipo = db.Column(db.String(50), nullable=False, default="USUARIO")
     # Valores permitidos: 'SISTEMA', 'PESQUISA', 'USUARIO'
     
@@ -34,7 +34,7 @@ class Questao(db.Model):
     alternativa_d = db.Column(db.Text, nullable=True)
     alternativa_e = db.Column(db.Text, nullable=True)
     resposta_correta = db.Column(db.String(1), nullable=True)
-    atividade_id = db.Column(db.Integer, db.ForeignKey("atividade.id"), nullable=True)
+    atividade_id = db.Column(db.Integer, db.ForeignKey("atividade.id"), nullable=False)  
     atividade = db.relationship("Atividade", back_populates="questoes")
 
 class ResultadoAtividade(db.Model):

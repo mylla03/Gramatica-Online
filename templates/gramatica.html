@@ -1,52 +1,47 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
 <section id="gramatica" class="section">
     <h2>Domínio da Gramática</h2>
     <p>Clique nos tópicos abaixo para iniciar seu estudo.</p>
-
     <div class="topicos-principais">
-
-            <a href="{{ url_for('pontuacao') }}" class="btn btn-detalhe bnt-pontuacao">
-                <i class="fa-solid fa-star"></i> Pontuação
-            </a>
-            <br>
-            <a href="{{ url_for('periodo_simples_e_composto') }}" class="btn btn-detalhe bnt-periodo_simples">
-                <i class="fa-solid fa-star"></i> Período Simples e Composto
-            </a>
-            <br>
-            <a href="{{ url_for('classificacao_de_palavras') }}" class="btn btn-detalhe bnt-classificacao_de_palavras">
-                <i class="fa-solid fa-star"></i> Classificação de Palavras
-            </a>
+        <a href="{{ url_for('pontuacao') }}" class="btn btn-detalhe bnt-pontuacao">
+            <i class="fa-solid fa-star"></i> Pontuação
+        </a>
+        <br>
+        <a href="{{ url_for('periodo_simples_e_composto') }}" class="btn btn-detalhe bnt-periodo_simples">
+            <i class="fa-solid fa-star"></i> Período Simples e Composto
+        </a>
+        <br>
+        <a href="{{ url_for('classificacao_de_palavras') }}" class="btn btn-detalhe bnt-classificacao_de_palavras">
+            <i class="fa-solid fa-star"></i> Classificação de Palavras
+        </a>
     </div>
-
     <br>
-
     <p> 
         Clique no tópico abaixo para expandir o conteúdo e iniciar seu estudo de forma interativa.
     </p>
     <div class="topicos-gramatica">
         <details>
             <summary>Sintaxe: Termos Essenciais e Acessórios</summary>
-            <p><a href="{{ url_for('sujeito_detalhe') }}" class="btn btn-detalhe">Sujeito</a></p>
-            <p><a href="{{ url_for('predicado_detalhe') }}" class="btn btn-detalhe">Predicado</a></p>
-            <p><a href="{{ url_for('aposto_detalhe') }}" class="btn btn-detalhe">Aposto</a></p>
-            <p><a href="{{ url_for('complemento_verbal_detalhe') }}" class="btn btn-detalhe">Complemento Verbal</a></p>
-            <p><a href="{{ url_for('complemento_nominal_detalhe') }}" class="btn btn-detalhe">Complemento Nominal</a></p>
-            <p><a href="{{ url_for('agente_da_passiva_detalhe') }}" class="btn btn-detalhe">Agente da Passiva</a></p>
-            <p><a href="{{ url_for('adjunto_adnominal_detalhe') }}" class="btn btn-detalhe">Adjunto Adnominal</a></p>
-            <p><a href="{{ url_for('adjunto_adverbial_detalhe') }}" class="btn btn-detalhe">Adjunto Adverbial</a></p>
-            <p><a href="{{ url_for('revisao_geral_detalhe') }}" class="btn btn-detalhe">Revisão Geral</a></p>
+            
+            <p><a href="{{ url_for('assunto_dinamico', id=1) }}" class="btn btn-detalhe">Sujeito</a></p>
+            <p><a href="{{ url_for('assunto_dinamico', id=2) }}" class="btn btn-detalhe">Predicado</a></p>
+            <p><a href="{{ url_for('assunto_dinamico', id=3) }}" class="btn btn-detalhe">Aposto</a></p>
+            <p><a href="{{ url_for('assunto_dinamico', id=4) }}" class="btn btn-detalhe">Complemento Verbal</a></p>
+            <p><a href="{{ url_for('assunto_dinamico', id=5) }}" class="btn btn-detalhe">Complemento Nominal</a></p>
+            <p><a href="{{ url_for('assunto_dinamico', id=6) }}" class="btn btn-detalhe">Agente da Passiva</a></p>
+            <p><a href="{{ url_for('assunto_dinamico', id=7) }}" class="btn btn-detalhe">Adjunto Adnominal</a></p>
+            <p><a href="{{ url_for('assunto_dinamico', id=8) }}" class="btn btn-detalhe">Adjunto Adverbial</a></p>
+            <p><a href="{{ url_for('assunto_dinamico', id=9) }}" class="btn btn-detalhe">Revisão Geral</a></p>
+            
             <div class="imagem-artigo-container"><img src="{{ url_for('static', filename='img/artigo.png') }}" alt="mão" class="imagem-artigo"></div>
             <div class="imagem-kaelgramatica-container"><img src="{{ url_for('static', filename='img/1000160376.png') }}" alt="imagem do Kael" class="imagem-kaelgramatica"></div>
         </details> 
     </div>
-
     <br><br>
     <h3 style="color: #2c3e50; border-bottom: 2px solid #27ae60; padding-bottom: 8px;">
         <i class="fa-solid fa-users"></i> Conteúdos Adicionados pelos Usuários
     </h3>
-
     <div class="topicos-principais">
         {% if assuntos %}
             {% for assunto in assuntos %}
@@ -67,7 +62,6 @@
             </p>
         {% endif %}
     </div>
-
     <br>
     <a href="{{ url_for('atividades') }}" class="btn btn-gramatica"><i class="fa-solid fa-pen"></i> Ir para Atividades</a>
 </section>

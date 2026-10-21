@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block conteudo %}
+        <section id="sintaxe-detalhes" class="section">
+            <h2>{{ assunto.nome }}</h2>
+            
+            <div class="topicos-detalhe">
+                {{ assunto.conteudo|safe }}
+            </div>
+
+            <br>
+            <a href="{{ url_for('atividades') }}" class="btn btn-gramatica">
+                <i class="fa-solid fa-pen"></i> Ir para Exercícios
+            </a>
+            <a href="{{ url_for('gramatica') }}" class="btn btn-gramatica">
+                <i class="fa-solid fa-arrow-left"></i> Ir para Tópicos
+            </a>
+        </section>
+{% endblock %}

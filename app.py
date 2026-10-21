@@ -9,8 +9,6 @@ from authlib.integrations.flask_client import OAuth
 from authlib.integrations.base_client.errors import OAuthError
 from requests.exceptions import RequestException
 from datetime import datetime
-
-
 load_dotenv()
 
 app = Flask(__name__)
@@ -21,10 +19,8 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.jinja_env.auto_reload = True
 
 oauth = OAuth(app)
-
 SUAP_BASE_URL = os.environ.get("SUAP_BASE_URL", "https://suap.ifrn.edu.br").rstrip("/")
 SUAP_USER_INFO_ENDPOINT = os.environ.get("SUAP_USER_INFO_ENDPOINT", "api/rh/eu/").lstrip("/")
-
 suap_client_kwargs = {}
 suap_scope = os.environ.get("SUAP_SCOPE", "").strip()
 if suap_scope:
@@ -46,17 +42,15 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 db.init_app(app)
-
 from models import Assunto, Atividade, Questao, ResultadoAtividade
 
 with app.app_context():
-    #  Adiciona coluna tipo se não existir
+    # Adiciona coluna tipo se não existir
     try: 
         db.session.execute(text("ALTER TABLE atividade ADD COLUMN tipo VARCHAR(50) NOT NULL DEFAULT 'USUARIO';"))
         db.session.commit()
     except Exception: 
         pass
-
     try: db.session.execute(text("ALTER TABLE atividade ADD COLUMN nome VARCHAR(150);")); db.session.commit()
     except Exception: pass
     try: db.session.execute(text("ALTER TABLE atividade ADD COLUMN dificuldade VARCHAR(50);")); db.session.commit()
@@ -74,7 +68,6 @@ with app.app_context():
     try: db.session.execute(text("ALTER TABLE questao ADD COLUMN resposta_correta VARCHAR(1);")); db.session.commit()
     except Exception: pass
     db.create_all()
-
 
 def arquivo_permitido(nome):
     return '.' in nome and nome.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -206,6 +199,14 @@ def novo_assunto():
         return redirect(url_for('listar_assuntos'))
     
     return render_template("novo_assunto.html")
+
+# ==================================================
+#  ROTA DINÂMICA PARA EXIBIR ASSUNTOS
+# ==================================================
+@app.route('/assunto/<int:id>')
+def assunto_dinamico(id):
+    assunto = Assunto.query.get_or_404(id)
+    return render_template("assunto_dinamico.html", assunto=assunto)
 
 @app.route('/ver_assunto/<int:id>')
 def ver_assunto(id):
@@ -390,7 +391,7 @@ def apagar_questao(id):
     return redirect(url_for('listar_questoes'))
 
 # ==================================================
-# ROTAS DE CONTEÚDO
+# ROTAS DE CONTEÚDO — ARQUIVOS INDIVIDUAIS (MANTER TEMPORARIAMENTE)
 # ==================================================
 @app.route("/pontuacao")
 def pontuacao(): return render_template("pontuacao.html")
@@ -407,6 +408,7 @@ def att_periodo_composto(): return render_template("att_periodo_composto.html")
 @app.route("/att_classificacao_de_palavras")
 def att_classificacao_de_palavras(): return render_template("att_classificacao_de_palavras.html")
 
+# Páginas antigas dos assuntos — mantidas para não quebrar
 @app.route("/sujeito_detalhe")
 def sujeito_detalhe(): return render_template("sujeito_detalhe.html")
 @app.route("/predicado_detalhe")
@@ -460,7 +462,7 @@ def atividade_dinamica(atividade_id):
     return render_template("atividade_dinamica.html", atividade=atividade, enviado=False)
 
 # ==================================================
-#  ROTA ESPECIAL — ATIVIDADES DE SISTEMA POR POSIÇÃO
+# ROTA ESPECIAL — ATIVIDADES DE SISTEMA POR POSIÇÃO
 # ==================================================
 @app.route("/sistema/<int:indice>", methods=["GET", "POST"])
 def atividade_sistema(indice):
