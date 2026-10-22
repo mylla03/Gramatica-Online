@@ -4,9 +4,9 @@ from database import db
 
 def inserir_atividades_sistema():
     with app.app_context():
-        if Atividade.query.filter_by(tipo="SISTEMA").first():
-            print("Atividades do sistema já existem no banco de dados.")
-            return
+        # if Atividade.query.filter_by(tipo="SISTEMA").first():
+        #     print("Atividades do sistema já existem no banco de dados.")
+        #     return
         
         print("Inserindo assuntos e atividades do grupo...\n")
 
@@ -15,6 +15,7 @@ def inserir_atividades_sistema():
         if not assunto1:
             assunto1 = Assunto(
                 nome="Módulo 1: Sujeito",
+                tipo="SISTEMA",
                 conteudo="""
 <h3>O que é sujeito?</h3>
 <p>O sujeito é o ser principal da oração e indica quem participa, pratica ou sofre a ação.</p>
@@ -95,10 +96,12 @@ def inserir_atividades_sistema():
 
 <p><em>Dica: Se não há alguém realizando a ação e não dá pra saber quem faz, é uma oração sem sujeito.</em></p>
 
+conteudo = """
 <h3>Mapa Mental</h3>
 <div class="mapa-mental-container">
-<img src="{{ url_for('static', filename='img/mapa_sujeito.png') }}" alt="Mapa Mental de Sujeito" class="mapa-mental">
+    <img src="/static/img/mapa_sujeito.png" alt="Mapa Mental de Sujeito" class="mapa-mental">
 </div>
+"""
 
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
@@ -111,7 +114,6 @@ def inserir_atividades_sistema():
         atividade1 = Atividade(
             nome="Atividade 1 - Sujeito",
             dificuldade="Fácil",
-            tipo="SISTEMA",
             assunto_id=assunto1.id
         )
         db.session.add(atividade1)
@@ -141,6 +143,7 @@ def inserir_atividades_sistema():
         if not assunto2:
             assunto2 = Assunto(
                 nome="Módulo 2: Predicado",
+                tipo="SISTEMA",
                 conteudo="""
 <h3>O que é predicado?</h3>
 <p>O predicado é uma parte da oração que contém aquilo que se afirma sobre o sujeito.</p>
@@ -200,7 +203,6 @@ def inserir_atividades_sistema():
         atividade2 = Atividade(
             nome="Atividade 2 - Predicado",
             dificuldade="Fácil",
-            tipo="SISTEMA",
             assunto_id=assunto2.id
         )
         db.session.add(atividade2)
@@ -228,6 +230,7 @@ def inserir_atividades_sistema():
         if not assunto3:
             assunto3 = Assunto(
                 nome="Módulo 3: Aposto",
+                tipo="SISTEMA",
                 conteudo="""
 <h3>O que é aposto?</h3>
 <p>Aposto é um termo que aparece junto de um substantivo para especificar, explicar, resumir ou transmitir informações sobre ele.</p>
@@ -312,7 +315,6 @@ def inserir_atividades_sistema():
         atividade3 = Atividade(
             nome="Atividade 3 - Aposto",
             dificuldade="Fácil",
-            tipo="SISTEMA",
             assunto_id=assunto3.id
         )
         db.session.add(atividade3)
@@ -350,6 +352,7 @@ def inserir_atividades_sistema():
         if not assunto4:
             assunto4 = Assunto(
                 nome="Módulo 4: Complemento Verbal",
+                tipo="SISTEMA",
                 conteudo="""
 <h3>O que são?</h3>
 <p>Os complementos verbais são termos que completam o sentido de um verbo, já que nem todos conseguem ter um significado completo sozinhos.</p>
@@ -383,7 +386,6 @@ def inserir_atividades_sistema():
         atividade4 = Atividade(
             nome="Atividade 4 - Complemento Verbal",
             dificuldade="Médio",
-            tipo="SISTEMA",
             assunto_id=assunto4.id
         )
         db.session.add(atividade4)
@@ -419,6 +421,7 @@ def inserir_atividades_sistema():
         if not assunto5:
             assunto5 = Assunto(
                 nome="Módulo 5: Complemento Nominal",
+                tipo="SISTEMA",
                 conteudo="""
 <h3>O que é Complemento nominal?</h3>
 <p>O complemento nominal completa o sentido de um nome (substantivo, adjetivo ou advérbio) que exige preposição.</p>
@@ -447,7 +450,6 @@ def inserir_atividades_sistema():
         atividade5 = Atividade(
             nome="Atividade 5 - Complemento Nominal",
             dificuldade="Médio",
-            tipo="SISTEMA",
             assunto_id=assunto5.id
         )
         db.session.add(atividade5)
@@ -480,6 +482,7 @@ def inserir_atividades_sistema():
         if not assunto6:
             assunto6 = Assunto(
                 nome="Módulo 6: Agente da Passiva",
+                tipo="SISTEMA",
                 conteudo="""
 <h3>O que é o Agente da Passiva?</h3>
 <p>Termo que indica quem praticou a ação na voz passiva, sempre introduzido por preposição (por/pela/pelo).</p>
@@ -514,7 +517,6 @@ def inserir_atividades_sistema():
         atividade6 = Atividade(
             nome="Atividade 6 - Agente da Passiva",
             dificuldade="Médio",
-            tipo="SISTEMA",
             assunto_id=assunto6.id
         )
         db.session.add(atividade6)
@@ -550,6 +552,7 @@ def inserir_atividades_sistema():
         if not assunto7:
             assunto7 = Assunto(
                 nome="Módulo 7: Adjunto Adnominal",
+                tipo="SISTEMA",
                 conteudo="""
 <h3>O que é Adjunto Adnominal?</h3>
 <p>Termo acessório que modifica, caracteriza ou acompanha um substantivo. Pode ser adjetivo, artigo, numeral ou pronome.</p>
@@ -581,7 +584,6 @@ def inserir_atividades_sistema():
         atividade7 = Atividade(
             nome="Atividade 7 - Adjunto Adnominal",
             dificuldade="Médio",
-            tipo="SISTEMA",
             assunto_id=assunto7.id
         )
         db.session.add(atividade7)
@@ -621,6 +623,7 @@ def inserir_atividades_sistema():
         if not assunto8:
             assunto8 = Assunto(
                 nome="Módulo 8: Adjunto Adverbial",
+                tipo="SISTEMA",
                 conteudo="""
 <h3>O que é Adjunto Adverbial?</h3>
 <p>Termo acessório que indica circunstância ligada ao verbo ou à oração inteira: tempo, lugar, modo, causa, finalidade, intensidade, negação, afirmação, dúvida, meio, instrumento, companhia...</p>
@@ -648,7 +651,6 @@ def inserir_atividades_sistema():
         atividade8 = Atividade(
             nome="Atividade 8 - Adjunto Adverbial",
             dificuldade="Médio",
-            tipo="SISTEMA",
             assunto_id=assunto8.id
         )
         db.session.add(atividade8)
@@ -675,6 +677,7 @@ def inserir_atividades_sistema():
         if not assunto9:
             assunto9 = Assunto(
                 nome="Módulo 9: Revisão Geral",
+                tipo="SISTEMA",
                 conteudo="""
 <h3>Como se relacionam na estrutura da oração:</h3>
 <p><strong>Termos essenciais:</strong> Sujeito e Predicado — formam o núcleo da oração.</p>
@@ -722,7 +725,6 @@ def inserir_atividades_sistema():
         atividade9 = Atividade(
             nome="Atividade 9 - Revisão Geral",
             dificuldade="Difícil",
-            tipo="SISTEMA",
             assunto_id=assunto9.id
         )
         db.session.add(atividade9)

@@ -9,6 +9,9 @@ class Assunto(db.Model):
     imagem = db.Column(db.String(255), nullable=True)
     arquivo_pdf = db.Column(db.String(255), nullable=True)
     atividades = db.relationship("Atividade", back_populates="assunto", lazy=True)
+    # Novo atributo — conforme solicitado
+    tipo = db.Column(db.String(50), nullable=False, default="USUARIO")
+    # Valores permitidos: 'SISTEMA', 'PESQUISA', 'USUARIO'
 
 class Atividade(db.Model):
     __tablename__ = "atividade"
@@ -16,10 +19,6 @@ class Atividade(db.Model):
     nome = db.Column(db.String(150), nullable=True)
     dificuldade = db.Column(db.String(50), nullable=True)
     assunto_id = db.Column(db.Integer, db.ForeignKey("assunto.id"), nullable=False)  
-    
-    # Novo atributo — conforme solicitado
-    tipo = db.Column(db.String(50), nullable=False, default="USUARIO")
-    # Valores permitidos: 'SISTEMA', 'PESQUISA', 'USUARIO'
     
     assunto = db.relationship("Assunto", back_populates="atividades")
     questoes = db.relationship("Questao", back_populates="atividade", lazy=True, cascade="all, delete-orphan")

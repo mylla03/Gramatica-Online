@@ -45,28 +45,6 @@ db.init_app(app)
 from models import Assunto, Atividade, Questao, ResultadoAtividade
 
 with app.app_context():
-    # Adiciona coluna tipo se não existir
-    try: 
-        db.session.execute(text("ALTER TABLE atividade ADD COLUMN tipo VARCHAR(50) NOT NULL DEFAULT 'USUARIO';"))
-        db.session.commit()
-    except Exception: 
-        pass
-    try: db.session.execute(text("ALTER TABLE atividade ADD COLUMN nome VARCHAR(150);")); db.session.commit()
-    except Exception: pass
-    try: db.session.execute(text("ALTER TABLE atividade ADD COLUMN dificuldade VARCHAR(50);")); db.session.commit()
-    except Exception: pass
-    try: db.session.execute(text("ALTER TABLE questao ADD COLUMN alternativa_a TEXT;")); db.session.commit()
-    except Exception: pass
-    try: db.session.execute(text("ALTER TABLE questao ADD COLUMN alternativa_b TEXT;")); db.session.commit()
-    except Exception: pass
-    try: db.session.execute(text("ALTER TABLE questao ADD COLUMN alternativa_c TEXT;")); db.session.commit()
-    except Exception: pass
-    try: db.session.execute(text("ALTER TABLE questao ADD COLUMN alternativa_d TEXT;")); db.session.commit()
-    except Exception: pass
-    try: db.session.execute(text("ALTER TABLE questao ADD COLUMN alternativa_e TEXT;")); db.session.commit()
-    except Exception: pass
-    try: db.session.execute(text("ALTER TABLE questao ADD COLUMN resposta_correta VARCHAR(1);")); db.session.commit()
-    except Exception: pass
     db.create_all()
 
 def arquivo_permitido(nome):

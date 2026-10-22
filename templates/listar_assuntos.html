@@ -34,9 +34,11 @@
                                 <a href="{{ url_for('editar_assunto', id=assunto.id) }}" class="btn" style="padding: 4px 8px; font-size: 0.9em; background: #ffc107; color: #212529; text-decoration: none; border-radius: 4px; margin-right: 5px;">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
+                                {% if assunto.tipo != 'SISTEMA' %}
                                 <a href="{{ url_for('apagar_assunto', id=assunto.id) }}" class="btn" style="padding: 4px 8px; font-size: 0.9em; background: #dc3545; color: white; text-decoration: none; border-radius: 4px;" onclick="return confirm('Tem certeza que deseja apagar?')">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
+                                {% endif %}
                             </td>
                         </tr>
                         {% else %}
