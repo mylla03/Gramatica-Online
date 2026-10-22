@@ -4,10 +4,6 @@ from database import db
 
 def inserir_atividades_sistema():
     with app.app_context():
-        # if Atividade.query.filter_by(tipo="SISTEMA").first():
-        #     print("Atividades do sistema já existem no banco de dados.")
-        #     return
-        
         print("Inserindo assuntos e atividades do grupo...\n")
 
         # ASSUNTO 1 — Sujeito
@@ -19,10 +15,8 @@ def inserir_atividades_sistema():
                 conteudo="""
 <h3>O que é sujeito?</h3>
 <p>O sujeito é o ser principal da oração e indica quem participa, pratica ou sofre a ação.</p>
-
 <h3>Tipos de sujeito</h3>
 <p>No total, existem cinco tipos principais de sujeito na língua portuguesa: simples, composto, oculto, indeterminado e oração sem sujeito.</p>
-
 <h3>Sujeito simples:</h3>
 <p>O sujeito simples é aquele que possui apenas um núcleo, isto é, uma palavra principal que indica quem realiza ou sofre a ação.</p>
 <p>Observe as seguintes frases:</p>
@@ -33,7 +27,6 @@ def inserir_atividades_sistema():
 <p>Na frase "O menino dormiu", menino é o sujeito e dormiu é a ação.</p>
 <p>Em "A menina mordeu a maçã", menina é o sujeito, mordeu é a ação e maçã é o objeto direto, que sofreu a ação.</p>
 <p><em>Dica: O sujeito simples fala de apenas uma pessoa ou coisa.</em></p>
-
 <h3>Sujeito Oculto (ou Elíptico):</h3>
 <p>O sujeito oculto (ou elíptico) é aquele que não aparece na oração, mas pode ser identificado pelo verbo ou pelo contexto.</p>
 <p>Exemplos:</p>
@@ -43,7 +36,6 @@ def inserir_atividades_sistema():
     <li>Fomos ao cinema hoje.</li>
     <p>O verbo "fomos" está na primeira pessoa do plural, então percebemos que o sujeito oculto é "nós", mesmo que não esteja escrito na frase.</p>
 </ul>
-
 <h3>Sujeito Composto:</h3>
 <p>O sujeito composto é aquele que possui dois ou mais núcleos, isto é, duas ou mais palavras principais que indicam quem realiza ou sofre a ação.</p>
 <p>Exemplos:</p>
@@ -54,7 +46,6 @@ def inserir_atividades_sistema():
     <p>Os núcleos são Cecília e Gael.</p>
 </ul>
 <p><em>Dica: se houver dois ou mais núcleos, o sujeito é composto.</em></p>
-
 <h3>Sujeito Indeterminado:</h3>
 <p>O sujeito indeterminado é aquele em que alguém realiza uma ação, mas não sabemos exatamente quem.</p>
 <p>1. Com o verbo na terceira pessoa do plural, sem indicar quem é o sujeito.</p>
@@ -67,11 +58,9 @@ def inserir_atividades_sistema():
     <li>Dorme-se pouco nessa cidade.<br>(Alguém dorme, mas não sabemos quem.)</li>
     <li>Precisa-se de atendente.<br>(Alguém precisa, mas não sabemos quem.)</li>
 </ul>
-
 <h3>Oração sem Sujeito:</h3>
 <p>A oração sem sujeito é aquela que não possui um sujeito possível, isto é, não tem alguém que realiza a ação.</p>
 <p>Nesses casos, o verbo é impessoal, pois não se refere a ninguém.</p>
-
 <p>Isso pode acontecer com:</p>
 <p><strong>1. Fenômenos da natureza:</strong></p>
 <ul>
@@ -79,37 +68,30 @@ def inserir_atividades_sistema():
     <li>Hoje está nublado.</li>
 </ul>
 <p>Esses verbos indicam acontecimentos da natureza, então não têm sujeito.</p>
-
 <p><strong>2. Verbo "haver" com sentido de acontecer ou existir:</strong></p>
 <ul>
     <li>Havia poucas pessoas na praia.</li>
     <li>Vai haver passeio amanhã.</li>
 </ul>
 <p>O verbo "haver" é impessoal nesses sentidos, portanto, a oração não tem sujeito.</p>
-
 <p><strong>3. Verbo "fazer" indicando tempo ou fenômeno natural:</strong></p>
 <ul>
     <li>Faz três anos que moro longe.</li>
     <li>Faz vento hoje.</li>
 </ul>
 <p>Nesse caso, o verbo "fazer" também é impessoal, então a oração é sem sujeito.</p>
-
 <p><em>Dica: Se não há alguém realizando a ação e não dá pra saber quem faz, é uma oração sem sujeito.</em></p>
-
-conteudo = """
 <h3>Mapa Mental</h3>
 <div class="mapa-mental-container">
-    <img src="/static/img/mapa_sujeito.png" alt="Mapa Mental de Sujeito" class="mapa-mental">
+    <img src="{{ url_for('static', filename='img/mapa_sujeito.png') }}" alt="Mapa Mental de Sujeito" class="mapa-mental">
 </div>
-"""
-
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
                 """
             )
             db.session.add(assunto1)
             db.session.flush()
-            print(" Assunto 1 — Sujeito criado")
+            print("Assunto 1 — Sujeito criado")
 
         atividade1 = Atividade(
             nome="Atividade 1 - Sujeito",
@@ -118,7 +100,6 @@ conteudo = """
         )
         db.session.add(atividade1)
         db.session.flush()
-
         db.session.add(Questao(enunciado="1. Identifique o tipo de sujeito na frase: 'Maria foi à padaria pela manhã.'",
             alternativa_a="Sujeito simples", alternativa_b="Sujeito composto",
             alternativa_c="Sujeito indeterminado", alternativa_d="Sujeito oculto",
@@ -152,17 +133,14 @@ conteudo = """
 <ul><li>O menino brincou no parquinho.</li></ul>
 <p>Sujeito: O menino.</p>
 <p>Predicado: brincou no parquinho.</p>
-
 <h3>Tipos de predicado:</h3>
 <p>Na língua portuguesa, temos três tipos principais de predicado: predicado verbal, nominal e verbo-nominal.</p>
-
 <h3>Predicado verbal:</h3>
 <p>O núcleo do predicado é um verbo de ação. O foco está no que o sujeito faz.</p>
 <p>Quando ocorre, há um verbo significativo, como correr, cantar ou brincar. Esse verbo é o elemento principal.</p>
 <p>Exemplo:</p>
 <ul><li>Essa menina dança muito.</li></ul>
 <p>Núcleo verbal: dança.</p>
-
 <h3>Predicado nominal:</h3>
 <p>O predicado nominal é aquele em que o núcleo é um nome, adjetivo ou substantivo, e o verbo de ligação demonstra característica ou estado do sujeito.</p>
 <p>Nesse caso, o verbo apenas liga o sujeito a uma característica, não indica uma ação.</p>
@@ -170,7 +148,6 @@ conteudo = """
 <p>Exemplo:</p>
 <ul><li>A menina está animada.</li></ul>
 <p>Núcleo: animada, característica do sujeito.</p>
-
 <h3>Predicado verbo-nominal:</h3>
 <p>O predicado verbo-nominal combina os dois anteriores.</p>
 <p>Mostra uma ação e, ao mesmo tempo, uma característica ou estado do sujeito.</p>
@@ -178,7 +155,6 @@ conteudo = """
 <ul><li>O menino chegou atrasado.</li></ul>
 <p>Ação: chegou.</p>
 <p>Estado: atrasado.</p>
-
 <h3>Relação entre sujeito e predicado:</h3>
 <p>Toda oração pode ser dividida em sujeito e predicado.</p>
 <p>O sujeito é alguém ou algo sobre o qual se faz uma declaração, enquanto o predicado é a informação dada sobre ele.</p>
@@ -187,18 +163,16 @@ conteudo = """
 <p>Sujeito: As meninas.</p>
 <p>Predicado: ficaram animadas com o passeio.</p>
 <p>Tipo: verbo-nominal.</p>
-
 <div class="video-container">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/2f_fPWs4I60" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2f_fPWs4I60" frameborder="0" allowfullscreen></iframe>
 </div>
-
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
                 """
             )
             db.session.add(assunto2)
             db.session.flush()
-            print(" Assunto 2 — Predicado criado")
+            print("Assunto 2 — Predicado criado")
 
         atividade2 = Atividade(
             nome="Atividade 2 - Predicado",
@@ -207,7 +181,6 @@ conteudo = """
         )
         db.session.add(atividade2)
         db.session.flush()
-
         db.session.add(Questao(enunciado="1. Qual é o sujeito da frase: 'As meninas chegaram cedo'?",
             alternativa_a="chegaram cedo", alternativa_b="cedo", alternativa_c="As meninas", alternativa_d="chegaram",
             resposta_correta="c", atividade_id=atividade2.id))
@@ -236,10 +209,8 @@ conteudo = """
 <p>Aposto é um termo que aparece junto de um substantivo para especificar, explicar, resumir ou transmitir informações sobre ele.</p>
 <p>Exemplo:</p>
 <ul><li>Alice, minha vizinha, é engraçada.</li></ul>
-<p>→ "minha vizinha" é o aposto, pois explica quem é Alice.</p>
-
+<p>"minha vizinha" é o aposto, pois explica quem é Alice.</p>
 <h3>Tipos de aposto</h3>
-
 <h3>Aposto explicativo</h3>
 <ul>
 <li>Explica quem é a pessoa ou o que é o termo.</li>
@@ -247,8 +218,7 @@ conteudo = """
 </ul>
 <p>Exemplo:</p>
 <ul><li>Theo, meu primo, ganhou um carrinho novo.</li></ul>
-<p>→ "meu primo" é o aposto.</p>
-
+<p>"meu primo" é o aposto.</p>
 <h3>Aposto especificativo:</h3>
 <ul>
 <li>Especifica qual pessoa ou objeto estamos falando.</li>
@@ -256,19 +226,17 @@ conteudo = """
 </ul>
 <p>Exemplo 1:</p>
 <ul><li>A menina de vestido rosa é minha amiga.</li></ul>
-<p>→ "de vestido rosa" é o aposto.</p>
+<p>"de vestido rosa" é o aposto.</p>
 <p>Exemplo 2:</p>
 <ul><li>O menino que chegou agora é meu primo.</li></ul>
-<p>→ "que chegou agora" é o aposto.</p>
-
+<p>"que chegou agora" é o aposto.</p>
 <h3>Aposto resumitivo</h3>
 <ul>
 <li>Resume vários elementos citados anteriormente.</li>
 </ul>
 <p>Exemplo:</p>
 <ul><li>Vestidos, saias, blusas, todas essas peças são tendências.</li></ul>
-<p>→ "todas essas peças" é o aposto.</p>
-
+<p>"todas essas peças" é o aposto.</p>
 <h3>Aposto distributivo</h3>
 <p>O aposto distributivo aparece normalmente depois de dois ou mais elementos.</p>
 <p>Ele distribui uma ação ou característica para cada um deles separadamente.</p>
@@ -277,16 +245,13 @@ conteudo = """
 <li>Catarina e Manuella, ambas amigas, foram embora cedo da pizzaria.</li>
 <li>Marina e Théo, cada um com sua garrafa, foram à academia.</li>
 </ul>
-
 <h3>Aposto e vocativo: qual a diferença?</h3>
-
 <h4>Aposto:</h4>
 <ul>
 <li>Acrescenta informações sobre um elemento da frase.</li>
 <li>Ele faz parte da estrutura da oração e não chama ninguém.</li>
 <li>Apenas explica, especifica ou caracteriza algo ou alguém.</li>
 </ul>
-
 <h4>Vocativo:</h4>
 <ul>
 <li>O vocativo não faz parte da estrutura da frase.</li>
@@ -298,19 +263,17 @@ conteudo = """
 <li>Maria, pega meu caderno, por favor.</li>
 <li>Gente, prestem atenção.</li>
 </ul>
-
 <h3>Mapa Mental</h3>
 <div class="mapa-mental-container">
-<img src="{{ url_for('static', filename='img/mapa_aposto.png') }}" alt="Mapa Mental de Aposto" class="mapa-mental">
+    <img src="{{ url_for('static', filename='img/mapa_aposto.png') }}" alt="Mapa Mental de Aposto" class="mapa-mental">
 </div>
-
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
                 """
             )
             db.session.add(assunto3)
             db.session.flush()
-            print(" Assunto 3 — Aposto criado")
+            print("Assunto 3 — Aposto criado")
 
         atividade3 = Atividade(
             nome="Atividade 3 - Aposto",
@@ -319,7 +282,6 @@ conteudo = """
         )
         db.session.add(atividade3)
         db.session.flush()
-
         db.session.add(Questao(enunciado="1. Identifique o tipo de aposto na frase: 'Gael, meu amigo, chegou atrasado hoje.'",
             alternativa_a="Aposto especificativo", alternativa_b="Aposto explicativo",
             alternativa_c="Aposto resumitivo", alternativa_d="Aposto distributivo",
@@ -369,19 +331,17 @@ conteudo = """
 <p>Exemplo:</p>
 <ul><li>"O bebê dormiu."</li></ul>
 <p>O verbo dormir já tem significado completo sozinho.</p>
-
 <h3>Mapa Mental</h3>
 <div class="mapa-mental-container">
-<img src="{{ url_for('static', filename='img/mapa_complemento_verbal.png') }}" alt="Mapa Mental de Complemento Verbal" class="mapa-mental">
+    <img src="{{ url_for('static', filename='img/mapa_complemento_verbal.png') }}" alt="Mapa Mental de Complemento Verbal" class="mapa-mental">
 </div>
-
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
                 """
             )
             db.session.add(assunto4)
             db.session.flush()
-            print(" Assunto 4 — Complemento Verbal criado")
+            print("Assunto 4 — Complemento Verbal criado")
 
         atividade4 = Atividade(
             nome="Atividade 4 - Complemento Verbal",
@@ -390,7 +350,6 @@ conteudo = """
         )
         db.session.add(atividade4)
         db.session.flush()
-
         db.session.add(Questao(enunciado="1. Qual alternativa define corretamente o Complemento Verbal?",
             alternativa_a="Termo acessório que indica circunstância e é necessário para verbos intransitivos.",
             alternativa_b="Termo essencial que completa o sentido de verbos transitivos.",
@@ -427,25 +386,22 @@ conteudo = """
 <p>O complemento nominal completa o sentido de um nome (substantivo, adjetivo ou advérbio) que exige preposição.</p>
 <p>Ele sempre vem acompanhado de uma preposição obrigatória e geralmente indica quem recebe a ação.</p>
 <p>Exemplo:</p>
-<ul><li>"Tenho medo de altura." → "de altura" é o complemento nominal.</li></ul>
-
+<ul><li>"Tenho medo de altura." "de altura" é o complemento nominal.</li></ul>
 <p>Diferença entre Complemento Nominal e Objeto Indireto:</p>
 <ul>
 <li>CN completa um nome; OI completa um verbo.</li>
 <li>CN é sempre preposicionado; OI nem sempre.</li>
 </ul>
-
 <div class="video-container">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zFMsnEeAoGA" frameborder="0" allowfullscreen></iframe>
 </div>
-
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
                 """
             )
             db.session.add(assunto5)
             db.session.flush()
-            print(" Assunto 5 — Complemento Nominal criado")
+            print("Assunto 5 — Complemento Nominal criado")
 
         atividade5 = Atividade(
             nome="Atividade 5 - Complemento Nominal",
@@ -454,7 +410,6 @@ conteudo = """
         )
         db.session.add(atividade5)
         db.session.flush()
-
         db.session.add(Questao(enunciado="1. Característica obrigatória do Complemento Nominal:",
             alternativa_a="Liga-se a um verbo.", alternativa_b="É sempre preposicionado.",
             alternativa_c="Modifica um verbo.", alternativa_d="É opcional.",
@@ -488,7 +443,6 @@ conteudo = """
 <p>Termo que indica quem praticou a ação na voz passiva, sempre introduzido por preposição (por/pela/pelo).</p>
 <p>Exemplo:</p>
 <ul><li>"O livro foi escrito por Machado de Assis."</li></ul>
-
 <h3>Transformação Ativa → Passiva:</h3>
 <ol>
 <li>Objeto direto da ativa vira sujeito paciente da passiva.</li>
@@ -500,19 +454,17 @@ conteudo = """
 <li>Ativa: "A professora corrigiu as provas."</li>
 <li>Passiva: "As provas foram corrigidas pela professora."</li>
 </ul>
-
 <h3>Mapa Mental</h3>
 <div class="mapa-mental-container">
-<img src="{{ url_for('static', filename='img/mapa_agente_da_passiva.png') }}" alt="Mapa Mental" class="mapa-mental">
+    <img src="{{ url_for('static', filename='img/mapa_agente_da_passiva.png') }}" alt="Mapa Mental de Agente da Passiva" class="mapa-mental">
 </div>
-
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
                 """
             )
             db.session.add(assunto6)
             db.session.flush()
-            print(" Assunto 6 — Agente da Passiva criado")
+            print("Assunto 6 — Agente da Passiva criado")
 
         atividade6 = Atividade(
             nome="Atividade 6 - Agente da Passiva",
@@ -521,7 +473,6 @@ conteudo = """
         )
         db.session.add(atividade6)
         db.session.flush()
-
         db.session.add(Questao(enunciado="1. O Agente da Passiva é encontrado somente na:",
             alternativa_a="Voz ativa.", alternativa_b="Voz passiva analítica.",
             alternativa_c="Voz reflexiva.", alternativa_d="Oração sem sujeito.",
@@ -567,19 +518,17 @@ conteudo = """
 <li>O amor de Deus → Adjunto Adnominal (quem ama)</li>
 <li>O amor a Deus → Complemento Nominal (quem é amado)</li>
 </ul>
-
 <div class="video-container">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/WuRXBvnNCnQ" frameborder="0" allowfullscreen></iframe>
-<p><em>O vídeo também fala sobre Adjunto Adverbial</em></p>
+<p>O vídeo também fala sobre Adjunto Adverbial</p>
 </div>
-
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
                 """
             )
             db.session.add(assunto7)
             db.session.flush()
-            print(" Assunto 7 — Adjunto Adnominal criado")
+            print("Assunto 7 — Adjunto Adnominal criado")
 
         atividade7 = Atividade(
             nome="Atividade 7 - Adjunto Adnominal",
@@ -588,7 +537,6 @@ conteudo = """
         )
         db.session.add(atividade7)
         db.session.flush()
-
         db.session.add(Questao(enunciado="1. 'Os filmes antigos da Disney' → termo destacado é:",
             alternativa_a="Complemento Nominal", alternativa_b="Adjunto Adnominal",
             alternativa_c="Objeto Indireto", alternativa_d="Predicativo",
@@ -630,23 +578,21 @@ conteudo = """
 <p>Responde perguntas como: quando? onde? como? por quê? para quê?</p>
 <p>Exemplos:</p>
 <ul>
-<li>Cheguei <strong>ontem</strong> → tempo</li>
-<li>Estou <strong>bem</strong> → modo</li>
-<li>Atrasou <strong>por causa do trânsito</strong> → causa</li>
+<li>Cheguei ontem → tempo</li>
+<li>Estou bem → modo</li>
+<li>Atrasou por causa do trânsito → causa</li>
 </ul>
-
 <div class="video-container">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/WuRXBvnNCnQ" frameborder="0" allowfullscreen></iframe>
-<p><em>Mesmo vídeo do assunto anterior</em></p>
+<p>Mesmo vídeo do assunto anterior</p>
 </div>
-
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
                 """
             )
             db.session.add(assunto8)
             db.session.flush()
-            print(" Assunto 8 — Adjunto Adverbial criado")
+            print("Assunto 8 — Adjunto Adverbial criado")
 
         atividade8 = Atividade(
             nome="Atividade 8 - Adjunto Adverbial",
@@ -655,7 +601,6 @@ conteudo = """
         )
         db.session.add(atividade8)
         db.session.flush()
-
         db.session.add(Questao(enunciado="1. 'Ele esteve aqui mais cedo' → tipo de adjunto adverbial:",
             alternativa_a="modo", alternativa_b="tempo/lugar", alternativa_c="causa", alternativa_d="intensidade",
             resposta_correta="b", atividade_id=atividade8.id))
@@ -695,7 +640,6 @@ conteudo = """
 <li>Aposto — explica/substantivo</li>
 <li>Vocativo — chama alguém, fora da estrutura</li>
 </ul>
-
 <h3>Resumo prático:</h3>
 <ul>
 <li>Se completa verbo → complemento verbal (OD/OI)</li>
@@ -704,23 +648,20 @@ conteudo = """
 <li>Se indica circunstância → adjunto adverbial</li>
 <li>Se pratica ação na passiva → agente da passiva</li>
 </ul>
-
 <h3>Material de Estudo</h3>
-<a href="https://drive.google.com/open?id=1SyMjR6UpN1ZgHtkF1e_7NCZsuWsxWOv0" target="_blank" class="btn btn-detalhe">
- Abrir PDF de Exercícios
+<a href="https://drive.google.com/file/d/1SyMjR6UpN1ZgHtkF1e_7NCZsuWsxWOv0/view" target="_blank" class="btn btn-detalhe">
+Abrir PDF de Exercícios
 </a>
-
 <div class="video-container">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zouWyLPtcXY" frameborder="0" allowfullscreen></iframe>
 </div>
-
 <h3>Próximos Passos</h3>
 <p>Pronto para testar tudo? Boa revisão!</p>
                 """
             )
             db.session.add(assunto9)
             db.session.flush()
-            print(" Assunto 9 — Revisão Geral criado")
+            print("Assunto 9 — Revisão Geral criado")
 
         atividade9 = Atividade(
             nome="Atividade 9 - Revisão Geral",
@@ -729,7 +670,6 @@ conteudo = """
         )
         db.session.add(atividade9)
         db.session.flush()
-
         db.session.add(Questao(enunciado="1. Qual conjunto contém apenas termos integrantes da oração?",
             alternativa_a="Adjunto Adnominal, Adjunto Adverbial, Aposto",
             alternativa_b="Sujeito, Predicado, Vocativo",
@@ -758,8 +698,8 @@ conteudo = """
             resposta_correta="c", atividade_id=atividade9.id))
 
         db.session.commit()
-        print("\n TODOS os assuntos e atividades foram inseridos com sucesso!")
-        print(f" Total: 9 assuntos | 9 atividades | ~50 questões")
+        print("\nTODOS os assuntos e atividades foram inseridos com sucesso!")
+        print("Total: 9 assuntos | 9 atividades | ~50 questões")
 
 if __name__ == "__main__":
     inserir_atividades_sistema()

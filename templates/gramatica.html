@@ -43,20 +43,24 @@
         <i class="fa-solid fa-users"></i> Conteúdos Adicionados pelos Usuários
     </h3>
     <div class="topicos-principais">
-        {% if assuntos %}
-            {% for assunto in assuntos %}
-            <div style="margin: 12px 0; padding: 12px; background: #f8f9fa; border-radius: 6px; border-left: 4px solid #27ae60;">
-                <p style="margin: 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-                    <span><i class="fa-solid fa-bookmark"></i> {{ assunto.nome }}</span>
-                    <span>
-                        <a href="{{ url_for('ver_assunto', id=assunto.id) }}" class="btn" style="background: #27ae60; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none;">
-                            <i class="fa-solid fa-eye"></i>
-                        </a>
-                    </span>
-                </p>
-            </div>
-            {% endfor %}
-        {% else %}
+        {% set encontrou_usuario = false %}
+        {% for assunto in assuntos %}
+            {% if assunto.tipo != 'SISTEMA' %}
+                {% set encontrou_usuario = true %}
+                <div style="margin: 12px 0; padding: 12px; background: #f8f9fa; border-radius: 6px; border-left: 4px solid #27ae60;">
+                    <p style="margin: 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                        <span><i class="fa-solid fa-bookmark"></i> {{ assunto.nome }}</span>
+                        <span>
+                            <a href="{{ url_for('assunto_dinamico', id=assunto.id) }}" class="btn" style="background: #27ae60; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none;">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                        </span>
+                    </p>
+                </div>
+            {% endif %}
+        {% endfor %}
+        
+        {% if not encontrou_usuario %}
             <p style="color: #6c757d; font-style: italic; text-align: center; padding: 15px;">
                 Nenhum conteúdo adicionado ainda. Clique em "Adicionar Assunto" para começar!
             </p>
