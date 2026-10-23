@@ -1,5 +1,6 @@
 from database import db
 from datetime import datetime
+import os
 
 class Assunto(db.Model):
     __tablename__ = "assunto"
@@ -12,6 +13,11 @@ class Assunto(db.Model):
     # Novo atributo — conforme solicitado
     tipo = db.Column(db.String(50), nullable=False, default="USUARIO")
     # Valores permitidos: 'SISTEMA', 'PESQUISA', 'USUARIO'
+
+    def get_imagem_url(self):
+        if self.imagem:
+            return f"{os.getenv('BASE_URL')}/static/{self.imagem}"
+        return None
 
 class Atividade(db.Model):
     __tablename__ = "atividade"

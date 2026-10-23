@@ -7,6 +7,11 @@
                 {{ assunto.conteudo|safe }}
             </div>
 
+            <div class="mapa-mental-container">
+                <img src="{{ assunto.get_imagem_url() }}" alt="Mapa Mental de {{ assunto.nome }}" class="mapa-mental">
+            </div>
+
+
             <br>
             <a href="{{ url_for('atividades') }}" class="btn btn-gramatica">
                 <i class="fa-solid fa-pen"></i> Ir para Exercícios

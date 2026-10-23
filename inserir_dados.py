@@ -1,6 +1,7 @@
 from app import app
 from models import Assunto, Atividade, Questao
 from database import db
+import os
 
 def inserir_atividades_sistema():
     with app.app_context():
@@ -12,6 +13,7 @@ def inserir_atividades_sistema():
             assunto1 = Assunto(
                 nome="Módulo 1: Sujeito",
                 tipo="SISTEMA",
+                imagem="img/mapa_sujeito.png",
                 conteudo="""
 <h3>O que é sujeito?</h3>
 <p>O sujeito é o ser principal da oração e indica quem participa, pratica ou sofre a ação.</p>
@@ -81,12 +83,9 @@ def inserir_atividades_sistema():
 </ul>
 <p>Nesse caso, o verbo "fazer" também é impessoal, então a oração é sem sujeito.</p>
 <p><em>Dica: Se não há alguém realizando a ação e não dá pra saber quem faz, é uma oração sem sujeito.</em></p>
-<h3>Mapa Mental</h3>
-<div class="mapa-mental-container">
-    <img src="{{ url_for('static', filename='img/mapa_sujeito.png') }}" alt="Mapa Mental de Sujeito" class="mapa-mental">
-</div>
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
+<h3>Mapa Mental</h3>
                 """
             )
             db.session.add(assunto1)
@@ -265,7 +264,7 @@ def inserir_atividades_sistema():
 </ul>
 <h3>Mapa Mental</h3>
 <div class="mapa-mental-container">
-    <img src="{{ url_for('static', filename='img/mapa_aposto.png') }}" alt="Mapa Mental de Aposto" class="mapa-mental">
+    <img src="{{ url_for('static', filename='{os.getenv(\"BASE_URL\")}/static/img/mapa_aposto.png') }}" alt="Mapa Mental de Aposto" class="mapa-mental">
 </div>
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
@@ -333,7 +332,7 @@ def inserir_atividades_sistema():
 <p>O verbo dormir já tem significado completo sozinho.</p>
 <h3>Mapa Mental</h3>
 <div class="mapa-mental-container">
-    <img src="{{ url_for('static', filename='img/mapa_complemento_verbal.png') }}" alt="Mapa Mental de Complemento Verbal" class="mapa-mental">
+    <img src="{{ url_for('static', filename='{os.getenv(\"BASE_URL\")}/static/img/mapa_complemento_verbal.png') }}" alt="Mapa Mental de Complemento Verbal" class="mapa-mental">
 </div>
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
@@ -456,7 +455,7 @@ def inserir_atividades_sistema():
 </ul>
 <h3>Mapa Mental</h3>
 <div class="mapa-mental-container">
-    <img src="{{ url_for('static', filename='img/mapa_agente_da_passiva.png') }}" alt="Mapa Mental de Agente da Passiva" class="mapa-mental">
+    <img src="{{ url_for('static', filename='{os.getenv(\"BASE_URL\")}/static/img/mapa_agente_da_passiva.png') }}" alt="Mapa Mental de Agente da Passiva" class="mapa-mental">
 </div>
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>

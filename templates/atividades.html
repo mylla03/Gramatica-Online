@@ -32,22 +32,26 @@
                 <i class="fa-solid fa-users"></i> Atividades Adicionadas pelos Usuários
             </h3>
             <div class="topicos-principais">
+                {% set encontrou_usuario = false %}
                 {% if atividades %}
                     {% for atividade in atividades %}
-                    <div style="margin-bottom: 15px; padding: 12px; background: #f8f9fa; border-radius: 6px; border-left: 4px solid #2980b9;">
-                        <p style="margin: 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-                            <span>
-                                <i class="fa-solid fa-bookmark"></i>
-                                <strong>{{ atividade.nome or 'Atividade sem nome' }}</strong><br>
-                                <small>Dificuldade: {{ atividade.dificuldade }} | Assunto: {{ atividade.assunto.nome }}</small>
-                            </span>
-                            <span>
-                                <a href="{{ url_for('responder_atividade', id=atividade.id) }}" class="btn btn-detalhe" style="padding: 4px 8px; font-size: 0.85em; background: #27ae60; color: white; text-decoration: none; border-radius: 4px; margin-right: 5px;">
-                                    <i class="fa-solid fa-check"></i> Responder
-                                </a>
-                            </span>
-                        </p>
-                    </div>
+                        {% if assunto.tipo != 'SISTEMA' %}
+                            {% set encontrou_usuario = true %}
+                            <div style="margin-bottom: 15px; padding: 12px; background: #f8f9fa; border-radius: 6px; border-left: 4px solid #2980b9;">
+                                <p style="margin: 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                                    <span>
+                                        <i class="fa-solid fa-bookmark"></i>
+                                        <strong>{{ atividade.nome or 'Atividade sem nome' }}</strong><br>
+                                        <small>Dificuldade: {{ atividade.dificuldade }} | Assunto: {{ atividade.assunto.nome }}</small>
+                                    </span>
+                                    <span>
+                                        <a href="{{ url_for('responder_atividade', id=atividade.id) }}" class="btn btn-detalhe" style="padding: 4px 8px; font-size: 0.85em; background: #27ae60; color: white; text-decoration: none; border-radius: 4px; margin-right: 5px;">
+                                            <i class="fa-solid fa-check"></i> Responder
+                                        </a>
+                                    </span>
+                                </p>
+                            </div>
+                        {% endif %}    
                     {% endfor %}
                 {% else %}
                     <p style="text-align: center; color: #6c757d; padding: 15px; background: #f8f9fa; border-radius: 6px;">

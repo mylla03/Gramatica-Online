@@ -9,6 +9,7 @@ from authlib.integrations.flask_client import OAuth
 from authlib.integrations.base_client.errors import OAuthError
 from requests.exceptions import RequestException
 from datetime import datetime
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -19,8 +20,10 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.jinja_env.auto_reload = True
 
 oauth = OAuth(app)
+
 SUAP_BASE_URL = os.environ.get("SUAP_BASE_URL", "https://suap.ifrn.edu.br").rstrip("/")
 SUAP_USER_INFO_ENDPOINT = os.environ.get("SUAP_USER_INFO_ENDPOINT", "api/rh/eu/").lstrip("/")
+
 suap_client_kwargs = {}
 suap_scope = os.environ.get("SUAP_SCOPE", "").strip()
 if suap_scope:
@@ -42,6 +45,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 db.init_app(app)
+
 from models import Assunto, Atividade, Questao, ResultadoAtividade
 
 with app.app_context():
@@ -408,6 +412,7 @@ def revisao_geral_detalhe(): return render_template("revisao_geral_detalhe.html"
 
 # ==================================================
 # ROTA DINÂMICA — ATIVIDADES DE USUÁRIO
+# CORRIGIDA: Envia respostas_corretas para o template
 # ==================================================
 @app.route("/atividade/<int:atividade_id>", methods=["GET", "POST"])
 def atividade_dinamica(atividade_id):
@@ -432,7 +437,7 @@ def atividade_dinamica(atividade_id):
         return render_template("atividade_dinamica.html", 
             atividade=atividade, 
             enviado=True, 
-            resultados=resultados,
+            respostas_corretas=resultados,
             nota=nota,
             acertos=acertos,
             total=total)
@@ -441,12 +446,16 @@ def atividade_dinamica(atividade_id):
 
 # ==================================================
 # ROTA ESPECIAL — ATIVIDADES DE SISTEMA POR POSIÇÃO
+# CORRIGIDA: JOIN no Assunto + envia respostas_corretas
 # ==================================================
 @app.route("/sistema/<int:indice>", methods=["GET", "POST"])
 def atividade_sistema(indice):
-    atividades_sistema = Atividade.query.filter_by(tipo="SISTEMA").order_by(Atividade.id).all()
+    # JOIN entre Atividade e Assunto — filtro no tipo do Assunto
+    atividades_sistema = Atividade.query.join(Assunto).filter(
+        Assunto.tipo == "SISTEMA"
+    ).order_by(Atividade.id).all()
     
-    idx = indice - 1  
+    idx = indice - 1
     if idx < 0 or idx >= len(atividades_sistema):
         flash("Atividade não encontrada!")
         return redirect(url_for('atividades'))
@@ -470,8 +479,12 @@ def atividade_sistema(indice):
         salvar_primeira_tentativa(atividade.id, acertos, total)
         
         return render_template("atividade_dinamica.html",
-            atividade=atividade, enviado=True, resultados=resultados,
-            nota=nota, acertos=acertos, total=total)
+            atividade=atividade,
+            enviado=True,
+            respostas_corretas=resultados,
+            nota=nota,
+            acertos=acertos,
+            total=total)
     
     return render_template("atividade_dinamica.html", atividade=atividade, enviado=False)
 
