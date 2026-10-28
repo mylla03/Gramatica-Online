@@ -203,6 +203,7 @@ def inserir_atividades_sistema():
             assunto3 = Assunto(
                 nome="Módulo 3: Aposto",
                 tipo="SISTEMA",
+                imagem="img/mapa_aposto.png",
                 conteudo="""
 <h3>O que é aposto?</h3>
 <p>Aposto é um termo que aparece junto de um substantivo para especificar, explicar, resumir ou transmitir informações sobre ele.</p>
@@ -262,10 +263,6 @@ def inserir_atividades_sistema():
 <li>Maria, pega meu caderno, por favor.</li>
 <li>Gente, prestem atenção.</li>
 </ul>
-<h3>Mapa Mental</h3>
-<div class="mapa-mental-container">
-    <img src="{{ url_for('static', filename='{os.getenv(\"BASE_URL\")}/static/img/mapa_aposto.png') }}" alt="Mapa Mental de Aposto" class="mapa-mental">
-</div>
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
                 """
@@ -314,6 +311,7 @@ def inserir_atividades_sistema():
             assunto4 = Assunto(
                 nome="Módulo 4: Complemento Verbal",
                 tipo="SISTEMA",
+                imagem="img/mapa_complemento_verbal.png",
                 conteudo="""
 <h3>O que são?</h3>
 <p>Os complementos verbais são termos que completam o sentido de um verbo, já que nem todos conseguem ter um significado completo sozinhos.</p>
@@ -330,10 +328,6 @@ def inserir_atividades_sistema():
 <p>Exemplo:</p>
 <ul><li>"O bebê dormiu."</li></ul>
 <p>O verbo dormir já tem significado completo sozinho.</p>
-<h3>Mapa Mental</h3>
-<div class="mapa-mental-container">
-    <img src="{{ url_for('static', filename='{os.getenv(\"BASE_URL\")}/static/img/mapa_complemento_verbal.png') }}" alt="Mapa Mental de Complemento Verbal" class="mapa-mental">
-</div>
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
                 """
@@ -437,6 +431,7 @@ def inserir_atividades_sistema():
             assunto6 = Assunto(
                 nome="Módulo 6: Agente da Passiva",
                 tipo="SISTEMA",
+                imagem="img/mapa_agente_da_passiva.png",
                 conteudo="""
 <h3>O que é o Agente da Passiva?</h3>
 <p>Termo que indica quem praticou a ação na voz passiva, sempre introduzido por preposição (por/pela/pelo).</p>
@@ -453,10 +448,6 @@ def inserir_atividades_sistema():
 <li>Ativa: "A professora corrigiu as provas."</li>
 <li>Passiva: "As provas foram corrigidas pela professora."</li>
 </ul>
-<h3>Mapa Mental</h3>
-<div class="mapa-mental-container">
-    <img src="{{ url_for('static', filename='{os.getenv(\"BASE_URL\")}/static/img/mapa_agente_da_passiva.png') }}" alt="Mapa Mental de Agente da Passiva" class="mapa-mental">
-</div>
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
                 """
