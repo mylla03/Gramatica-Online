@@ -13,13 +13,23 @@
             {% endwith %}
             <hr>
             <form method="POST" enctype="multipart/form-data" class="form">
-                <label>Nome do Assunto:</label>
-                <input type="text" name="nome" placeholder="Ex: Sujeito e Predicado" required
-                       style="font-size: 18px; padding: 12px;">
+                {{ form.hidden_tag() }}
                 
-                <label>Conteúdo / Explicação:</label>
-                <textarea name="conteudo" rows="5" placeholder="Escreva aqui o conteúdo do assunto..." required
-                          style="font-size: 18px; padding: 12px;"></textarea>
+                <label>{{ form.nome.label }}:</label>
+                {{ form.nome(placeholder="Ex: Sujeito e Predicado", style="font-size: 18px; padding: 12px;") }}
+                {% if form.nome.errors %}
+                    {% for erro in form.nome.errors %}
+                        <span style="color: red; font-size: 14px;">{{ erro }}</span>
+                    {% endfor %}
+                {% endif %}
+                
+                <label>{{ form.conteudo.label }}:</label>
+                {{ form.conteudo(rows="5", placeholder="Escreva aqui o conteúdo do assunto...", style="font-size: 18px; padding: 12px;") }}
+                {% if form.conteudo.errors %}
+                    {% for erro in form.conteudo.errors %}
+                        <span style="color: red; font-size: 14px;">{{ erro }}</span>
+                    {% endfor %}
+                {% endif %}
                 
                 <label>Arquivo PDF (opcional):</label>
                 <input type="file" name="arquivo_pdf" accept=".pdf"
@@ -30,9 +40,7 @@
                        style="font-size: 16px; padding: 8px;">
                 
                 <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
-                    <button type="submit" class="btn btn-salvar">
-                        <i class="fa-solid fa-save"></i> Cadastrar Assunto
-                    </button>
+                    {{ form.submit(class="btn btn-salvar") }}
                 </div>
             </form>
         </section>

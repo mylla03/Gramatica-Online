@@ -5,41 +5,31 @@
             <h2>Editar Atividade</h2>
 
             <form method="POST" style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 500px;">
+                {{ form.hidden_tag() }}
+                
                 <div style="margin-bottom: 15px;">
-                    <label for="dificuldade" style="display: block; margin-bottom: 5px; font-weight: bold;">Dificuldade:</label>
-                    <input type="text" id="dificuldade" name="dificuldade" required 
-                           value="{{ atividade.dificuldade }}"
-                           style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 1em;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">{{ form.nome.label }}:</label>
+                    {{ form.nome(style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 1em;") }}
+                    {% if form.nome.errors %}
+                        {% for erro in form.nome.errors %}
+                            <span style="color: red; font-size: 14px;">{{ erro }}</span>
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
                 <div style="margin-bottom: 15px;">
-                    <label for="assunto_id" style="display: block; margin-bottom: 5px; font-weight: bold;">Assunto Relacionado:</label>
-                    <select id="assunto_id" name="assunto_id" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 1em;">
-                        <option value="">Selecione um assunto</option>
-                        <optgroup label="Conteúdos Principais">
-                            <option value="1" {% if atividade.assunto_id == 1 %}selected{% endif %}>Pontuação</option>
-                            <option value="2" {% if atividade.assunto_id == 2 %}selected{% endif %}>Período Simples</option>
-                            <option value="3" {% if atividade.assunto_id == 3 %}selected{% endif %}>Período Composto</option>
-                            <option value="4" {% if atividade.assunto_id == 4 %}selected{% endif %}>Classificação de Palavras</option>
-                        </optgroup>
-                        <optgroup label="Sintaxe">
-                            <option value="5" {% if atividade.assunto_id == 5 %}selected{% endif %}>Sujeito</option>
-                            <option value="6" {% if atividade.assunto_id == 6 %}selected{% endif %}>Predicado</option>
-                            <option value="7" {% if atividade.assunto_id == 7 %}selected{% endif %}>Aposto</option>
-                            <option value="8" {% if atividade.assunto_id == 8 %}selected{% endif %}>Complemento Verbal</option>
-                            <option value="9" {% if atividade.assunto_id == 9 %}selected{% endif %}>Complemento Nominal</option>
-                            <option value="10" {% if atividade.assunto_id == 10 %}selected{% endif %}>Agente da Passiva</option>
-                            <option value="11" {% if atividade.assunto_id == 11 %}selected{% endif %}>Adjunto Adnominal</option>
-                            <option value="12" {% if atividade.assunto_id == 12 %}selected{% endif %}>Adjunto Adverbial</option>
-                            <option value="13" {% if atividade.assunto_id == 13 %}selected{% endif %}>Revisão Geral</option>
-                        </optgroup>
-                    </select>
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">{{ form.dificuldade.label }}:</label>
+                    {{ form.dificuldade(style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 1em;") }}
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">{{ form.assunto_id.label }}:</label>
+                    {{ form.assunto_id(style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 1em;") }}
                 </div>
 
                 <div style="margin-top: 20px;">
-                    <button type="submit" class="btn btn-detalhe" style="background: #ffc107; color: #212529; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
-                        <i class="fa-solid fa-save"></i> Atualizar
-                    </button>
+                    {{ form.submit(class="btn btn-detalhe", style="background: #ffc107; color: #212529; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;") }}
+                    
                     <a href="{{ url_for('listar_atividades') }}" class="btn btn-detalhe" style="background: #6c757d; color: white; text-decoration: none; padding: 10px 20px; border-radius: 4px; margin-left: 8px;">
                         <i class="fa-solid fa-times"></i> Cancelar
                     </a>

@@ -13,31 +13,24 @@
             {% endwith %}
             <hr>
             <form method="POST" class="form">
-                <label>Nome da Atividade:</label>
-                <input type="text" name="nome" placeholder="Ex: Exercícios de Sujeito" required
-                       style="font-size: 18px; padding: 12px;">
+                {{ form.hidden_tag() }}
                 
-                <label>Nível de Dificuldade:</label>
-                <select name="dificuldade" required
-                        style="font-size: 18px; padding: 12px;">
-                    <option value="Fácil">Fácil</option>
-                    <option value="Médio">Médio</option>
-                    <option value="Difícil">Difícil</option>
-                </select>
-                
-                <label>Assunto Relacionado:</label>
-                <select name="assunto_id" required
-                        style="font-size: 18px; padding: 12px;">
-                    <option value="">Selecione um assunto</option>
-                    {% for assunto in assuntos %}
-                    <option value="{{ assunto.id }}">{{ assunto.nome }}</option>
+                <label>{{ form.nome.label }}:</label>
+                {{ form.nome(placeholder="Ex: Exercícios de Sujeito", style="font-size: 18px; padding: 12px;") }}
+                {% if form.nome.errors %}
+                    {% for erro in form.nome.errors %}
+                        <span style="color: red; font-size: 14px;">{{ erro }}</span>
                     {% endfor %}
-                </select>
+                {% endif %}
+                
+                <label>{{ form.dificuldade.label }}:</label>
+                {{ form.dificuldade(style="font-size: 18px; padding: 12px;") }}
+                
+                <label>{{ form.assunto_id.label }}:</label>
+                {{ form.assunto_id(style="font-size: 18px; padding: 12px;") }}
                 
                 <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
-                    <button type="submit" class="btn btn-salvar">
-                        <i class="fa-solid fa-save"></i> Cadastrar
-                    </button>
+                    {{ form.submit(class="btn btn-salvar") }}
                 </div>
             </form>
         </section>

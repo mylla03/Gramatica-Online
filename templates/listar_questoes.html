@@ -2,6 +2,7 @@
 {% block conteudo %}
         <section class="section">
             <h2>Gerenciar Questões</h2>
+            
             {% with mensagens = get_flashed_messages() %}
                 {% if mensagens %}
                     <div style="background: #d4edda; color: #155724; padding: 10px; border-radius: 4px; margin: 15px 0;">
@@ -9,11 +10,53 @@
                     </div>
                 {% endif %}
             {% endwith %}
-            <p>
-                <a href="{{ url_for('nova_questao') }}" class="btn btn-detalhe">
-                    <i class="fa-solid fa-plus"></i> Cadastrar Nova Questão
-                </a>
-            </p>
+
+            <h3>Cadastrar Nova Questão</h3>
+            <form method="POST" style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                {{ form.hidden_tag() }}
+                
+                <div style="margin-bottom: 12px;">
+                    <label style="font-weight: 600;">{{ form.atividade_id.label }}:</label>
+                    {{ form.atividade_id(style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ddd;") }}
+                </div>
+                
+                <div style="margin-bottom: 12px;">
+                    <label style="font-weight: 600;">{{ form.enunciado.label }}:</label>
+                    {{ form.enunciado(rows="2", style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ddd;") }}
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                    <div>
+                        <label style="font-weight: 600;">{{ form.alternativa_a.label }}:</label>
+                        {{ form.alternativa_a(style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ddd;") }}
+                    </div>
+                    <div>
+                        <label style="font-weight: 600;">{{ form.alternativa_b.label }}:</label>
+                        {{ form.alternativa_b(style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ddd;") }}
+                    </div>
+                    <div>
+                        <label style="font-weight: 600;">{{ form.alternativa_c.label }}:</label>
+                        {{ form.alternativa_c(style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ddd;") }}
+                    </div>
+                    <div>
+                        <label style="font-weight: 600;">{{ form.alternativa_d.label }}:</label>
+                        {{ form.alternativa_d(style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ddd;") }}
+                    </div>
+                    <div>
+                        <label style="font-weight: 600;">{{ form.alternativa_e.label }}:</label>
+                        {{ form.alternativa_e(style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ddd;") }}
+                    </div>
+                    <div>
+                        <label style="font-weight: 600;">{{ form.resposta_correta.label }}:</label>
+                        {{ form.resposta_correta(style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ddd;") }}
+                    </div>
+                </div>
+                
+                {{ form.submit(class="btn btn-salvar", style="margin-top: 8px;") }}
+            </form>
+            
+            <hr>
+
             <div style="margin-top: 20px; overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                     <thead>

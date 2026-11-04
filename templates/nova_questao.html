@@ -13,45 +13,33 @@
             {% endwith %}
             <hr style="border: 1px solid var(--gray-light); margin: 25px 0;">
             <form method="POST" class="form" style="max-width: 100%; margin: 20px 0;">
-                <label style="font-weight: 600;">Atividade:</label>
-                <select name="atividade_id" required style="padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light); width: 100%; font-size: 18px;">
-                    <option value="">Selecione uma atividade</option>
-                    {% for atividade in atividades %}
-                    <option value="{{ atividade.id }}">{{ atividade.nome }} ({{ atividade.assunto.nome }})</option>
-                    {% endfor %}
-                </select>
-
-                <label style="font-weight: 600;">Enunciado:</label>
-                <textarea name="enunciado" required rows="3" style="padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light); width: 100%; font-size: 18px;"></textarea>
-
-                <label style="font-weight: 600;">Alternativa A:</label>
-                <input type="text" name="alternativa_a" required style="width: 100%; font-size: 18px; padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light);">
-
-                <label style="font-weight: 600;">Alternativa B:</label>
-                <input type="text" name="alternativa_b" required style="width: 100%; font-size: 18px; padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light);">
-
-                <label style="font-weight: 600;">Alternativa C:</label>
-                <input type="text" name="alternativa_c" required style="width: 100%; font-size: 18px; padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light);">
-
-                <label style="font-weight: 600;">Alternativa D:</label>
-                <input type="text" name="alternativa_d" required style="width: 100%; font-size: 18px; padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light);">
-
-                <label style="font-weight: 600;">Alternativa E:</label>
-                <input type="text" name="alternativa_e" required style="width: 100%; font-size: 18px; padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light);">
-
-                <label style="font-weight: 600;">Resposta Correta:</label>
-                <select name="resposta_correta" required style="padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light); width: 100%; font-size: 18px;">
-                    <option value="">Selecione</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-
-                <button type="submit" class="btn btn-salvar" style="align-self: flex-start; margin-top: 15px; font-size: 16px;">
-                    <i class="fa-solid fa-save"></i> Cadastrar Questão
-                </button>
+                {{ form.hidden_tag() }}
+                
+                <label style="font-weight: 600;">{{ form.atividade_id.label }}:</label>
+                {{ form.atividade_id(style="padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light); width: 100%; font-size: 18px;") }}
+                
+                <label style="font-weight: 600;">{{ form.enunciado.label }}:</label>
+                {{ form.enunciado(rows="3", style="padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light); width: 100%; font-size: 18px;") }}
+                
+                <label style="font-weight: 600;">{{ form.alternativa_a.label }}:</label>
+                {{ form.alternativa_a(style="width: 100%; font-size: 18px; padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light);") }}
+                
+                <label style="font-weight: 600;">{{ form.alternativa_b.label }}:</label>
+                {{ form.alternativa_b(style="width: 100%; font-size: 18px; padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light);") }}
+                
+                <label style="font-weight: 600;">{{ form.alternativa_c.label }}:</label>
+                {{ form.alternativa_c(style="width: 100%; font-size: 18px; padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light);") }}
+                
+                <label style="font-weight: 600;">{{ form.alternativa_d.label }}:</label>
+                {{ form.alternativa_d(style="width: 100%; font-size: 18px; padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light);") }}
+                
+                <label style="font-weight: 600;">{{ form.alternativa_e.label }}:</label>
+                {{ form.alternativa_e(style="width: 100%; font-size: 18px; padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light);") }}
+                
+                <label style="font-weight: 600;">{{ form.resposta_correta.label }}:</label>
+                {{ form.resposta_correta(style="padding: 12px; border-radius: 10px; border: 2px solid var(--gray-light); width: 100%; font-size: 18px;") }}
+                
+                {{ form.submit(class="btn btn-salvar", style="align-self: flex-start; margin-top: 15px; font-size: 16px;") }}
             </form>
         </section>
 {% endblock %}
