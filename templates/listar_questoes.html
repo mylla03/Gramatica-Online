@@ -94,6 +94,30 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- ✅ PAGINAÇÃO ADICIONADA AQUI -->
+            {% if paginacao.pages > 1 %}
+            <div style="text-align: center; margin-top: 25px; padding: 10px;">
+                {% if paginacao.has_prev %}
+                <a href="{{ url_for('listar_questoes', pagina=paginacao.prev_num) }}"
+                   style="padding: 8px 16px; margin: 0 5px; background: #007bff; color: white; border-radius: 4px; text-decoration: none; display: inline-block;">
+                    ← Anterior
+                </a>
+                {% endif %}
+
+                <span style="padding: 8px 16px; font-weight: bold;">
+                    Página {{ paginacao.page }} de {{ paginacao.pages }}
+                </span>
+
+                {% if paginacao.has_next %}
+                <a href="{{ url_for('listar_questoes', pagina=paginacao.next_num) }}"
+                   style="padding: 8px 16px; margin: 0 5px; background: #007bff; color: white; border-radius: 4px; text-decoration: none; display: inline-block;">
+                    Próxima →
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
+
             <br>
             <a href="{{ url_for('atividades') }}" class="btn btn-gramatica">
                 <i class="fa-solid fa-arrow-left"></i> Ir para Atividades
