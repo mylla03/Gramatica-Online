@@ -1,7 +1,183 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
-        <section id="morfologia-detalhes" class="section">
-            <h2>QUESTÕES — CLASSIFICAÇÃO DE PALAVRAS</h2>
-        </section>
+<section class="section">
+    <h2><i class="fa-solid fa-file-pen"></i> Questões - Classificação de Palavras</h2>
+
+    <form method="POST" 
+    action="{{ url_for('respostas_classificacao_palavras') }}">
+
+        {# QUESTÃO 01 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 01 —</strong> (FGV) Compare as seguintes frases:</p>
+            
+            <div style="margin: 10px 0; padding: 12px; background: #f8f9fa; border-radius: 4px;">
+                <p style="margin: 5px 0;">1. Uma <u>professora francesa</u> dá aulas em minha escola.</p>
+                <p style="margin: 5px 0;">2. Uma <u>francesa professora</u> mora em minha cidade.</p>
+            </div>
+            
+            <p style="margin-bottom: 15px;">Sobre os termos sublinhados, assinale a opção correta.</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="A" required>
+                    A) Os dois segmentos mostram o mesmo significado.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="B">
+                    B) Os termos "professora" (frase 1) e "francesa" (frase 2) são núcleos dos segmentos sublinhados.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="C">
+                    C) Nos dois segmentos, o termo "francesa" funciona como adjetivo.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="D">
+                    D) Nos dois segmentos, o termo "professora" funciona como substantivo.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="E">
+                    E) Enquanto na primeira frase a ordem das palavras no segmento sublinhado é substantivo + adjetivo, na segunda é adjetivo + substantivo.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 02 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 02 —</strong> (Selecon) Em "[...] no mundo moderno, as manhãs das pessoas são muitas vezes <u>marcadas</u> por elevados <u>níveis</u> de estresse e cansaço constante, o que muitas vezes dificulta a realização de determinadas tarefas" (1º parágrafo), as palavras em destaque são classificadas, respectivamente, como:</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="A" required>
+                    A) verbo e verbo
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="B">
+                    B) adjetivo e verbo
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="C">
+                    C) verbo e substantivo
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="D">
+                    D) adjetivo e substantivo
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 03 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 03 —</strong> (Fundatec) Assinale a alternativa que apresenta corretamente as classes de palavras às quais pertencem os vocábulos sublinhados no trecho a seguir, respectivamente:</p>
+            <p style="font-style: italic; padding: 10px; background: #f8f9fa; border-radius: 4px; margin-bottom: 15px;">"Em um <u>mundo</u> de <u>exageros</u> e <u>ostentações</u>, o básico fica ainda mais interessante".</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="A" required>
+                    A) Adjetivo – adjetivo – substantivo.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="B">
+                    B) Adjetivo – substantivo – substantivo.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="C">
+                    C) Substantivo – adjetivo – adjetivo.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="D">
+                    D) Substantivo – substantivo – adjetivo.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="E">
+                    E) Substantivo – adjetivo – substantivo.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 04 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 04 —</strong> (Prefeitura de Bombinhas - SC) Analise a citação e assinale a alternativa que apresenta a classificação correta da palavra destacada:</p>
+            <p style="font-style: italic; padding: 10px; background: #f8f9fa; border-radius: 4px; margin-bottom: 15px;">"O levantamento considera os resultados <u>desde</u> 1995, ano em que foi reconhecida oficialmente a existência de formas contemporâneas de escravidão."</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="A" required>
+                    A) Artigo
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="B">
+                    B) Advérbio
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="C">
+                    C) Conjunção
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="D">
+                    D) Preposição
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 05 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 05 —</strong> (FGV) Todas as frases a seguir mostram um adjetivo sublinhado. Assinale a única frase em que o adjetivo tem valor de relação.</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="A" required>
+                    A) Cabelo <u>cacheado</u>.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="B">
+                    B) <u>Ótimo</u> tempero.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="C">
+                    C) Discurso <u>papal</u>.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="D">
+                    D) Pessoa <u>adoentada</u>.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="E">
+                    E) Físico <u>exuberante</u>.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 06 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 06 —</strong> (Prefeitura de Bombinhas - SC) Analise e assinale a alternativa que apresenta a respectiva classificação dos termos da citação abaixo:</p>
+            <p style="font-style: italic; padding: 10px; background: #f8f9fa; border-radius: 4px; margin-bottom: 15px;">"(...) ou compro o doce e gasto o dinheiro."</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="A" required>
+                    A) conjunção - verbo – artigo – substantivo - conjunção - verbo – artigo – substantivo
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="B">
+                    B) conjunção - advérbio – pronome – substantivo - conjunção - verbo – artigo – substantivo próprio
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="C">
+                    C) pronome - verbo – artigo – adjetivo - conjunção - verbo – advérbio – substantivo
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="D">
+                    D) pronome - advérbio – preposição – conjunção - verbo - verbo – artigo – substantivo próprio
+                </label>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button type="submit" class="btn btn-salvar">
+                <i class="fa-solid fa-check"></i> Enviar Respostas
+            </button>
+        </div>
+
+    </form>
+</section>
 {% endblock %}

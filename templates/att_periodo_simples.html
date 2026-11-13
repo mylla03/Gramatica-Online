@@ -1,8 +1,197 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
+<section class="section">
+    <h2><i class="fa-solid fa-file-pen"></i> Questões - Período Simples</h2>
 
-        <section id="morfologia-detalhes" class="section">
-            <h2>QUESTÕES — PERIODO SIMPLES</h2>
-        </section>
+    <form method="POST" 
+    action="{{ url_for('respostas_periodo_simples') }}">
+
+
+        {# QUESTÃO 01 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 01 —</strong> Marque V (verdadeiro) ou F (falso) para as seguintes afirmações:</p>
+            
+            <div style="margin-left: 10px; margin-bottom: 15px;">
+                <p style="margin: 8px 0;">( &nbsp; ) O período simples possui apenas uma oração.</p>
+                <p style="margin: 8px 0;">( &nbsp; ) O período simples possui apenas um verbo ou uma locução verbal.</p>
+                <p style="margin: 8px 0;">( &nbsp; ) O período simples é uma frase sem verbo.</p>
+            </div>
+            
+            <p style="margin-bottom: 15px;">A sequência correta é:</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="A" required>
+                    (A) V, V, F.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="B">
+                    (B) F, V, V.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="C">
+                    (C) V, F, F.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="D">
+                    (D) V, F, V.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="E">
+                    (E) F, V, F.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 02 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 02 —</strong> Assinale a alternativa que apresenta um período simples.</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="A" required>
+                    (A) Vi algo suspeito e chamei o detetive.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="B">
+                    (B) Lembrei que você não estava aqui.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="C">
+                    (C) O pequeno colibri visitou-nos hoje.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="D">
+                    (D) Trabalhou para comprar um computador.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="E">
+                    (E) Muita atenção, Astrogildo!
+                </label>
+            </div>
+            <p style="font-size: 0.85em; color: #666; margin-top: 10px;">Fonte: Brasil Escola</p>
+        </div>
+
+        {# QUESTÃO 03 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 03 —</strong> Assinale a alternativa que apresenta um período simples.</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="A" required>
+                    (A) Aqueles vândalos quebraram o vidro da janela.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="B">
+                    (B) As crianças acordaram, e a casa ficou agitada.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="C">
+                    (C) Não faça comida, pois jantaremos fora à noite.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="D">
+                    (D) Acho que os alunos aprenderam a matéria.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="E">
+                    (E) Fique quieto ou vá dormir em outro quarto.
+                </label>
+            </div>
+            <p style="font-size: 0.85em; color: #666; margin-top: 10px;">Fonte: Português.com.br</p>
+        </div>
+
+        {# QUESTÃO 04 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 04 —</strong> Marque V (verdadeiro) ou F (falso) para as seguintes afirmações:</p>
+            
+            <div style="margin-left: 10px; margin-bottom: 15px;">
+                <p style="margin: 8px 0;">( &nbsp; ) O período "Meus amigos chegaram cedo" é simples.</p>
+                <p style="margin: 8px 0;">( &nbsp; ) O período "Não quero conversar, vou ficar em silêncio" é simples.</p>
+                <p style="margin: 8px 0;">( &nbsp; ) A oração "Os dias estão sendo tristes" é absoluta.</p>
+            </div>
+            
+            <p style="margin-bottom: 15px;">A sequência correta é:</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="A" required>
+                    (A) V, V, V.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="B">
+                    (B) F, F, V.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="C">
+                    (C) V, V, F.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="D">
+                    (D) F, V, F.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="E">
+                    (E) V, F, V.
+                </label>
+            </div>
+            <p style="font-size: 0.85em; color: #666; margin-top: 10px;">Fonte: Português.com.br</p>
+        </div>
+
+        {# QUESTÃO 05 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 05 —</strong> Indique qual das alternativas abaixo apresenta apenas um período simples:</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="a" required>
+                    a) O aluno estudou muito, mas não passou na prova.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="b">
+                    b) O sol brilha intensamente no céu azul.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="c">
+                    c) Quando o sinal tocar, nós iremos embora.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="d">
+                    d) Penso, logo existo.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 06 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 06 —</strong> O período simples é composto por uma única oração, mas essa oração pode conter vários elementos (como objetos, adjuntos e características). Assinale a alternativa que representa um período simples:</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="a" required>
+                    a) O atleta treinou muito para a competição, porém sofreu uma lesão.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="b">
+                    b) Durante a manhã ensolarada, os turistas caminhavam calmamente pela praia.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="c">
+                    c) Acreditamos que todos os alunos serão aprovados no exame final.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="d">
+                    d) Quando as luzes se apagaram, o espetáculo de teatro começou.
+                </label>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button type="submit" class="btn btn-salvar">
+                <i class="fa-solid fa-check"></i> Enviar Respostas
+            </button>
+        </div>
+
+    </form>
+</section>
 {% endblock %}

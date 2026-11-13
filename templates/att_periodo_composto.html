@@ -1,7 +1,164 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
-        <section id="morfologia-detalhes" class="section">
-            <h2>QUESTÕES — PERIODO COMPOSTO</h2>
-        </section>
+<section class="section">
+    <h2><i class="fa-solid fa-file-pen"></i> Questões - Período Composto</h2>
+
+    <form method="POST" 
+    action="{{ url_for('respostas_periodo_composto') }}">
+
+
+        {# QUESTÃO 01 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 01 —</strong> O que caracteriza um período composto?</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="A" required>
+                    A) A presença de apenas um verbo em qualquer situação.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="B">
+                    B) A presença de duas ou mais orações.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="C">
+                    C) A ausência de verbos na frase.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="D">
+                    D) A presença obrigatória de uma conjunção.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 02 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 02 —</strong> Classifique o período a seguir:</p>
+            <p style="font-style: italic; padding: 10px; background: #f8f9fa; border-radius: 4px; margin-bottom: 15px;">"Maria estudou bastante, mas não conseguiu terminar a prova."</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="A" required>
+                    A) Período simples.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="B">
+                    B) Período composto por subordinação.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="C">
+                    C) Período composto por coordenação.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="D">
+                    D) Oração sem sujeito.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 03 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 03 —</strong> Em qual alternativa há um período composto por subordinação?</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="A" required>
+                    A) Pedro chegou cedo e preparou o almoço.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="B">
+                    B) Estudei muito, portanto fui bem na prova.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="C">
+                    C) Quando a aula terminou, os alunos saíram.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="D">
+                    D) Ana cantou e dançou na festa.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 04 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 04 —</strong> No período "Espero que você consiga boas notas", a oração "que você consiga boas notas" é classificada como:</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="A" required>
+                    A) Oração subordinada substantiva objetiva direta.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="B">
+                    B) Oração coordenada sindética adversativa.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="C">
+                    C) Oração subordinada adverbial temporal.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="D">
+                    D) Oração coordenada sindética conclusiva.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 05 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 05 —</strong> Identifique a classificação da oração destacada no período:</p>
+            <p style="font-style: italic; padding: 10px; background: #f8f9fa; border-radius: 4px; margin-bottom: 15px;">"Estava muito cansado, <strong>porém</strong> continuou trabalhando."</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="A" required>
+                    A) Coordenada sindética aditiva.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="B">
+                    B) Coordenada sindética adversativa.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="C">
+                    C) Subordinada adverbial causal.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="D">
+                    D) Subordinada adverbial condicional.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 06 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 06 —</strong> No período "Embora estivesse chovendo, fomos ao parque", a oração "Embora estivesse chovendo" expressa ideia de:</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="A" required>
+                    A) Causa.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="B">
+                    B) Finalidade.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="C">
+                    C) Condição.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="D">
+                    D) Concessão.
+                </label>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button type="submit" class="btn btn-salvar">
+                <i class="fa-solid fa-check"></i> Enviar Respostas
+            </button>
+        </div>
+
+    </form>
+</section>
 {% endblock %}

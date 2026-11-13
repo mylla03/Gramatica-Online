@@ -500,6 +500,141 @@ def registrar_rotas(app):
         resultados = ResultadoServico.listar_ranking()
         return render_template("ranking.html", ranking=resultados)
 
+    # ROTAS DE CORREÇÃO DE EXERCÍCIOS#
+
+    @app.route("/respostas_pontuacao", methods=["POST"])
+    def respostas_pontuacao():
+        redir = verificar_login()
+        if redir: return redir
+        
+        gabarito = {
+            "q1": "A",
+            "q2": "C",
+            "q3": "B",
+            "q4": "D",
+            "q5": "A",
+            "q6": "B",
+            "q7": "D"
+        }
+        
+        respostas_usuario = {chave: request.form.get(chave) for chave in gabarito}
+        acertos = sum(1 for k in gabarito if respostas_usuario.get(k) == gabarito[k])
+        total = len(gabarito)
+        nota = round((acertos / total) * 10, 1) if total > 0 else 0
+        
+        resultados = {k: {
+            "resposta_usuario": respostas_usuario.get(k),
+            "resposta_correta": gabarito[k],
+            "acertou": respostas_usuario.get(k) == gabarito[k]
+        } for k in gabarito}
+        
+        return render_template("resultado_exercicio.html", 
+                            resultados=resultados,
+                            acertos=acertos,
+                            total=total,
+                            nota=nota,
+                            titulo="Pontuação")
+
+
+    @app.route("/respostas_periodo_simples", methods=["POST"])
+    def respostas_periodo_simples():
+        redir = verificar_login()
+        if redir: return redir
+        
+        gabarito = {
+            "q1": "A",
+            "q2": "C",
+            "q3": "A",
+            "q4": "E",
+            "q5": "b",
+            "q6": "b"
+        }
+        
+        respostas_usuario = {chave: request.form.get(chave) for chave in gabarito}
+        acertos = sum(1 for k in gabarito if respostas_usuario.get(k) == gabarito[k])
+        total = len(gabarito)
+        nota = round((acertos / total) * 10, 1) if total > 0 else 0
+        
+        resultados = {k: {
+            "resposta_usuario": respostas_usuario.get(k),
+            "resposta_correta": gabarito[k],
+            "acertou": respostas_usuario.get(k) == gabarito[k]
+        } for k in gabarito}
+        
+        return render_template("resultado_exercicio.html", 
+                            resultados=resultados,
+                            acertos=acertos,
+                            total=total,
+                            nota=nota,
+                            titulo="Período Simples")
+
+
+    @app.route("/respostas_periodo_composto", methods=["POST"])
+    def respostas_periodo_composto():
+        redir = verificar_login()
+        if redir: return redir
+        
+        gabarito = {
+            "q1": "B",
+            "q2": "C",
+            "q3": "C",
+            "q4": "A",
+            "q5": "B",
+            "q6": "D"
+        }
+        
+        respostas_usuario = {chave: request.form.get(chave) for chave in gabarito}
+        acertos = sum(1 for k in gabarito if respostas_usuario.get(k) == gabarito[k])
+        total = len(gabarito)
+        nota = round((acertos / total) * 10, 1) if total > 0 else 0
+        
+        resultados = {k: {
+            "resposta_usuario": respostas_usuario.get(k),
+            "resposta_correta": gabarito[k],
+            "acertou": respostas_usuario.get(k) == gabarito[k]
+        } for k in gabarito}
+        
+        return render_template("resultado_exercicio.html", 
+                            resultados=resultados,
+                            acertos=acertos,
+                            total=total,
+                            nota=nota,
+                            titulo="Período Composto")
+
+
+    @app.route("/respostas_classificacao_palavras", methods=["POST"])
+    def respostas_classificacao_palavras():
+        redir = verificar_login()
+        if redir: return redir
+        
+        gabarito = {
+            "q1": "B",
+            "q2": "C",
+            "q3": "D",
+            "q4": "D",
+            "q5": "C",
+            "q6": "A"
+        }
+        
+        respostas_usuario = {chave: request.form.get(chave) for chave in gabarito}
+        acertos = sum(1 for k in gabarito if respostas_usuario.get(k) == gabarito[k])
+        total = len(gabarito)
+        nota = round((acertos / total) * 10, 1) if total > 0 else 0
+        
+        resultados = {k: {
+            "resposta_usuario": respostas_usuario.get(k),
+            "resposta_correta": gabarito[k],
+            "acertou": respostas_usuario.get(k) == gabarito[k]
+        } for k in gabarito}
+        
+        return render_template("resultado_exercicio.html", 
+                            resultados=resultados,
+                            acertos=acertos,
+                            total=total,
+                            nota=nota,
+                            titulo="Classificação de Palavras")
+
+
     @app.route("/auth/suap")
     def auth_suap():
         redirect_uri = url_for("auth_suap_callback", _external=True)

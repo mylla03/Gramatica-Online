@@ -1,8 +1,245 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
-        <section id="morfologia-detalhes" class="section">
-            <h2>QUESTÕES — PONTUAÇÃO</h2>
-        </section>
-{% endblock %}
+<section class="section">
+    <h2><i class="fa-solid fa-file-pen"></i> Questões - Pontuação</h2>
 
+    <form method="POST" 
+    action="{{ url_for('respostas_pontuacao') }}">
+
+
+        <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+            <p style="margin: 0; font-weight: 500;"><i class="fa-solid fa-circle-info"></i> <strong>Observação:</strong> A tirinha abaixo serve de base para responder às questões 1, 2 e 3.</p>
+        </div>
+
+        {# TIRINHA — QUESTÕES 1, 2 E 3 #}
+        <div style="text-align: center; margin: 25px 0;">
+            <img src="{{ url_for('static', filename='img/tirinha1pontuacao.webp') }}" alt="Tirinha - Fonte: Folha de Londrina" style="max-width: 100%; border-radius: 8px;">
+        </div>
+
+        {# QUESTÃO 01 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 01 —</strong> A vírgula é um sinal de pontuação bastante utilizado na escrita, sendo responsável por indicar pequenas pausas ou por separar e conectar alguns termos no enunciado. Na fala do pai da mulher no primeiro quadrinho, a vírgula tem a função de marcar:</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="A" required>
+                    (A) um chamamento.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="B">
+                    (B) uma continuação.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="C">
+                    (C) uma explicação.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q1" value="D">
+                    (D) um pedido.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 02 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 02 —</strong> No segundo balão do último quadrinho, a vírgula foi empregada com a função de indicar uma:</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="A" required>
+                    (A) opinião.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="B">
+                    (B) exemplificação.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="C">
+                    (C) correção.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q2" value="D">
+                    (D) oposição.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 03 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 03 —</strong> No trecho: "eu vendo Jequiti…" (último quadrinho), as reticências foram empregadas com a finalidade de:</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="A" required>
+                    (A) interromper a fala de um personagem.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="B">
+                    (B) realizar uma mudança de pensamento.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="C">
+                    (C) marcar a continuação de um acontecimento.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q3" value="D">
+                    (D) sugerir o prolongamento de uma ideia.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 04 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 04 —</strong> (ENEM/2016-Adaptada) Leia o texto a seguir.</p>
+            
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 4px; margin-bottom: 15px; font-style: italic;">
+                <p>Quem procura a essência de um conto no espaço que fica entre a obra e seu autor comete um erro: é muito melhor procurar não no terreno que fica entre o escritor e sua obra, mas justamente no terreno que fica entre o texto e seu leitor.</p>
+                <p style="font-size: 0.9em; text-align: right; margin-bottom: 0;">OZ, A. <em>De amor e trevas.</em> São Paulo: Cia. das Letras, 2005 (fragmento).</p>
+            </div>
+            
+            <p style="margin-bottom: 15px;">A progressão temática de um texto pode ser estruturada por meio de diferentes recursos coesivos, entre os quais se destaca a pontuação. Nesse texto, o emprego dos dois pontos caracteriza uma operação textual realizada com a finalidade de:</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="A" required>
+                    (A) Comparar elementos opostos.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="B">
+                    (B) relacionar informações gradativas.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="C">
+                    (C) intensificar um problema conceitual.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="D">
+                    (D) introduzir um argumento esclarecedor.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4" value="E">
+                    (E) assinalar uma consequência hipotética.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 05 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 05 —</strong> (ENEM/2016-Adaptada) Leia o texto a seguir.</p>
+            
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 4px; margin-bottom: 15px; font-style: italic;">
+                <p>L.J.C. — 5 tiros?<br>
+                — É.<br>
+                — Brincando de pegador?<br>
+                — É. O PM pensou que…<br>
+                — Hoje?<br>
+                — Cedinho.</p>
+                <p style="font-size: 0.9em; text-align: right; margin-bottom: 0;">COELHO, M. In: FREIRE, M. (org.). <em>Os cem menores contos brasileiros do século.</em> São Paulo: Ateliê Editorial, 2004.</p>
+            </div>
+            
+            <p style="margin-bottom: 15px;">Os sinais de pontuação são elementos com importantes funções para a progressão temática. Nesse miniconto, as reticências foram utilizadas para indicar:</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="A" required>
+                    (A) uma fala hesitante.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="B">
+                    (B) uma informação implícita.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="C">
+                    (C) uma situação incoerente.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="D">
+                    (D) a eliminação de uma ideia.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q5" value="E">
+                    (E) a interrupção de uma ação.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 06 — Tirinha Mafalda #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 06 —</strong> Observe a tirinha a seguir.</p>
+            
+            {# Tirinha da Mafalda #}
+            <div style="text-align: center; margin: 15px 0;">
+                <img src="{{ url_for('static', filename='img/tirinha2pntuacao.jpg') }}" alt="Tirinha da Mafalda" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            
+            <p style="margin-bottom: 15px;">"Ninguém, Manolito, quer dizer, João-Ninguém significa um homem qualquer [...]", o uso de vírgulas na fala de Mafalda:</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="A" required>
+                    (A) revela que ela não está segura sobre o que dizer.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="B">
+                    (B) marca o uso do vocativo e introduz uma explicação.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="C">
+                    (C) enumera uma série de eventos.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="D">
+                    (D) separa, no âmbito da oração, sujeito e verbo.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q6" value="E">
+                    (E) é uma estratégia para persuadir Manolito.
+                </label>
+            </div>
+        </div>
+
+        {# QUESTÃO 07 #}
+        <div style="background: #fff; padding: 20px; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <p style="font-weight: bold; margin-bottom: 15px;"><strong>Questão 07 —</strong> (Fac. Pequeno Príncipe-PR/2019-Adaptada) Leia o texto a seguir, observando a pontuação nele empregada.</p>
+            
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 4px; margin-bottom: 15px; font-style: italic;">
+                <p><strong>A doença de Alzheimer</strong></p>
+                <p>O Alzheimer é uma doença neuro-degenerativa que provoca progressiva e inexorável deterioração das funções cerebrais, como perda de memória, da linguagem, da razão e da habilidade de cuidar de si próprio. Até o momento, a doença permanece sem cura. O objetivo do tratamento é minorar os sintomas. Atualmente, estão sendo desenvolvidos medicamentos que, embora em fase experimental, sugerem a possibilidade de controlar a doença.</p>
+                <p style="font-size: 0.9em; text-align: right; margin-bottom: 0;">Disponível em: http://gg.gg/wggpt. Acesso em: 28 fev. 2019.</p>
+            </div>
+            
+            <p style="margin-bottom: 15px;">As vírgulas que isolam a informação "embora em fase experimental":</p>
+            
+            <div style="margin-left: 10px;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q7" value="A" required>
+                    (A) marcam o deslocamento de um adjunto adverbial de tempo.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q7" value="B">
+                    (B) enfatizam a sequência de informações enumeradas pelo texto.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q7" value="C">
+                    (C) isolam uma informação de oração adjetiva explicativa.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q7" value="D">
+                    (D) intercalam uma ressalva no período sobre a etapa da pesquisa.
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q7" value="E">
+                    (E) indicam um complemento para o verbo minorar, no período anterior.
+                </label>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button type="submit" class="btn btn-salvar">
+                <i class="fa-solid fa-check"></i> Enviar Respostas
+            </button>
+        </div>
+
+    </form>
+</section>
+{% endblock %}
