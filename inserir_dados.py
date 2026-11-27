@@ -3,9 +3,11 @@ from models import Assunto, Atividade, Questao
 from database import db
 import os
 
+
 def inserir_atividades_sistema():
     with app.app_context():
         print("Inserindo assuntos e atividades do grupo...\n")
+
 
         # ASSUNTO 1 — Sujeito
         assunto1 = Assunto.query.filter_by(nome="Módulo 1: Sujeito").first()
@@ -92,6 +94,7 @@ def inserir_atividades_sistema():
             db.session.flush()
             print("Assunto 1 — Sujeito criado")
 
+
         atividade1 = Atividade(
             nome="Atividade 1 - Sujeito",
             dificuldade="Fácil",
@@ -118,12 +121,14 @@ def inserir_atividades_sistema():
             alternativa_a="Fazem", alternativa_b="Tem", alternativa_c="Faz", alternativa_d="Estão",
             resposta_correta="c", atividade_id=atividade1.id))
 
+
         # ASSUNTO 2 — Predicado
         assunto2 = Assunto.query.filter_by(nome="Módulo 2: Predicado").first()
         if not assunto2:
             assunto2 = Assunto(
                 nome="Módulo 2: Predicado",
                 tipo="SISTEMA",
+                imagem="img/mapa_predicado.png",
                 conteudo="""
 <h3>O que é predicado?</h3>
 <p>O predicado é uma parte da oração que contém aquilo que se afirma sobre o sujeito.</p>
@@ -162,16 +167,15 @@ def inserir_atividades_sistema():
 <p>Sujeito: As meninas.</p>
 <p>Predicado: ficaram animadas com o passeio.</p>
 <p>Tipo: verbo-nominal.</p>
-<div class="video-container">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/2f_fPWs4I60" frameborder="0" allowfullscreen></iframe>
-</div>
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
+<h3>Mapa Mental</h3>
                 """
             )
             db.session.add(assunto2)
             db.session.flush()
             print("Assunto 2 — Predicado criado")
+
 
         atividade2 = Atividade(
             nome="Atividade 2 - Predicado",
@@ -196,6 +200,7 @@ def inserir_atividades_sistema():
             alternativa_a="Ana e Pedro viajaram.", alternativa_b="Choveu bastante.",
             alternativa_c="O cachorro latiu alto.", alternativa_d="Fizeram a tarefa.",
             resposta_correta="c", atividade_id=atividade2.id))
+
 
         # ASSUNTO 3 — Aposto
         assunto3 = Assunto.query.filter_by(nome="Módulo 3: Aposto").first()
@@ -265,11 +270,13 @@ def inserir_atividades_sistema():
 </ul>
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
+<h3>Mapa Mental</h3>
                 """
             )
             db.session.add(assunto3)
             db.session.flush()
             print("Assunto 3 — Aposto criado")
+
 
         atividade3 = Atividade(
             nome="Atividade 3 - Aposto",
@@ -305,6 +312,7 @@ def inserir_atividades_sistema():
             alternativa_d="Meninas, prestem atenção aqui!",
             resposta_correta="d", atividade_id=atividade3.id))
 
+
         # ASSUNTO 4 — Complemento Verbal
         assunto4 = Assunto.query.filter_by(nome="Módulo 4: Complemento Verbal").first()
         if not assunto4:
@@ -330,11 +338,13 @@ def inserir_atividades_sistema():
 <p>O verbo dormir já tem significado completo sozinho.</p>
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
+<h3>Mapa Mental</h3>
                 """
             )
             db.session.add(assunto4)
             db.session.flush()
             print("Assunto 4 — Complemento Verbal criado")
+
 
         atividade4 = Atividade(
             nome="Atividade 4 - Complemento Verbal",
@@ -368,12 +378,14 @@ def inserir_atividades_sistema():
             alternativa_c="O sujeito está oculto.", alternativa_d="Exige preposição.",
             resposta_correta="b", atividade_id=atividade4.id))
 
+
         # ASSUNTO 5 — Complemento Nominal
         assunto5 = Assunto.query.filter_by(nome="Módulo 5: Complemento Nominal").first()
         if not assunto5:
             assunto5 = Assunto(
                 nome="Módulo 5: Complemento Nominal",
                 tipo="SISTEMA",
+                imagem="img/mapa_complemento_nominal.png",
                 conteudo="""
 <h3>O que é Complemento nominal?</h3>
 <p>O complemento nominal completa o sentido de um nome (substantivo, adjetivo ou advérbio) que exige preposição.</p>
@@ -385,16 +397,15 @@ def inserir_atividades_sistema():
 <li>CN completa um nome; OI completa um verbo.</li>
 <li>CN é sempre preposicionado; OI nem sempre.</li>
 </ul>
-<div class="video-container">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/zFMsnEeAoGA" frameborder="0" allowfullscreen></iframe>
-</div>
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
+<h3>Mapa Mental</h3>
                 """
             )
             db.session.add(assunto5)
             db.session.flush()
             print("Assunto 5 — Complemento Nominal criado")
+
 
         atividade5 = Atividade(
             nome="Atividade 5 - Complemento Nominal",
@@ -424,6 +435,7 @@ def inserir_atividades_sistema():
             alternativa_a="ansiosa", alternativa_b="por novidades",
             alternativa_c="Ela", alternativa_d="novidades",
             resposta_correta="b", atividade_id=atividade5.id))
+
 
         # ASSUNTO 6 — Agente da Passiva
         assunto6 = Assunto.query.filter_by(nome="Módulo 6: Agente da Passiva").first()
@@ -455,6 +467,7 @@ def inserir_atividades_sistema():
             db.session.add(assunto6)
             db.session.flush()
             print("Assunto 6 — Agente da Passiva criado")
+
 
         atividade6 = Atividade(
             nome="Atividade 6 - Agente da Passiva",
@@ -488,12 +501,14 @@ def inserir_atividades_sistema():
             alternativa_d="O quadro pintou o artista.",
             resposta_correta="a", atividade_id=atividade6.id))
 
+
         # ASSUNTO 7 — Adjunto Adnominal
         assunto7 = Assunto.query.filter_by(nome="Módulo 7: Adjunto Adnominal").first()
         if not assunto7:
             assunto7 = Assunto(
                 nome="Módulo 7: Adjunto Adnominal",
                 tipo="SISTEMA",
+                imagem="img/mapa_adjunto_adnominal.png",
                 conteudo="""
 <h3>O que é Adjunto Adnominal?</h3>
 <p>Termo acessório que modifica, caracteriza ou acompanha um substantivo. Pode ser adjetivo, artigo, numeral ou pronome.</p>
@@ -508,17 +523,15 @@ def inserir_atividades_sistema():
 <li>O amor de Deus → Adjunto Adnominal (quem ama)</li>
 <li>O amor a Deus → Complemento Nominal (quem é amado)</li>
 </ul>
-<div class="video-container">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/WuRXBvnNCnQ" frameborder="0" allowfullscreen></iframe>
-<p>O vídeo também fala sobre Adjunto Adverbial</p>
-</div>
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
+<h3>Mapa Mental</h3>
                 """
             )
             db.session.add(assunto7)
             db.session.flush()
             print("Assunto 7 — Adjunto Adnominal criado")
+
 
         atividade7 = Atividade(
             nome="Atividade 7 - Adjunto Adnominal",
@@ -556,12 +569,14 @@ def inserir_atividades_sistema():
             alternativa_c="Objeto Direto", alternativa_d="Adjunto Adverbial",
             resposta_correta="b", atividade_id=atividade7.id))
 
+
         # ASSUNTO 8 — Adjunto Adverbial
         assunto8 = Assunto.query.filter_by(nome="Módulo 8: Adjunto Adverbial").first()
         if not assunto8:
             assunto8 = Assunto(
                 nome="Módulo 8: Adjunto Adverbial",
                 tipo="SISTEMA",
+                imagem="img/mapa_adjunto_adverbial.png",
                 conteudo="""
 <h3>O que é Adjunto Adverbial?</h3>
 <p>Termo acessório que indica circunstância ligada ao verbo ou à oração inteira: tempo, lugar, modo, causa, finalidade, intensidade, negação, afirmação, dúvida, meio, instrumento, companhia...</p>
@@ -572,17 +587,15 @@ def inserir_atividades_sistema():
 <li>Estou bem → modo</li>
 <li>Atrasou por causa do trânsito → causa</li>
 </ul>
-<div class="video-container">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/WuRXBvnNCnQ" frameborder="0" allowfullscreen></iframe>
-<p>Mesmo vídeo do assunto anterior</p>
-</div>
 <h3>Próximos Passos</h3>
 <p>Pronto para testar seu conhecimento sobre a sintaxe?</p>
+<h3>Mapa Mental</h3>
                 """
             )
             db.session.add(assunto8)
             db.session.flush()
             print("Assunto 8 — Adjunto Adverbial criado")
+
 
         atividade8 = Atividade(
             nome="Atividade 8 - Adjunto Adverbial",
@@ -607,12 +620,14 @@ def inserir_atividades_sistema():
             alternativa_a="causa", alternativa_b="finalidade", alternativa_c="meio", alternativa_d="modo",
             resposta_correta="b", atividade_id=atividade8.id))
 
+
         # ASSUNTO 9 — Revisão Geral
         assunto9 = Assunto.query.filter_by(nome="Módulo 9: Revisão Geral").first()
         if not assunto9:
             assunto9 = Assunto(
                 nome="Módulo 9: Revisão Geral",
                 tipo="SISTEMA",
+                imagem="img/mapa_revisao_geral.png",
                 conteudo="""
 <h3>Como se relacionam na estrutura da oração:</h3>
 <p><strong>Termos essenciais:</strong> Sujeito e Predicado — formam o núcleo da oração.</p>
@@ -642,16 +657,15 @@ def inserir_atividades_sistema():
 <a href="https://drive.google.com/file/d/1SyMjR6UpN1ZgHtkF1e_7NCZsuWsxWOv0/view" target="_blank" class="btn btn-detalhe">
 Abrir PDF de Exercícios
 </a>
-<div class="video-container">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/zouWyLPtcXY" frameborder="0" allowfullscreen></iframe>
-</div>
 <h3>Próximos Passos</h3>
 <p>Pronto para testar tudo? Boa revisão!</p>
+<h3>Mapa Mental</h3>
                 """
             )
             db.session.add(assunto9)
             db.session.flush()
             print("Assunto 9 — Revisão Geral criado")
+
 
         atividade9 = Atividade(
             nome="Atividade 9 - Revisão Geral",
@@ -687,9 +701,12 @@ Abrir PDF de Exercícios
             alternativa_c="Agente da Passiva", alternativa_d="Predicativo",
             resposta_correta="c", atividade_id=atividade9.id))
 
+
         db.session.commit()
         print("\nTODOS os assuntos e atividades foram inseridos com sucesso!")
         print("Total: 9 assuntos | 9 atividades | ~50 questões")
 
+
 if __name__ == "__main__":
     inserir_atividades_sistema()
+

@@ -35,7 +35,7 @@
                 {% set encontrou_usuario = false %}
                 {% if atividades %}
                     {% for atividade in atividades %}
-                        {% if assunto.tipo != 'SISTEMA' %}
+                        {% if atividade.assunto.tipo != 'SISTEMA' %}
                             {% set encontrou_usuario = true %}
                             <div style="margin-bottom: 15px; padding: 12px; background: #f8f9fa; border-radius: 6px; border-left: 4px solid #2980b9;">
                                 <p style="margin: 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
